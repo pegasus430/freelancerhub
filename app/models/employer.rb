@@ -7,13 +7,14 @@ class Employer < ActiveRecord::Base
   has_many :interviews
   has_many :applications, through: :interviews, source: :student, foreign_key: :student_id, dependent: :destroy
 
-  CATEGORY_LIST = ["Accounting", "Administration",  "Agriculture", "Automotive", "Banking & Finance", "Biology",
-                   "Business", "Coding", "Computer Science", "Construction", "Consulting", "Consumer Packaged Goods",
-                   "Customer Service", "Diversity", "Educator & Education", "Engineering", "Entertainment", "Fashion, Design & Beauty",
-                   "Finance", "Fitness & Recreation", "Graphic Design", "Government", "Healthcare", "Hospitality",
-                   "Human Resources", "Insurance", "Journalism", "Law", "Logistics", "Management", "Marketing",  "Media",
-                   "Non-Profit", "Oil & Gas", "Operations", "Pharmaceuticals", "Public Relations", "Real Estate", "Retail", "Sales",
-                   "Science & Research", "Skilled Trades", "Software Engineering", "Tax", "Technology", "Telecommunication","Travel", "Other", "None"]
+  # CATEGORY_LIST = ["Accounting", "Administration",  "Agriculture", "Automotive", "Banking & Finance", "Biology",
+  #                  "Business", "Coding", "Computer Science", "Construction", "Consulting", "Consumer Packaged Goods",
+  #                  "Customer Service", "Diversity", "Educator & Education", "Engineering", "Entertainment", "Fashion, Design & Beauty",
+  #                  "Finance", "Fitness & Recreation", "Graphic Design", "Government", "Healthcare", "Hospitality",
+  #                  "Human Resources", "Insurance", "Journalism", "Law", "Logistics", "Management", "Marketing",  "Media",
+  #                  "Non-Profit", "Oil & Gas", "Operations", "Pharmaceuticals", "Public Relations", "Real Estate", "Retail", "Sales",
+  #                  "Science & Research", "Skilled Trades", "Software Engineering", "Tax", "Technology", "Telecommunication","Travel", "Other", "None"]
+  CATEGORY_LIST = ["T-Shirt Design", "Logo Design","Misc Freelance Artwork"]
   EDUCATION_LIST = ["Any", "Baccalaureate", "PhD","Masters", "Doctorate", "Associate", "High School", "Attestation of College Studies", "None"]
   LANGUAGE_LIST = ["Primary Lanugage", "English", "French", "Spanish", "Hindi", "Japanese", "Manderin", "Russian", "Arabic", "Portuguese", "Bengali" ]
   STATE_LIST = ["Co-op", "Early Career Job", "Entry Level Job","Internship", "Work And Study Job", "Summer Job"]
