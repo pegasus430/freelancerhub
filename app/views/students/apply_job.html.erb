@@ -1,0 +1,121 @@
+<style>
+  h10.details-spacing {
+    margin-right: 15px;
+  }
+  span{
+    font-family: 'Roboto', sans-serif;
+  }
+  .description {
+
+  }
+  .header-detail img{
+        width: 100px;
+      border-radius: 100%;
+      vertical-align: super;
+      margin-right: 19px;
+  }
+</style>
+<!-- Page header -->
+<header class="page-header bg-img size-lg" style="background-image: url( )">
+	<div class="container">
+		<div class="header-detail">
+			<% unless @employer.company_job_logos.empty? %>
+			<% image = @employer.company_job_logos.first.url(:small) rescue nil %>  
+			<%= image_tag image if image %>
+			<% end %>
+			<div class="hgroup">
+				<h1><%= @employer.title %> </h1>
+				<% if user_signed_in? && current_user.is_employer == true %>
+				<h3><%= link_to current_user.employer_profile.company_name, user_employer_profiles_path(current_user)  %></h3>
+				<% end %>
+				<% website_url = @employer.company_website.to_s.gsub("http://", "").to_s.gsub("https://", "") %> 
+				<h6><a href="//<%= website_url %>" target="_blank" ><%= @employer.company_website %></a></h6>
+			</div>
+			<a class="fa fa-print fa-2x" style="float: right; cursor: pointer" onclick="window.print();"></a>
+			<time datetime="2016-03-03 20:00"><%= distance_of_time_in_words(@employer.created_at, DateTime.now)%> ago</time>
+			<hr>
+			<p class="lead"><%= @employer.description %></p>
+			<ul class="details cols-3">
+				<li>
+					<i class="fa fa-map-marker"></i>
+					<h10 class="details-spacing">Location: </h10>
+					<span><%= @employer.city %></span>
+				</li>
+				<li>
+					<i class="fa fa-briefcase"></i>
+					<h10 class="details-spacing">Hours per week: </h10>
+					<span><%= @employer.work_schedule %></span>
+				</li>
+				<li>
+					<i class="fa fa-money"></i>
+					<h10 class="details-spacing">Salary: </h10>
+					<span><%= @employer.pay %></span>
+				</li>
+				<li>
+                  <i class="fa fa-calendar-plus-o"></i>
+                  <strong class="details-spacing">Starting Date: </strong>
+                  <span><%= full_date @employer.start_date %></span>
+               </li>
+               <li>
+                  <i class="fa fa-certificate"></i>
+                  <strong class="details-spacing">Minimum Education:</strong>
+                  <span><%= @employer.diploma %></span>
+               </li>
+               <li>
+                  <i class="fa fa-graduation-cap"></i>
+                  <strong class="details-spacing">Required level of study:</strong>
+                  <span><%= @employer.years_of_experience %></span>
+               </li>
+            </ul>
+            <% unless @employer.user.employer_profile.company_name.blank? and @employer.user.employer_profile.facebook.blank? and @employer.user.employer_profile.linkedin.blank? and @employer.user.employer_profile.instagram.blank? and @employer.additional_link.blank? %>
+            <h4>Follow Company On</h4>
+            <ul class="social-network social-circle">
+               <% twitter_url   = @employer.user.employer_profile.twitter.to_s.gsub("http://", "").to_s.gsub("https://", "") %>
+               <% website_url = @employer.user.employer_profile.website.to_s.gsub("http://", "").to_s.gsub("https://", "") %>
+               <% facebook_url = @employer.user.employer_profile.facebook.to_s.gsub("http://", "").to_s.gsub("https://", "") %>
+               <% instagram_url = @employer.user.employer_profile.instagram.to_s.gsub("http://", "").to_s.gsub("https://", "") %>
+               <% linkedin_url = @employer.user.employer_profile.linkedin.to_s.gsub("http://", "").to_s.gsub("https://", "") %>
+               <% unless @employer.user.employer_profile.website.blank? %>
+               <li><a class="icoRss" href="//<%= website_url %>" title="Rss" target="_blank"><i class="fa fa-globe"></i></a></li>
+               <% end %>
+               <% unless @employer.user.employer_profile.facebook.blank? %>
+               <li><a class="icoFacebook" href="//<%= facebook_url %>" title="Facebook" target="_blank"><i class="fa fa-facebook"></i></a></li>
+               <% end %>
+               <% unless @employer.user.employer_profile.linkedin.blank? %>
+               <li><a class="icoLinkedin" href="//<%= linkedin_url %>" title="Linkedin" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+               <% end %>
+               <% unless @employer.user.employer_profile.instagram.blank? %>
+               <li><a class="icoInstagram" href="//<%= instagram_url %>" target="_blank"><i class="fa fa-instagram"></i></a></li>
+               <% end %>
+               <% unless @employer.user.employer_profile.twitter.blank? %>
+			   <li><a class="icoTwitter" href="//<%= twitter_url %>" title="Twitter "target="_blank"><i class="fa fa-twitter"></i></a></li>
+			   <% end %>
+               <% else %>
+               <% end %>
+            </ul>
+         </div>
+         <div class="col-md-8">
+            <h4 style="margin-bottom:29px; color:#393c3d">DESCRIPTION</h4>
+            <div class="job-description">
+               <% unless strip_tags(@employer.long_description).blank? %>
+                <h5>Job Summary</h5>
+                 <p><%=raw  @employer.long_description%></p>
+               <% end %>
+               <br>
+              <% unless strip_tags(@employer.responsibility).blank? %>
+               <h5>Responsibilities</h5>
+               <p><%=raw  @employer.responsibility%></p>
+              <% end %>
+              <% unless strip_tags(@employer.requirement).blank? %>
+               <br>
+               <h5>Minimum Requirements</h5>
+               <p><%= raw @employer.requirement %></p>
+             <% end %>
+            </div>
+         </div>
+      </div>
+   </section>
+   <!-- END Job detail -->
+</main>
+<!-- END Main container -->
+<%= render 'layouts/footer' %>

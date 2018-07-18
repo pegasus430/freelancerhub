@@ -1,0 +1,100 @@
+<% content_for :model_box do %>
+  <%= form_for(work, remote: true) do |f| %>
+    <div class="modal fade edit-work" id="<%=editwork%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document" style="margin-top: 200px">
+            <div class="modal-content">
+                <div class="modal-header" style="padding:0px 0 50px">
+                    <div class="col-sm-11">
+                        <h5 class="modal-title"  style="padding:10px 0 15px" id="exampleModalLongTitle"> Add Work experience </h5>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <center><img src="https://image.flaticon.com/icons/svg/265/265754.svg" style="width:125px"> </center>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="col-md-12">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Company Name</label>
+                                        <%= f.text_field :company_name, :class => "form-control", :placeholder => "Microsoft", :required => true %>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Position</label>
+                                        <%= f.text_field :position, :class => "form-control", :placeholder => "Manager", :required => true %>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Responsibilities</label>
+                                        <div id="work_desc_container">
+                                        <%= f.text_area :description, :class => "form-control", :placeholder => "Recruiting, Training, Supervising", :required => true  %>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label>Duration</label>
+                                    <% if params[:language] == "french" %>
+                                    <%= f.text_field :date_start, :class => "form-control",  id: "work_start_date_#{work.id}", :placeholder => "Date de début", :required => true %><% else %>
+                                    <%= f.text_field :date_start, :class => "form-control",  id: "work_start_date_#{work.id}", :placeholder => "Start Date", :required => true %><% end %>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label>&nbsp;</label>
+                                    <% if params[:language] == "french" %>
+                                    <%= f.text_field :date_end, :class => "form-control", id: "work_end_date_#{work.id}"  , :placeholder => "Date de fin" %><% else %>
+                                    <%= f.text_field :date_end, :class => "form-control", id: "work_end_date_#{work.id}" , :placeholder => "End Date" %><% end %>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Present</label>
+                                    <%= f.check_box :present, value: 1 , :class => "form-control" %>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="upload-button">
+                            <%= f.hidden_field :user_id, :value => current_user.id %>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-fill btn-round" data-dismiss="modal" style="color:black">Close</button>
+                        <%= f.submit "Submit", :class => "btn btn-primary btn-fill btn-round" %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  <% end %>
+<% end %>
+
+<script type="text/javascript">
+    $(function () {
+        $("#work_start_date_<%=work.id%>").datepicker({format: 'mm/yyyy'});
+        $("#work_end_date_<%=work.id%>").datepicker({format: 'mm/yyyy'});
+    });
+    $(document).ready(
+        function(){
+            $("form#edit_work_<%=work.id%>").bind("ajax:success",
+                function(evt, data, status, xhr){
+                    $('#editwork<%=work.id%>').modal('hide');
+                    $('#post_<%=work.id%>').html(data);
+                    work_flash.flashNotification('top','right',"", "Work was successfully updated")
+                })
+        });
+    work_flash = {
+        flashNotification: function(from, align, key, message){
+            $.notify({ message: message},
+                { type: 'success', timer: 3000, placement: { from: from, align: align }
+                });
+        }
+    }
+</script>

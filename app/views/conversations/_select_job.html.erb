@@ -1,0 +1,66 @@
+<style>
+  .modal-header {
+    padding: 15px;
+    border-bottom: 1px solid #e5e5e5;
+    background-color: #5cb85c;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+  .modal-header h4{
+    font-weight: 600;
+  }
+  #selectJob {
+    top: 10%;
+  }
+</style>
+
+<div class="modal fade" id="selectJob" tabindex="-1" role="dialog" aria-labelledby="sendMessageLabel" aria-hidden="true">
+	<%= form_tag('/contracts') do %>
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" style="color: #fff;">&times;</button>
+					<h4 class="modal-title" style="color: #fff;">Select a Job</h4>
+				</div>
+				<div class="modal-body">
+					<% job_names = current_user.employers.where("user_id is not null").where(employer_status: "Not Filled").where("created_at <= ? AND created_at >= ?", Date.today + 40, Date.today - 40 ).order('created_at DESC').map {|m| [m.title, m.id] } %>
+					<%= select_tag :job_name, options_for_select(job_names), class: 'form-control' %>
+				</div>
+        <%= hidden_field_tag :client_id, current_user.id %>
+	      <%= hidden_field_tag :job_id %>
+        <%= hidden_field_tag :conversation_id, params[:id] %>
+				<div class="modal-footer">
+					<%= submit_tag 'Award', class: "btn btn-success btn-fill btn-round", id: "award-job" %>
+				</div>
+			</div>
+		</div>
+	<% end %>
+</div>
+
+<script>
+  $(document).ready(function() {
+    $('#job_id').val($("#job_name" ).val());
+  });
+  $("#job_name" ).change(function() {
+    $('#job_id').val($("#job_name" ).val());
+  });
+
+  $(document).ready(
+    function() {
+        $("#award-job").click(function () {
+            work_flash.flashNotification('top', 'right', "", "You hired a Designer.")
+        });
+        work_flash = {
+            flashNotification: function (from, align, key, message) {
+                $.notify({message: message},
+                    {
+                        type: 'success', timer: 3000, placement: {from: from, align: align}
+                    });
+            }
+        }
+    });
+</script>

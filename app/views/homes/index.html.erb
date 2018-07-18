@@ -1,0 +1,383 @@
+<style>
+  @import url(https://fonts.googleapis.com/css?family=Roboto:400,300);
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  }
+  .btn{
+     background: #29aafe;
+     font-weight: 100;
+  }
+  .fullscreen-bg {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    z-index: -100;
+  }
+  .fullscreen-bg::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1;
+  }
+
+  .fullscreen-bg__video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    /*height: 100%;*/
+    z-index: 9999;
+
+  }
+  #background {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      z-index: 9999;
+      -webkit-transform: translateX(-50%) translateY(-50%);
+      transform: translateX(-50%) translateY(-50%);
+  }
+
+  .home-content {
+    width: 100%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 999;
+    text-align: center;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+
+  .home-content h1 small {
+    font: 300 25px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    color: #FAFAFA;
+    display: block;
+    margin: 10px 0;
+
+  }
+
+  @media (max-width: 360px) {
+    .home-content h1 small {
+      font: 300 25px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      color: #FAFAFA;
+      display: block;
+      margin: 10px 0;
+
+    }
+    .home-content {
+      width: 100%;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      z-index: 999;
+      text-align: center;
+      -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+      -o-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+
+    }
+  }
+
+  .buttons {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  z {
+    text-decoration: none;
+    color: white;
+    width: 200px;
+    height: 100px;
+    background: #F2385A;
+    position: relative;
+    margin: 30px;
+    top: 100px;
+    padding: 10px;
+    font-size: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 15px 0px 0px #e44c4c;
+    transition: all 0.2s;
+  }
+
+  z:active {
+    top: 108px;
+    box-shadow: 0px 7px 0px 0px #e44c4c;
+  }
+
+  .button1 {
+    background-color: #ff5c5c;
+  }
+
+  .button2 {
+    background-color: #3498DB;
+    box-shadow: 0px 15px 0px 0px #258cd1;
+  }
+  .button2:active {
+    box-shadow: 0px 7px 0px 0px #258cd1;
+  }
+
+  @media (max-width: 767px) {
+    .buttons {
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    z {
+      text-decoration: none;
+      color: white;
+      width: 20px;
+      height: 10px;
+      background: #F2385A;
+      position: relative;
+      margin: 30px 0px;
+      top: 50px;
+      padding: 10px;
+      font-size: 14px;
+      border-radius: 10px;
+      box-shadow: 0px 10px 0px 0px #e44c4c;
+      transition: all 0.2s;
+    }
+
+    z:active {
+      top: 53px;
+      box-shadow: 0px 5px 0px 0px #e44c4c;
+    }
+
+    .button1 {
+      background-color: #ff5c5c;
+    }
+
+    .button2 {
+      background-color: #3498DB;
+      box-shadow: 0px 10px 0px 0px #258cd1;
+    }
+    .button2:active {
+      box-shadow: 0px 5px 0px 0px #258cd1;
+    }
+  }
+
+  @media (max-width: 300px) {
+    .buttons z {
+      font-size: 10px;
+      top: 0px;
+
+    }
+    .home-content h1 small {
+      margin: 50px 0;
+    }
+  }
+
+  .paragraph-home {
+    color: #333;
+    margin: 0 130px;
+  }
+
+  .link-to-btn {
+    color: #333;
+    font-size: 14px;
+    border-bottom: 2px solid #1F77D0;
+
+  }
+
+  .link-to-btn:hover {
+    color: #1F77D0;
+  }
+
+  @media (max-width: 767px) {
+    .paragraph-home {
+      margin: 0 0;
+      color: #333;
+
+    }
+
+    @media (min-aspect-ratio: 16 / 9) {
+      .fullscreen-bg__video {
+        height: 300%;
+        top: -100%;
+      }
+    }
+
+    @media (max-aspect-ratio: 16 / 9) {
+      .fullscreen-bg__video {
+        width: 300%;
+        left: -100%;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .fullscreen-bg {
+        background: url("https://images.pexels.com/photos/316879/pexels-photo-316879.jpeg?w=940&h=650&auto=compress&cs=tinysrgb") center center/cover no-repeat;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+      }
+
+      .fullscreen-bg__video {
+        display: none;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .deskview {
+        display: none;
+      }
+
+      .mobview {
+        display: block;
+      }
+    }
+    @media (min-width: 768px) {
+      .deskview {
+        display: block;
+      }
+
+      .mobview {
+        display: none;
+      }
+    }
+  }
+</style>
+
+<header class="site-header size-lg text-center" >
+	<div class="fullscreen-bg">
+		<video loop muted autoplay poster="https://images.pexels.com/photos/316879/pexels-photo-316879.jpeg?w=940&h=650&auto=compress&cs=tinysrgb" id="background" class="fullscreen-bg__video1">
+			<source src="<%= asset_path 'videobackgrounds.mp4' %> " type="video/mp4">
+		</video>
+	</div>
+	<div class="home-content">
+    <h1> Designers On Demand </h1>
+		<small> We bring designers and employers together </small>
+		<div class="col-md-6 col-md-offset-3" style="float:none!important">
+			<div class="row">
+				<% if user_signed_in? %>
+          <% if current_user.is_student? %>
+            <%= search_form_for @query do |f| %>
+              <div class="inner-addon right-addon enjoy-cssx" style="margin-top:10%">
+                <i class="fa fa-search"></i> <%= f.search_field :title_or_name_or_city_cont, placeholder: "Search For Jobs", class: "form-control enjoy-css", style: "font-size:20px" %>
+              </div>
+            <%end %>
+          <% else %>
+            <%= search_form_for @query do |f| %>
+              <div class="inner-addon right-addon enjoy-cssx" style="margin-top:10%">
+                <i class="fa fa-search "></i>
+                <%= f.search_field :title_or_name_or_city_cont, placeholder: "Search For Students", class: "form-control enjoy-css", style:"font-size:20px"%>
+              </div>
+            <% end %>
+          <% end %>
+        <% end %>
+
+        <%= search_form_for @query do |f| %>
+          <div class="inner-addon right-addon enjoy-cssx" style="margin-top:10%">
+            <i class="fa fa-search"></i> <%= f.search_field :title_or_name_or_city_cont, placeholder: "Search For Jobs", class: "form-control enjoy-css", style:"font-size:20px" %>
+          </div>
+        <%end %>
+			</div>
+		</div>
+	</div>
+</header>
+
+<main>
+	<section>
+		<div class="container" style="padding: 50px 0;">
+			<div class="col-sm-12 col-md-7 ">
+				<header class="section-header text-left " style="margin-bottom: 20px" >
+					<h2> Finding <br>Freelancers Is Easy. </h2>
+				</header>
+				<div class="paragraph-home">
+					<p >We make it easy to find the top freelancer over the world-wide. Our recruitment website specializes in matching qualified freelancers/designers with right job, quick and easily. We have built a service to support your business needs. </p>
+					<a class="link-to-btn" href="/employersignup">Create Employer Account</a>
+				</div>
+			</div>
+			<div class="col-sm-12 col-md-5 hidden-xs hidden-sm">
+				<img class="center-block" src="<%= asset_path 'girl_man' %>">
+			</div>
+		</div>
+	</section>
+
+	<section>
+		<div class="container" style="padding: 50px 0; ">
+			<div class="col-sm-12 col-lg-5 hidden-xs hidden-sm">
+				<img class="center-block" src="<%= asset_path 'jumping_man' %>">
+			</div>
+			<div class="col-sm-12 col-lg-7 ">
+				<header class="section-header text-left " style="margin-bottom: 20px;" >
+					<h2> Land your career<br>job. </h2>
+				</header>
+				<div class="paragraph-home" >
+					<p>FreelanceHub has a team looking for internships, co-ops and other type jobs to propel you as student into the world of dreams. You can search our vast repository of jobs.  </p>
+					<a class="link-to-btn" href="/studentsignup">Create free freelancer account</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section>
+		<div class="container" style="padding: 50px 0">
+			<div class="col-sm-12 col-md-7 ">
+				<header class="section-header text-left " style="margin-bottom: 20px;" >
+					<h2> Interview Online<br>Instantly. </h2>
+				</header>
+				<div class="paragraph-home" >
+          <p>We’ve created a streamlined, easy-to-use online platform that not only connects you with them.</p>
+					<p>It’s easier than ever to build your talent pool. Find the interns that will help propel your business to the next level, all at the click of your fingertips.</p>
+					<a class="link-to-btn" href="/employersignup">Create Employer Account</a>
+				</div>
+			</div>
+			<div class="col-sm-12 col-md-5 hidden-xs hidden-sm">
+				<img class="center-block" src="<%= asset_path 'interview' %>">
+			</div>
+		</div>
+	</section>
+	<!-- How it works -->
+	<section  style="background-color: #eee; padding: 70px 0 60px 0" >
+		<div class="container" style="text-align:center;">
+			<div>
+				<header class="section-header center" style="margin-bottom: 50px;" >
+					<h3 style="font-size: 50px; font-weight:500; text-transform:None">You deserve to love what you do...</h3>
+				</header>
+				<div style="padding-top: 40px">
+					<a  class="btn btn-lg btn-success" href="/contact_us">Learn More</a>
+				</div>
+			</div>
+		</div>
+		</div>
+	</section>
+</main>
+<!-- END Main container -->
+<%= render 'layouts/footer' %>
+
+<form action="/employersignup" id="esignup"></form>
+<form action="/studentsignup" id="ssignup"></form>
+<form action="/manage" id="manage"></form>
+
+<script type="text/javascript">
+  $(".button1").click(function(){
+   $("#esignup").submit();
+  })
+  $(".button2").click(function(){
+   $("#ssignup").submit();
+  })
+   $("#button-manage").click(function(){
+    $("#manage").submit();
+   })
+</script>

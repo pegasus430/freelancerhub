@@ -1,0 +1,42 @@
+<%= form_tag subscription_path, id: "payment-form" do %>
+
+<fieldset>
+    <div class="form-group">
+        <div class="col-sm-12">
+            <label class="control-label">CARD NUMBER</label>
+            <input class="form-control" data-stripe="number" name="required" required="required" aria-required="true "placeholder="Numéro De Carte" number="true">
+        </div>
+    </div>
+</fieldset>
+<fieldset>
+    <div class="form-group">
+        <div class="col-sm-4">
+            <label class="control-label">EXP MONTH</label>
+            <input type="tel" class="form-control" name="cardExpiry" placeholder="MM " autocomplete="cc-exp" data-stripe="exp-month">
+        </div>
+        <div class="col-sm-4">
+            <label class="control-label">EXP YEAR</label>
+            <input type="tel" class="form-control" name="cardExpiry" placeholder="YYYY" autocomplete="cc-exp" data-stripe="exp-year">
+        </div>
+        <div class="col-sm-4">
+            <label class="control-label">CVV</label>
+            <input type="tel" class="form-control" name="cardCVC" placeholder="CVC" autocomplete="cc-csc" data-stripe="cvc">
+        </div>
+    </div>
+     <%= hidden_field_tag :plan_type , plan_type %>
+</fieldset>
+
+<div class="modal-footer">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="form-group">
+                <div class="text-center">
+                    <div>
+                        <button type="submit" class="btn btn-primary btn-fill btn-round" >Submit Payment</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<% end %>

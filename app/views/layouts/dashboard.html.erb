@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>My Freelance Hub</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="user-id" content="<%= current_user.try(:id) %>">
+		</meta>  <!--important for chat-->
+		<%= csrf_meta_tags %>
+		<%= stylesheet_link_tag  'dashboard', media: 'all' %>
+		<%= javascript_include_tag 'dashboard', 'https://js.stripe.com/v2/', 'data-turbolinks-track' => true %>
+		<%= action_cable_meta_tag %> 
+		<%= tag :meta, name: "stripe-key", content: STRIPE_PUBLIC %>
+		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+		<link href='//fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+	</head>
+	<body>
+		<% if user_signed_in? %>
+			<div id="current-user" data-id="<%= current_user.id %>"></div>
+		<% end %>
+		<div class="wrapper">
+			<%= render 'dashboard_left_nav' %>
+			<%= yield :model_box %>
+			<div class="main-panel">
+				<%= render 'header'%>
+				<div class="content">
+                    <%= render 'flash_message' %>
+					<%= yield %>
+				</div>
+				<%= render 'footer'%>
+			</div>
+		</div>
+	</body>
+</html>

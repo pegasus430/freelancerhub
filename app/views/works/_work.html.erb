@@ -1,0 +1,24 @@
+<div  id="post_<%= work.id %>">
+	<div class="col-xs-12">
+		<div class="card" style="padding: 10px;">
+			<div class="title">
+				<h4><%=work.company_name %> - <small><%=work.position %></small></h4>
+			</div>
+			<div class="item-block"  style= "float:right">
+                <%= link_to 'Edit', "javascript::void(0)" , :class => "btn btn-fill btn-xs btn-info btn-bhround", "data-toggle": "modal", "data-target": "#editwork#{work.id}"  %>
+				<%= link_to 'Delete', work, :class => "btn btn-fill btn-xs btn-danger btn-round", method: :delete, data: { confirm: 'Are you sure?' } %>
+			</div>
+			<% if work.present == "1" %>
+			<h6 class="time"><%= month_date work.date_start %> - present</h6>
+			<% else %>
+			<h6 class="time"><%= month_date work.date_start %> - <%= month_date work.date_end %></h6>
+			<% end %>
+			</header>
+			<div class="item-body">
+				<p><%= raw work.description %></p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<%= render 'works/edit_work_form' , work: work , editwork: "editwork#{work.id}" %>

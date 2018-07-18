@@ -1,0 +1,28 @@
+<div style="display: none;" class="hide-full-job-<%=job.id%>-<%=i%>">
+	Job: <%= job.title %>
+	<%= link_to  "javascript:void(0)" , class: "show-job-#{job.id}-#{i}" do %>
+	<span style="font-weight: bold; font-size: 20px;" ><i class="fa fa-plus fa-5"></i></span>
+	<% end %>
+</div>
+<div  class="show-full-job-<%=job.id%>-<%=i%>" style="margin-bottom: -20px;">
+	Job: <%= job.title %>
+	<%= link_to  "javascript:void(0)" , class: "hide-job-#{job.id}-#{i}"  do %>
+	<span style="font-weight: bold; font-size: 20px;"><i class="fa fa-minus fa-"></i></span>
+	<% end %>
+</div>
+
+  <script>
+  $(".show-job-<%=job.id%>-<%=i%>").click(function(){
+    $(".show-full-job-<%=job.id%>-<%=i%>").show();
+    $(".hide-full-job-<%=job.id%>-<%=i%>").hide();
+    
+     $("#<%=id%>").hide();
+  });
+
+  $(".hide-job-<%=job.id%>-<%=i%>").click(function(){
+    $(".show-full-job-<%=job.id%>-<%=i%>").hide();
+    $(".hide-full-job-<%=job.id%>-<%=i%>").show();
+    
+      $("#<%=id%>").show();
+  });
+ </script>

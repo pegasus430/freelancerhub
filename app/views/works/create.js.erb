@@ -1,0 +1,5 @@
+$("#mynewwork").modal('hide');
+//$(".form-control").val('');
+$('#container_works').html("<%= escape_javascript(render @work) %>");
+$("#post_<%= @work.id %>").hide().fadeIn(1000);
+$("#flash").html('<%= j render partial: "shared/notice" %>');

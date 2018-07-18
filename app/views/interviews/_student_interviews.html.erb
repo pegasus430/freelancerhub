@@ -1,0 +1,70 @@
+<div class="container-fluid">
+	<div class="col-md-3">
+		<div class="card">
+			<div class="content text-center">
+				<div class="header">
+					<h4 style="text-align:left">Select Job</h4>
+					<hr>
+				</div>
+				<%= form_tag job_filter_interviews_path , method: :get,  id: "job_filter" do %>
+				<%= select_tag "select_job", options_for_select(["All Jobs"] + @all_interview_jobs.collect{ |u| [u.title, u.id] }, selected: params[:select_job]), class: 'form-control', onchange: "$('#job_filter').submit();"  %>
+				<% end  %>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-9">
+		<div class="card">
+			<% @interview_jobs.each_with_index do |job, i| %>
+			<div class="content text-center">
+				<div class="header">
+					<h4 style="text-align:left"><%= job.title %></h4>
+					<hr>
+				</div>
+				<% job.applications.each_with_index do |application, index| %>
+				<div class="row">
+					<div class="content">
+						<div class="col-sm-2">
+							<% avatar = application.student_profile.avatars.first rescue nil  %>
+							<% if avatar.nil?  %>
+							<img src="http://web.bestchamber.com/external/WCPages/wcmedia/images/smallbusiness_481141613.png" alt=""  height="50" width="50" class="img-circle pull-left" >
+							<% else %>
+							<%=image_tag avatar.url(:small) , height: "50" , width: "50" , class: "img-circle pull-left"%>
+							<% end %>
+						</div>
+						<div class="contant col-sm-10">
+							<div class="contant col-sm-10" style="padding:0px">
+								<div class="header" style="text-align:left; padding: 0px">
+									<h5><%= "#{application.first_name} #{application.last_name}" %></h5>
+									<h6><%= application.student_profile.education rescue nil %></h6>
+									<p><%= link_to application.student_profile.video_link , "//#{ application.student_profile.video_link}" , target: '_blank' rescue nil %></p>
+								</div>
+							</div>
+							<div class="contant col-sm-2">
+								<%= render 'hire_now', job: application, index: index , receiver_id: application.student_profile.user.id, sender_id: current_user.id, job_name: job %>
+								<p style="font-size:12px;"><%= distance_of_time_in_words(application.interviews.first.created_at, DateTime.now)%> ago</p>
+								<%= link_to "Contact Designer", "javascript:void(0)", :'data-toggle' => "modal" , :class => "btn btn-fill btn-success btn-round", :style => "padding:4px; margin-bottom:2px", :'data-target'=> "#HireNow-#{application.id}#{index}" %>
+								<%= link_to user_student_profiles_path(application.id), class: "btn btn-fill btn-primary btn-round", style: "padding:4px" do %>View Profile<% end %>
+							</div>
+							<div class="row">
+								<div class="contant col-md-12">
+									<div class="coverletter" style="text-align:left">
+										<% body =  raw(application.interviews.first.body) %>
+										<%= render "read_more" , job: application, index: index, body: application.try(:interviews).try(:first).try(:body) %>
+										<p><span style="font-weight:600">Cover-letter - </span>
+											<%= ActionView::Base.full_sanitizer.sanitize(body.truncate(300)) %>
+											<%= link_to "Show" , "javascript:void(0)", :'data-toggle' => "modal" , :'data-target'=> "#MoreContent-#{application.id}#{index}"%>
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<hr>
+				<% end %>
+				<% end %>
+				<%= will_paginate @interview_jobs, :page_links => false %>
+			</div>
+		</div>
+	</div>
+</div>

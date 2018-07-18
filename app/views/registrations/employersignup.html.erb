@@ -1,0 +1,47 @@
+<style>
+  @media (min-width: 768px) {
+    .navbar-nav li a {
+      color: #fff;
+      text-decoration: none;
+      /*padding:12px 20px;*/
+      -webkit-transition: background-color 0.3s;
+      -o-transition: background-color 0.3s;
+      transition: background-color 0.3s;
+    }
+  }
+</style>
+
+<body class="login-page">
+	<main>
+		<div class="login-block">
+			<img src="<%= asset_path 'freelancehub' %>" style="width:25%" alt="">
+			<h1>Create Employer Account</h1>
+			<%= form_for(@user, url: registrations_path) do |f| %>
+			<%= @user.errors.full_messages.join('. ') %>
+			<div class="form-group">
+				<%= f.text_field :first_name, :placeholder => "First Name", :class => "form-control", autofocus: true, :required => true %>
+			</div>
+			<hr class="hr-xs">
+			<div class="form-group">
+				<%= f.text_field :last_name, :placeholder => "Last Name", :class => "form-control", :required => true %>
+			</div>
+			<hr class="hr-xs">
+			<div class="form-group">
+				<%= f.email_field :email, :placeholder => "Email", :class => "form-control", :required => true %>
+			</div>
+			<hr class="hr-xs">
+			<div class="form-group">            
+				<%= f.password_field :password, :placeholder => "Password", :class => "form-control", autocomplete: "off", :required => true %>
+			</div>
+			<hr class="hr-xs">
+			<div class="form-group">            
+				<%= f.password_field :password_confirmation, :placeholder => "Confirm Password", :class => "form-control", autocomplete: "off", :required => true %>
+			</div>
+			<%= f.hidden_field :is_employer, value: true %>
+			<%= submit_tag "Sign up", :class => "btn btn-primary btn-block" %>
+			<% end %>
+		</div>
+		<div class="login-links">
+			<p class="text-center">Already have an account? <a class="txt-brand" href="/sessions/new">Login</a></p>
+		</div>
+	</main>

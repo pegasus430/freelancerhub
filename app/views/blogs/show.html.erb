@@ -1,0 +1,86 @@
+<script src="//load.sumome.com/" data-sumo-site-id="97dfed4d6c2b459b0f5a5e5544aacc3b5ff0696975b3ff462a6e6b12bcac522d" async="async"></script>
+
+<!-- Site header -->
+<header class="page-header bg-img size-xl overlay-light" style="background-image: url( )">
+	<div class="container no-shadow">
+		<h1 class="text-center"><%= raw @blog.title%></h1>
+		<p class="lead text-center"><time datetime="2016-03-28 20:00"><%= @blog.created_at.strftime("%B, %e %Y") %></time></p>
+		<p class="lead text-center"><time datetime="2016-03-28 20:00">By: <%= @blog.author %></time></p>
+	</div>
+</header>
+<!-- END Site header -->
+<!-- Main container -->
+<main class="container blog-page">
+	<div class="row">
+		<div class="col-md-12">
+			<article class="post">
+				<div class="blog-content">
+					<%=raw @blog.description%>
+				</div>
+			</article>
+		</div>
+		<!--<div class="col-md-4 col-lg-3">-->
+		<!--  <div class="widget">-->
+		<!--    <h6 class="widget-title">Search</h6>-->
+		<!--    <div class="widget-body">-->
+		<!--      <form method="get" target="#">-->
+		<!--        <input class="form-control" type="text" name="s" placeholder="Enter your keyword">-->
+		<!--      </form>-->
+		<!--    </div>-->
+		<!--  </div>-->
+		<!--  <div class="widget">-->
+		<!--    <h6 class="widget-title">Popular</h6>-->
+		<!--    <ul class="widget-body media-list">-->
+		<!--      <li>-->
+		<!--        <div class="thumb"><a href="page-post.html"><img src="assets/img/blog-1-thumb.jpg" alt="..."></a></div>-->
+		<!--        <div class="content">-->
+		<!--          <h5><a href="page-post.html">How to Design Your Workspace for Productivity</a></h5>-->
+		<!--          <time datetime="2016-04-04 20:00">April 04, 2016</time>-->
+		<!--        </div>-->
+		<!--      </li>-->
+		<!--      <li>-->
+		<!--        <div class="thumb"><a href="page-post.html"><img src="assets/img/blog-2-thumb.jpg" alt="..."></a></div>-->
+		<!--        <div class="content">-->
+		<!--          <h5><a href="page-post.html">Office Dress Code Do's and Don'ts</a></h5>-->
+		<!--          <time datetime="2016-03-28 20:00">March 28, 2016</time>-->
+		<!--        </div>-->
+		<!--      </li>-->
+		<!--      <li>-->
+		<!--        <div class="thumb"><a href="page-post.html"><img src="assets/img/blog-3-thumb.jpg" alt="..."></a></div>-->
+		<!--        <div class="content">-->
+		<!--          <h5><a href="page-post.html">Why People Thrive in Coworking Spaces</a></h5>-->
+		<!--          <time datetime="2016-03-17 20:00">March 17, 2016</time>-->
+		<!--        </div>-->
+		<!--      </li>-->
+		<!--    </ul>-->
+		<!--  </div>-->
+		<!--  <div class="widget widget_categories">-->
+		<!--    <h6 class="widget-title">Categories</h6>-->
+		<!--    <ul class="widget-body">-->
+		<!--      <li class="cat-item"><a href="#">News</a></li>-->
+		<!--      <li class="cat-item"><a href="#">Companies</a></li>-->
+		<!--      <li class="cat-item"><a href="#">Market</a></li>-->
+		<!--      <li class="cat-item"><a href="#">Candidates</a></li>-->
+		<!--      <li class="cat-item"><a href="#">Positions</a></li>-->
+		<!--      <li class="cat-item"><a href="#">Stats</a></li>-->
+		<!--    </ul>-->
+		<!--  </div>-->
+		<!--  <div class="widget widget_tag_cloud">-->
+		<!--    <h6 class="widget-title">Tags</h6>-->
+		<!--    <div class="widget-body">-->
+		<!--      <a href="#">blog</a>-->
+		<!--      <a href="#">new</a>-->
+		<!--      <a href="#">google</a>-->
+		<!--      <a href="#">position</a>-->
+		<!--      <a href="#">facebook</a>-->
+		<!--      <a href="#">hire</a>-->
+		<!--      <a href="#">chance</a>-->
+		<!--      <a href="#">resume</a>-->
+		<!--      <a href="#">tip</a>-->
+		<!--    </div>-->
+		<!--  </div>-->
+		<!--</div>-->
+	</div>
+</main>
+<!-- END Main container -->
+<%= render 'layouts/footer'%>

@@ -1,0 +1,63 @@
+<!-- Monthly Modal -->
+<div class="modal fade" id="monthlyPlanModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+	<div class="modal-dialog" role="document" style="margin-top: 200px">
+		<div class="modal-content">
+			<div class="modal-header">
+     			<div class="col-sm-4">
+  					<h4 class="modal-title" id="exampleModalLongTitle">Payment Details</h4>
+				</div>
+                 <div class="col-sm-4">
+                   <label class="checkbox" onclick="get_coupon('coupon-box');">
+                       <span class="icons"><span class="first-icon fa fa-square-o"></span><span class="second-icon fa fa-check-square-o"></span></span>
+                         <input type="checkbox" value="" data-toggle="checkbox" id="coupon-box" >
+                        <span style="font-size: 16px; font-weight: 100">Have You Coupon?</span>
+                   </label>
+                 </div>
+				<div class="col-sm-4">
+					<img class="img-responsive" src="http://i76.imgup.net/accepted_c22e0.png">
+				</div>
+ 			</div>
+			<div class="modal-body" id="subscription_monthly">
+               <%= render "subscription_plan", plan_type: "monthly" %>
+            </div>
+            <div class="modal-body" id="coupon_monthly" style="display: none">
+              <%= render "coupon", plan_type: "monthly" %>
+            </div>
+		</div>
+	</div>
+</div>
+
+
+<!-- Yearly Modal -->
+<div class="modal fade" id="yearlyPlanModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+	<div class="modal-dialog" role="document" style="margin-top: 200px">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="col-sm-6">
+					<h3 class="modal-title" id="exampleModalLongTitle">Payment Details</h3>
+				</div>
+				<div class="col-sm-6">
+					<img class="img-responsive pull-right" src="http://i76.imgup.net/accepted_c22e0.png">
+				</div>
+			</div>
+			<div class="modal-body">
+              <%= render "subscription_plan", plan_type: "yearly" %>
+            </div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+
+      function get_coupon(id){
+         var checked = document.getElementById(id).checked;
+         if(checked == false){
+           $('#subscription_monthly').hide();
+           $('#coupon_monthly').show();
+         }else{
+           $('#coupon_monthly').hide();
+           $('#subscription_monthly').show();
+         }
+
+      }
+</script>

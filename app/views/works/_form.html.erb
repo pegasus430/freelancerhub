@@ -1,0 +1,84 @@
+<%= form_for(work) do |f| %>
+<!-- Page header -->
+<header class="page-header">
+	<div class="container page-name">
+		<h1 class="text-center">Add Work Experience</h1>
+		<p class="lead text-center">Give details on your past experiences.</p>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="item-block">
+					<div class="item-form">
+						<div class="row">
+							<div class="col-xs-12 col-sm-4">
+								<div class="form-group">
+									<center><img src="https://image.flaticon.com/icons/svg/265/265754.svg" style="width:150px"> </center>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-8">
+								<div class="form-group">
+									<%= f.text_field :company_name, :class => "form-control", :placeholder => "Company Name", :required => true %>
+								</div>
+								<div class="form-group">
+									<%= f.text_field :position, :class => "form-control", :placeholder => "Position", :required => true %>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-8" style="float:right">
+								<div class="form-group">
+									<%= f.text_area :description, :class => "form-control", :placeholder => "Description", :required => true  %>
+								</div>
+								<div class="col-xs-12 col-md-4">
+									<div class="form-group">
+										<%= f.text_field :city, :class => "form-control", :placeholder => "City", :required => true %>
+									</div>
+								</div>
+								<div class="col-xs-12 col-md-4">
+									<div class="form-group">
+										<%= f.text_field :state, :class => "form-control", :placeholder => "State", :required => true %>
+									</div>
+								</div>
+								<div class="col-xs-12 col-md-4">
+									<div class="form-group">
+										<%= f.text_field :country, :class => "form-control", :placeholder => "Country", :required => true %>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="input-group">
+										<span class="input-group-addon">Date from</span>
+										<%#= f.datetime_select :date_from %>
+										<%= f.text_field :date_start, :class => "form-control", :placeholder => "Start Date", :required => true %>
+										<span class="input-group-addon">Date to</span>
+										<%#= f.datetime_select :date_to %>
+										<%= f.text_field :date_end, :class => "form-control", :placeholder => "Start Date", :required => true %>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="button-group">
+			<div class="action-buttons">
+				<div class="upload-button">
+					<%= f.hidden_field :user_id, :value => current_user.id %> 
+					<%= f.submit "Submit", :class => "btn btn-block btn-primary" %>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+<!-- END Page header -->
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<% end %>
+<%= render 'layouts/footer' %>
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script>
+  $( function() {
+    $( "#work_date_start, #work_date_end" ).datepicker();
+  } );
+</script>

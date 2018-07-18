@@ -1,0 +1,60 @@
+<div class="content">
+	<div class="container-fluid">
+		<div class="card">
+			<div class="header">
+				<h1>Apply For This Position</h1>
+				<p>Make sure your personal resume is filled out.</p>
+			</div>
+			<div class="row">
+				<div class="content">
+					<%= simple_form_for([interview]) do |f| %>
+					<div class="form-group col-xs-6 col-sm-6">
+						<%= f.input_field :name,class: 'form-control input-lg' , :placeholder => "Full Name", :value => current_user.first_name + ' ' + current_user.last_name  %>
+					</div>
+					<div class="form-group col-xs-12 col-sm-6">
+						<%= f.input_field :title,class: 'form-control input-lg' , :placeholder => "Job title, e.g. Front-end developer" %>
+					</div>
+					<div class="form-group col-xs-12 col-sm-6">
+						<%= f.input_field :video_link,class: 'form-control input-lg' , :placeholder => "Do you have a Resume URL - Place here" %>
+					</div>
+					<div class="form-group col-xs-12 col-sm-6">
+						<%= f.input_field :job_requirement,class: 'form-control input-lg' , :placeholder => "Language Spoken"  %>
+					</div>
+				</div>
+			</div>
+			<!-- Job detail -->
+			<div class="row">
+				<div class="content">
+					<div class="header">
+					<div class="header">
+						<span>Cover Letter</span>
+						<h2>Why are you the perfect candidate</h2>
+						<p>Tell us about yourself, past experience, skills, benefits, etc.</p>
+					</div>
+					<%= f.input_field :body, :required => true, as: :summernote, class: 'form-control', rows: 7 %>
+				</div>
+			</div>
+			<!-- END Job detail -->
+			<!-- Submit -->
+			<div class="row">
+				<div class="content">
+					<div class="header">
+					<div class="header">
+						<span>Are you done? </span>
+						<h2>Submit Application  </h2>
+						<p>Please review your information once more and press the below button tosend job application.  </p>
+					</div>
+					<%= f.hidden_field :user_id, :value => params[:receiver] %>
+					<%= f.hidden_field :employer_id, :value => params[:employerid] %>
+					<%= f.hidden_field :employer_name, :value => params[:employername] %>
+					<%= f.hidden_field :employer_title, :value => params[:employertitle] %>
+					<p class="text-center">
+						<%= f.submit 'Send My Application', :class => "btn btn-primary btn-fill",  data: { confirm: 'Your confirm message' } %>
+					</p>
+				</div>
+			</div>
+			<!-- END Submit -->
+			<% end %>
+		</div>
+	</div>
+</div>

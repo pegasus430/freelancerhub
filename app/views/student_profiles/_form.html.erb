@@ -1,0 +1,230 @@
+<%= form_for([@user, student_profile] , multipart: true) do |f| %>
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="header">
+          <h4 class="title"><%= params[:id].present? ? "Edit" : "Create" %> Your Resume</h4>
+          <p class="category">This will be visible to your employers, so keep it updated!</p>
+        </div>
+        <% if @student_profile.errors.any? %>
+          <div id="error_explanation">
+            <ul>
+              <% @student_profile.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <div class="content">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>First Name</label><star class="star">*</star>
+                <%= text_field_tag :first_name, current_user.first_name , class: 'form-control input', placeholder: "First Name"  %>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Last Name</label><star class="star">*</star>
+                <%= text_field_tag :last_name, current_user.last_name, class: 'form-control input', placeholder: "Last Name"  %>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Current Education</label><star class="star">*</star>
+                <%= f.text_field :education, class: 'form-control input', placeholder: "Current University or College Name"  %>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Address</label>
+                <%= f.text_field :location, class: 'form-control input', placeholder: "Location, e.g. Montreal, QC"  %>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Website</label>
+                <%= f.text_field :website, class: 'form-control input', placeholder: "Website Address"  %>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Age</label>
+                <%= f.text_field :age, class: 'form-control input', placeholder: "Age"  %>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Phone</label>
+                <%= f.text_field :phone, class: 'form-control input', placeholder: "Phone Number"  %>
+              </div>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="col-md-12">
+        <div class="card card-user">
+          <div class="image">
+            <img src="http://img.freepik.com/free-vector/geometric-triangle-tile-pattern-background-polygon-vector-graphic-from-grey-triangles_1164-1484.jpg?size=338&ext=jpg" alt="">
+          </div>
+          <div class="content" style="min-height: 100px;">
+            <div class="author">
+              <%= render 'student_avatar', f: f  %>
+              <h4 class="title"><%= @user.first_name %> <%= @user.last_name %> <br></h4>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="card">
+          <div class="content text-center">
+            <div class="header">
+              <h4 class="title">Social media<p>Get connected</p></h4>
+            </div>
+            <hr>
+          </div>
+          <div class="content">
+            <div class="row">
+              <div class="col-md-6">
+                <label><i class="fa fa-company fa-facebook"></i></label>
+                <div class="form-group">
+                  <%= f.text_field :facebook, class: 'form-control', placeholder: "Facebook url e.g. https://"  %>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label><i class="fa fa-company fa-linkedin"></i></label>
+                <div class="form-group">
+                  <%= f.text_field :linkedin, class: 'form-control ', placeholder: "Linkedin url e.g. https://"  %>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <i class="fa fa-company fa-twitter"></i>
+                <div class="form-group">
+                  <%= f.text_field :twitter, class: 'form-control ', placeholder: "Twitter url e.g. https://"  %>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <i class="fa fa-company fa-instagram"></i>
+                <div class="form-group">
+                  <%= f.text_field :instagram, class: 'form-control ', placeholder: "Instagram url e.g. https://"  %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Education -->
+  <section>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="header">
+            <h4 class="title">Education</h4>
+          </div>
+          <div class="content">
+            <div class="row" id="container_educations">
+              <%= render @educations %>
+            </div>
+            <center>
+              <button type="button" class="btn btn-primary btn-round btn-fill" data-toggle="modal" data-target="#myneweducation">Add Education</button>
+            </center>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="header">
+            <h4 class="title">Work Experience</h4>
+          </div>
+          <div class="content">
+            <div class="row" id="container_works">
+              <%= render @works %>
+            </div>
+            <center>
+              <button type="button" class="btn btn-primary btn-round btn-fill" id="btn-add-work" data-toggle="modal" data-target="#mynewwork">Add Work</button>
+            </center>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Submit -->
+  <section class=" bg-img">
+    <div class="content">
+      <div class="container-fluid">
+        <div class="col-md-6 col-md-offset-3 text-center">
+            <span>ARE YOU DONE?</span>
+            <p>Please review your information once more and press the below button to put your update resume.</p>
+        </div>
+      </div>
+      <div class="text-center"><%= f.submit "Submit", class:'btn btn-primary btn-lg btn-round btn-fill' %></div>
+    </div>
+  </section>
+  <!-- END Submit -->
+<% end %>
+
+<%= render 'education_form' %>
+<%= render 'work_form' %>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+	  $('#mynewwork').bind('shown.bs.modal', function() {
+	    $('#mynewwork #work_description').richText();
+		});
+		$('.edit-work').bind('shown.bs.modal', function() {
+			if ($(this).find('.richText').length  == 0) {
+	      $(this).find('#work_description').richText();
+			}
+		});
+    $('#mynewwork').bind('hidden.bs.modal', function() {
+        $(this).find('#work_desc_container').html('');
+        $('#new_work').attr('action', '/works');
+        $(this).find('#work_desc_container').append('<textarea class="form-control richText-initial" placeholder="Recruiting, Training, Supervising" required="required" name="work[description]" id="work_description"></textarea>');
+    });
+      // $('#container_works').bind('click', 'a[data-target="#editwork"]', function(e) {
+      // 	e.stopPropagation();
+      // 	e.preventDefault();
+      // 	$this = $(this).find('a[data-target^="#editwork"]')[$(this).find('a[data-target^="#editwork"]').length - 1];
+      // 	target = $($this).data('target');
+      // 	current_item = $(this).find('a[data-target^="#editwork"]');
+      // 	current_item = $($this).closest('.card');
+      // 	if ($(target).length == 0) {
+      // 		action_url = '/works/' + target.replace('#editwork', '');
+      // 		$('#new_work').attr('action', action_url);
+      // 		$('#mynewwork #work_company_name').val($(current_item).find('.title h4').text());
+      //            $('#mynewwork #work_position').val($(current_item).find('.title h4 span').text());
+      //            $('#mynewwork #work_description').val($(current_item).find('.item-body div').text());
+      //            $('#mynewwork #work_description').richText();
+      //            $('#mynewwork #work_start_date').val('');
+      //            $('#mynewwork #work_end_date').val('');
+      // 		$('#mynewwork').modal();
+      // 	}
+      // 	else {
+      // 		$(target).modal();
+      // 	}
+      // });
+  });
+
+  $(document).ready(function(){
+    $("form.new_work").bind("ajax:success", function(evt, data, status, xhr){
+      $('#mynewwork').modal('hide');
+      $('#mynewwork #work_company_name').val('');
+      $('#mynewwork #work_position').val('');
+      $('#mynewwork #work_start_date').val('');
+      $('#mynewwork #work_end_date').val('');
+      $('#container_works').append(data);
+      // location.reload();
+    });
+  });
+</script>

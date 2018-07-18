@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Employer Profiles</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Slug</th>
+      <th>Company name</th>
+      <th>Company descripion</th>
+      <th>Website</th>
+      <th>Address</th>
+      <th>Facebook</th>
+      <th>Twitter</th>
+      <th>Linkedin</th>
+      <th>Instagram</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @employer_profiles.each do |employer_profile| %>
+      <tr>
+        <td><%= employer_profile.user_id %></td>
+        <td><%= employer_profile.slug %></td>
+        <td><%= employer_profile.company_name %></td>
+        <td><%= employer_profile.company_descripion %></td>
+        <td><%= employer_profile.website %></td>
+        <td><%= employer_profile.address_id %></td>
+        <td><%= employer_profile.facebook %></td>
+        <td><%= employer_profile.twitter %></td>
+        <td><%= employer_profile.linkedin %></td>
+        <td><%= employer_profile.instagram %></td>
+        <td><%= link_to 'Show', employer_profile %></td>
+        <td><%= link_to 'Edit', edit_employer_profile_path(employer_profile) %></td>
+        <td><%= link_to 'Destroy', employer_profile, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Employer Profile', new_employer_profile_path %>

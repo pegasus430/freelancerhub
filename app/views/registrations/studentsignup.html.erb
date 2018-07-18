@@ -1,0 +1,34 @@
+<body class="login-page">
+	<main>
+		<div class="login-block">
+			<img src="<%= asset_path 'freelancehub' %>" style="width:25%" alt="">
+			<h1>Create Freelancer Account </h1>
+			<%= form_for(@user, url: registrations_path) do |f| %>
+			<span style="color:red"><%= @user.errors.full_messages.join('. ') %></span>
+			<div class="form-group">
+				<%= f.text_field :first_name, :placeholder => "First Name", :class => "form-control", autofocus: true, :required => true %>
+			</div>
+			<hr class="hr-xs">
+			<div class="form-group">
+				<%= f.text_field :last_name, :placeholder => "Last Name", :class => "form-control" %>
+			</div>
+			<hr class="hr-xs">
+			<div class="form-group">
+				<%= f.email_field :email, :placeholder => "Email", :class => "form-control" %>
+			</div>
+			<hr class="hr-xs">
+			<div class="form-group">            
+				<%= f.password_field :password, :placeholder => "Password", :class => "form-control", autocomplete: "off", :required => true %>
+			</div>
+			<hr class="hr-xs">
+			<div class="form-group">
+				<%= f.password_field :password_confirmation, :placeholder => "Confirm Password", :class => "form-control", autocomplete: "off", :required => true %>
+			</div>
+			<%= f.hidden_field :is_student, value: true %>
+			<%= submit_tag "Sign up", :class => "btn btn-primary btn-block" %>
+			<% end %>
+		</div>
+		<div class="login-links">
+			<p class="text-center">Already have an account? <a class="txt-brand" style="color:white" href="/sessions/new">Login</a></p>
+		</div>
+	</main>

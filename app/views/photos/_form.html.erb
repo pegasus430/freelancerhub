@@ -1,0 +1,73 @@
+<%= form_for([@conversation, photo]) do |f| %>
+  <% if photo.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(photo.errors.count, "error") %> prohibited this photo from being saved:</h2>
+
+      <ul>
+      <% photo.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<center>
+  <div class="field">
+    <div class="form-group files">
+      <label>Upload Your File </label>
+      <%#= f.label :Choose %>
+      <%= f.file_field :Choose, multiple: true, name: "photo[image]", class: "form-control" %>
+    </div>
+  </div>
+   <br/>
+   
+  <div class="col-12 actions" style="box-sizing: border-box;padding:5px 10px;margin-top: -30px;">
+    <%= f.submit 'upload', :class => "btn btn-primary btn-fill btn-block btn-sm" %>
+  </div>
+  
+  
+
+<% end %>
+</center>
+
+<style>
+
+
+
+.files input {
+    outline: 2px dashed #a4b7e0;
+    outline-offset: -10px;
+    -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    padding: 44px 0px 41px 11%;
+    text-align: center !important;
+    margin: 0;
+    width: 91% !important;
+    margin: 2px 7px 3px 4px;
+    
+}
+.files input:focus{     outline: 2px dashed #92b0b3;  outline-offset: -10px;
+    -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    transition: outline-offset .15s ease-in-out, background-color .15s linear; border:1px solid #92b0b3;
+ }
+.files{ position:relative}
+.files:after {  pointer-events: none;
+
+}
+.color input{ background-color:#f1f1f1;}
+.files:before {
+    position: absolute;
+    bottom: 10px;
+    left: 0;  pointer-events: none;
+    width: 100%;
+    right: 0;
+    height: 65px;
+    content: " or drag it here. ";
+    display: block;
+    margin: 0 auto;
+    color: #a4b7e0;
+    font-weight: 600;
+    text-transform: capitalize;
+    text-align: center;
+}
+</style>
+

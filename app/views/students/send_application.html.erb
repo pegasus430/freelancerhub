@@ -1,0 +1,84 @@
+
+
+
+<style>
+  #interview_body{
+    width: 100%;
+    height: 200px;
+  }
+</style>
+<!-- Page header -->
+<header class="page-header">
+	<div class="container page-name">
+		<h1 class="text-center"> Apply For This Position </h1>
+		<p class="lead text-center"> Make sure your personal resume is filled out. </p>
+	</div>
+	<div class="container">
+		<div class="row">
+			<%= simple_form_for ([@interview]) do |f| %>
+			<div class="form-group col-xs-12 col-sm-6">
+			<%= f.input_field :name,class: 'form-control input-lg' , :placeholder => "Full Name", :value => current_user.first_name + ' ' + current_user.last_name  %>
+		</div>
+		<div class="form-group col-xs-12 col-sm-6">
+			<%= f.input_field :title,class: 'form-control input-lg' , :placeholder => "Job title, e.g. Front-end developer" %>
+		</div>
+		<div class="form-group col-xs-12 col-sm-6">
+			<%= f.input_field :video_link,class: 'form-control input-lg' , :placeholder => "Do you have a Resume URL - Place here" %>
+		</div>
+		<div class="form-group col-xs-12 col-sm-6">
+			<%= f.input_field :job_requirement,class: 'form-control input-lg' , :placeholder => "Language Spoken"  %>
+		</div>
+	</div>
+	</div>
+</header>
+<!-- END Page header -->
+<!-- Main container -->
+<main>
+	<!-- Job detail -->
+	<section>
+		<div class="container">
+			<header class="section-header">
+			<header class="section-header">
+				<span>Cover Letter</span>
+				<h2>Why are you the perfect candidate</h2>
+				<p>Tell us about yourself, past experience, skills, benefits, etc.</p>
+			</header>
+		</div>
+		<div class="container">
+			<%= f.input_field :body, :required => true, as: :summernote, class: 'form-control' %> 
+		</div>
+	</section>
+	<!-- END Job detail -->
+	<!-- Submit -->
+	<section class="bg-alt">
+		<div class="container">
+			<header class="section-header">
+			<header class="section-header">
+				<span>Are you done? </span>
+				<h2>Submit Application  </h2>
+				<p>Please review your information once more and press the below button tosend job application.  </p>
+			</header>
+			<%= f.hidden_field :user_id, :value => @employer.user_id %>
+			<%= f.hidden_field :employer_id, :value => params[:employer_id] %>
+			<%= f.hidden_field :employer_name, :value => params[:employername] %>
+			<%= f.hidden_field :employer_title, :value => params[:employertitle] %>
+			<%= hidden_field_tag :student_id,  params[:id] %>
+			<p class="text-center">
+				<%= f.submit 'Send My Application', :class => "btn btn-primary",  data: { confirm: 'Your confirm message' } %>
+			</p>
+		</div>
+	</section>
+	<!-- END Submit -->
+	<% end %> 
+</main>
+<!-- END Main container -->
+<%= render 'layouts/footer' %>
+    
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#interview_body').summernote({
+         focus: true,
+         height: 200,
+     });
+  });
+</script>

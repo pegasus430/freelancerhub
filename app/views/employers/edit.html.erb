@@ -1,0 +1,289 @@
+<style>
+  #employer_category{
+    width: 100%;
+    border-color: #eceeef;
+    padding: 5px;
+  }
+  #employer_diploma{
+    width: 100%;
+    border-color: #eceeef;
+    padding: 5px;
+  }
+  #employer_written_languages{
+    width: 100%;
+    border-color: #eceeef;
+    padding: 5px;
+  }
+  #employer_state{
+    width: 100%;
+    border-color: #eceeef;
+    padding: 5px;
+  }
+  #employer_work_schedule {
+    width: 100%;
+    border-color: #eceeef;
+    padding: 5px;
+}
+#employer_pay{
+    width: 100%;
+    border-color: #eceeef;
+    padding: 5px;
+}
+#employer_start_date {
+  width: 100%;
+  border-color: #eceeef;
+  padding: 5px;
+}
+#employer_years_of_experience{
+  width:100%;
+  border-color: #eceeef;
+  padding: 5px;
+}
+  .panel-body{
+        height: 250px;
+  }
+  .note-editor.note-frame {
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+select {
+  height: 36px;
+  color: #898b99;
+}
+</style>
+
+<!-- Page header -->
+<%= form_for(@employer) do |f| %>
+<% if @employer.errors.any? %>
+<div id="error_explanation">
+	<h2><%= pluralize(@employer.errors.count, "error") %> prohibited this employer from being saved:</h2>
+	<ul>
+		<% @employer.errors.full_messages.each do |message| %>
+		<li><%= message %></li>
+		<% end %>
+	</ul>
+</div>
+<% end %>
+<header class="page-header">
+	<div class="container page-name">
+		<h1 class="text-center">Edit Job </h1>
+		<p class="lead text-center"> Has this job been filled? <%= f.select(:employer_status, Employer::EMPLOYER_STATUS) %></p>
+	</div>
+	<div class="container">
+		<div class="row">
+			<%= render 'company_job_logo' , f: f %>  
+			<!--<div class="col-xs-12 col-sm-4">-->
+			<!--  <div class="form-group">-->
+			<!--      <div class="field">-->
+			<!--        <%= f.label :avatar %>-->
+			<!--        <%= f.file_field :avatar %>-->
+			<!--      </div>-->
+			<!--  </div>-->
+			<!--</div>-->
+			<div class="form-group col-xs-12 col-sm-6">
+				<%= f.text_field :title, :class => "form-control", :placeholder => "Job Title", :required => true%>
+			</div>
+			<div class="form-group col-xs-12 col-sm-6">
+				<%= text_field_tag :name, current_user.try(:employer_profile).try(:company_name) , :class => "form-control", :placeholder => "Company Name", :required => true, readonly: true%>
+			</div>
+			<div class="form-group col-xs-12">
+				<%= f.text_area :description, :class => "form-control", :placeholder => "Short Description", :rows => "4", :required => true %>
+			</div>
+			<!--<div class="form-group col-xs-12">-->
+			<!--<input type="text" class="form-control" placeholder="Application URL">-->
+			<!--  <%#= f.text_field :link, :class => "form-control", :placeholder => "Application URL(optional)" %>-->
+			<!--</div>-->
+			<div class="form-group col-xs-12 col-sm-6 col-md-4">
+				<div class="input-group input-group-sm">
+					<span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+					<%= f.text_field :city, :class => "form-control", :placeholder => "City", :required => true %>
+				</div>
+			</div>
+			<div class="form-group col-xs-12 col-sm-6 col-md-4">
+				<div class="input-group input-group-sm">
+					<span class="input-group-addon"><i class="fa fa-money"></i></span>
+					<%= f.select(:pay, Employer::PAY_LIST) %>
+				</div>
+			</div>
+			<div class="form-group col-xs-12 col-sm-6 col-md-4">
+				<div class="input-group input-group-sm">
+					<%= f.select(:category, Employer::CATEGORY_LIST) %>
+					<span class="input-group-addon"><i class="fa fa-briefcase"></i></span>
+				</div>
+			</div>
+			<div class="form-group col-xs-12 col-sm-6 col-md-4">
+				<div class="input-group input-group-sm">
+					<span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+					<%= f.select(:work_schedule, Employer::WORK_SCHEDULE) %>
+				</div>
+			</div>
+			<div class="form-group col-xs-12 col-sm-6 col-md-4">
+				<div class="input-group input-group-sm">
+					<%= f.select(:diploma, Employer::EDUCATION_LIST) %>
+					<span class="input-group-addon"><i class="fa fa-certificate"></i></span>
+					<%#= f.text_field :years_of_experience, :class => "form-control", :placeholder => "Years in College ", :required => true %>
+					<span class="input-group-addon">Degree Level </span>
+				</div>
+			</div>
+			<div class="form-group col-xs-12 col-sm-6 col-md-4">
+				<div class="input-group input-group-sm">
+					<span class="input-group-addon"><i class="fa fa-flask"></i></span>
+					<%= f.select(:years_of_experience, Employer::GRADUATED_YEAR) %>
+					<%#= f.text_field :years_of_experience, :class => "form-control", :placeholder => "Years in College ", :required => true %>
+					<span class="input-group-addon">Required level of study</span>
+				</div>
+			</div>
+			<div class="form-group col-xs-12 col-sm-6 col-md-4">
+				<div class="input-group input-group-sm">
+					<span class="input-group-addon"><i class="fa fa-briefcase"></i></span>
+					<%= f.select(:state, Employer::STATE_LIST) %>
+				</div>
+			</div>
+			<div class="form-group col-xs-12 col-sm-6 col-md-2">
+				<div class="input-group input-group-sm">
+					<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+					<%= f.text_field :start_date,  :class => "form-control", :placeholder => "Start Date", :required => true %>
+				</div>
+			</div>
+			<div class="form-group col-xs-12 col-sm-6 col-md-2">
+				<div class="input-group input-group-sm">
+					<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+					<%#= f.text_field :start_date, :class => "form-control", :placeholder => "Job Duration", :required => true %>
+					<%= f.select(:job_duration, Employer::MONTH_LIST) %>
+				</div>
+			</div>
+			<div class="form-group col-xs-12 col-sm-6 col-md-4">
+				<div class="input-group input-group-sm">
+					<%= f.select(:written_languages, Employer::LANGUAGE_LIST) %>
+					<span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+				</div>
+			</div>
+			<%= f.hidden_field :user_id, :value => current_user.id %> 
+		</div>
+		<div class="button-group">
+			<div class="action-buttons">
+				<div class="upload-button">
+					<!--<button class="btn btn-block btn-primary">Choose a cover image</button>-->
+					<!--<input id="cover_img_file" type="file">-->
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+<!-- END Page header -->
+<!-- Main container -->
+<main>
+	<!-- Social media -->
+	<section>
+		<div class="container">
+			<header class="section-header">
+				<span>Get connected</span>
+				<h2>Social media</h2>
+			</header>
+			<div class="row">
+				<div class="col-xs-12 col-sm-6">
+					<div class="form-group">
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-globe"></i></span>
+							<%= f.text_field :company_website, class: 'form-control', placeholder: "(Optional) Company Website"  %>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-linkedin"></i></span>
+							<%= f.text_field :linkedin, class: 'form-control ', placeholder: "(Optional) Linkedin url"  %>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6">
+					<div class="form-group">
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-instagram"></i></span>
+							<%= f.text_field :instagram, class: 'form-control ', placeholder: "(Optional) Instagram url"  %>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-globe"></i></span>
+							<%= f.text_field :additional_link, class: 'form-control ', placeholder: "(Optional) Additional Link url e.g. https://"  %>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Social media -->
+	<!-- Job detail -->
+	<section>
+		<div class="container">
+			<header class="section-header">
+				<span>LONG DESCRIPTION</span>
+				<p>Write about your company, job description, skills required, benefits, etc.</p>
+			</header>
+			<%= f.text_area :long_description, :class => "form-control", :placeholder => "Long Description", :rows => "8", :required => true %>
+		</div>
+	</section>
+	<!-- END Job detail -->
+	<!-- Job detail -->
+	<section>
+		<div class="container">
+			<header class="section-header">
+				<span>RESPONSIBILITIES</span>
+				<p>Write about the job responsibilities, what tasks the designers will perform.</p>
+			</header>
+			<%= f.text_area :responsibility, :class => "form-control", :placeholder => "Responsibilities", :rows => "8", :required => true %>
+		</div>
+	</section>
+	<!-- END Job detail -->
+	<!-- Job detail -->
+	<section>
+		<div class="container">
+			<header class="section-header">
+				<span>REQUIRMENTS</span>
+				<p>Write about your company, job description, skills required, benefits, etc.</p>
+			</header>
+			<%= f.text_area :requirement, :required => true, :class => "form-control", :placeholder => "Requirements", :rows => "8" %>
+		</div>
+	</section>
+	<!-- END Job detail -->
+	<!-- Submit -->
+	<section class="bg-alt">
+		<div class="container">
+			<header class="section-header">
+				<span>Are you done?</span>
+				<h2>Save Changes
+				</h2>
+				<p>Please review your information once more and press the below button to put your job online.</p>
+			</header>
+			<p class="text-center"><%= f.submit "Update Job", :class => "btn btn-primary btn-xl"  %></p>
+		</div>
+	</section>
+	<!-- END Submit -->
+	<% end %> 
+</main>
+<!-- END Main container -->
+<%= render 'layouts/footer' %>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#employer_requirement, #employer_responsibility, #employer_long_description').summernote();
+  });
+</script>
+
+<script>
+  $('#employer_requirement, #employer_responsibility, #employer_long_description').summernote({
+  placeholder: 'write here...'
+});
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+$( function() {
+  $( "#employer_start_date" ).datepicker();
+} );
+</script>
+ 
+ 

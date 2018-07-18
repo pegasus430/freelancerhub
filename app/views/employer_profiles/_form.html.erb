@@ -1,0 +1,149 @@
+<div class="row">
+	<%= form_for([@user, employer_profile], :html => { multipart: true }) do |f| %>
+	<div class="col-md-8">
+		<div class="card">
+			<div class="header">
+				<h4 class="title"><%= params[:id].present? ? "Edit" : "Create" %> Company Profile </h4>
+			</div>
+			<% if @employer_profile.errors.any? %>
+			<div id="error_explanation">
+				<ul>
+					<% @employer_profile.errors.full_messages.each do |message| %>
+					<li><%= message %></li>
+					<% end %>
+				</ul>
+			</div>
+			<% end %>
+			<div class="content">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>First Name</label><star class="star">*</star>
+							<%= text_field_tag :first_name, @user.first_name, class: 'form-control input', placeholder: "First Name"  %>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Last Name</label><star class="star">*</star>
+							<%= text_field_tag :last_name, @user.last_name, class: 'form-control input', placeholder: "Last Name"  %>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group">
+							<label>Company Name</label><star class="star">*</star>
+							<%= f.text_field :company_name,  class: 'form-control input', placeholder: " e.g. Bell Canada"  %>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group">
+							<label>Company Address</label><star class="star">*</star>
+							<%= f.fields_for(:address) do |af| %>
+							<%= af.text_field :address, class: 'form-control input', placeholder: "e.g. Montreal, QC"  %>
+							<% end %>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group">
+							<label>Website</label><star class="star">*</star>
+							<%= f.text_field :website, class: 'form-control input', placeholder: "Company Website"  %>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<label>E-mail</label><star class="star">*</star>
+							<%= f.fields_for(:address) do |af| %>
+							<%= af.text_field :email, class: 'form-control input',  placeholder: "Email"  %>
+							<% end %>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<label>Phone</label>
+							<%= f.fields_for(:address) do |af| %>
+							<%= af.text_field :landline, class: 'form-control input', placeholder: "450-123-1234"  %>
+							<% end %>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group">
+							<label>Short Company Description</label>
+							<%= f.text_area :company_descripion, :class => "form-control", :placeholder => "XYZ is a new company that provides expertise in...", :rows => "8", :required => true %>
+						</div>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-4">
+		<div class="col-md-12">
+			<div class="card card-user">
+				<div class="image">
+					<img src="http://img.freepik.com/free-vector/geometric-triangle-tile-pattern-background-polygon-vector-graphic-from-grey-triangles_1164-1484.jpg?size=338&ext=jpg" alt="">
+				</div>
+				<div class="content" style="min-height: 100px;">
+					<div class="author">
+						<%= render 'company_logo_fields' , f: f %>
+						<h4 class="title"><%= @user.first_name %> <%= @user.last_name %> <br></h4>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-12">
+			<div class="card">
+				<div class="content text-center">
+					<div class="header">
+						<h4 class="title">Social media<p>Get connected</p></h4>
+					</div>
+					<hr>
+				</div>
+				<div class="content">
+					<div class="row">
+						<div class="col-md-6">
+							<label><i class="fa fa-company fa-facebook"></i></label>
+							<div class="form-group">
+								<%= f.text_field :facebook, class: 'form-control', placeholder: "Facebook url e.g. https://"  %>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<label><i class="fa fa-company fa-linkedin"></i></label>
+							<div class="form-group">
+								<%= f.text_field :linkedin, class: 'form-control ', placeholder: "Linkedin url e.g. https://"  %>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<i class="fa fa-company fa-twitter"></i>
+							<div class="form-group">
+								<%= f.text_field :twitter, class: 'form-control ', placeholder: "Twitter url e.g. https://"  %>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<i class="fa fa-company fa-instagram"></i>
+							<div class="form-group">
+								<%= f.text_field :instagram, class: 'form-control ', placeholder: "Instagram url e.g. https://"  %>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="content">
+		<div class="container-fluid">
+			<div class="col-md-6 col-md-offset-3 text-center">
+				<span>ARE YOU DONE?</span>
+				<p>Please review your information once more and press the below button to put your update resume.</p>
+			</div>
+		</div>
+		<div class="text-center"><%= f.submit "Submit", class:'btn btn-primary btn-lg btn-round btn-fill' %></div>
+	</div>
+</div>
+<% end %>

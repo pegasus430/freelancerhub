@@ -1,0 +1,383 @@
+<style>
+  .title{
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #DADADA;
+    outline: none;
+    padding: 15px 10px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0;
+  }
+  .description{
+    width: 100%;
+    min-height: 46px;
+    box-sizing: border-box;
+    border: 1px solid #d0d0d0;
+    background: #fff;
+    padding: 11px 14px;
+    font-size: 16px;
+    word-break: normal;
+    outline: none;
+    -webkit-appearance: none;
+    border-radius: 0;
+  }
+  .create{
+    width:50%;
+    border: 0px;
+    bottom: 0px;
+    margin: 0px;
+    height: 80px;
+    color: #FFF;
+    font-size: 16px;
+    text-transform: uppercase;
+    cursor: pointer;
+    width: 100%;
+    display: block;
+    background-color: #0069ff;
+  }
+  
+</style>
+<style>
+/*!
+ =========================================================
+ * Bootstrap Wizard - v1.1.1
+ =========================================================
+ * Product Page: https://www.creative-tim.com/product/bootstrap-wizard
+ * Copyright 2017 Creative Tim (http://www.creative-tim.com)
+ * Licensed under MIT (https://github.com/creativetimofficial/bootstrap-wizard/blob/master/LICENSE.md)
+ =========================================================
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ */
+/*           Animations              */
+.form-control, .input-group-addon {
+  -webkit-transition: all 300ms linear;
+  -moz-transition: all 300ms linear;
+  -o-transition: all 300ms linear;
+  -ms-transition: all 300ms linear;
+  transition: all 300ms linear;
+}
+.image-container {
+  min-height: 100vh;
+  background-position: center center;
+  background-size: cover;
+}
+.wizard-container {
+  padding-top: 100px;
+  z-index: 3;
+}
+.wizard-navigation {
+  position: relative;
+}
+.made-with-mk {
+  width: 50px;
+  height: 50px;
+  display: block;
+  position: fixed;
+  z-index: 555;
+  bottom: 40px;
+  right: 40px;
+  border-radius: 30px;
+  background-color: rgba(16, 16, 16, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #FFFFFF;
+  cursor: pointer;
+  padding: 10px 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  -webkit-transition: 0.55s cubic-bezier(0.6, 0, 0.4, 1);
+  -moz-transition: 0.55s cubic-bezier(0.6, 0, 0.4, 1);
+  -o-transition: 0.55s cubic-bezier(0.6, 0, 0.4, 1);
+  transition: 0.55s cubic-bezier(0.6, 0, 0.4, 1);
+}
+.made-with-mk:hover, .made-with-mk:active, .made-with-mk:focus {
+  width: 218px;
+  color: #FFFFFF;
+  transition-duration: .55s;
+  padding: 10px 30px;
+}
+.made-with-mk:hover .made-with, .made-with-mk:active .made-with, .made-with-mk:focus .made-with {
+  opacity: 1;
+}
+.made-with-mk:hover .brand, .made-with-mk:active .brand, .made-with-mk:focus .brand {
+  left: 0;
+}
+.made-with-mk .brand,
+.made-with-mk .made-with {
+  float: left;
+}
+.made-with-mk .brand {
+  position: relative;
+  top: 3px;
+  left: -1px;
+  letter-spacing: 1px;
+  vertical-align: middle;
+  font-size: 16px;
+  font-weight: 600;
+}
+.made-with-mk .made-with {
+  color: rgba(255, 255, 255, 0.6);
+  position: absolute;
+  left: 75px;
+  top: 15px;
+  opacity: 0;
+  margin: 0;
+  -webkit-transition: 0.55s cubic-bezier(0.6, 0, 0.4, 1);
+  -moz-transition: 0.55s cubic-bezier(0.6, 0, 0.4, 1);
+  -o-transition: 0.55s cubic-bezier(0.6, 0, 0.4, 1);
+  transition: 0.55s cubic-bezier(0.6, 0, 0.4, 1);
+}
+.made-with-mk .made-with strong {
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.9);
+  letter-spacing: 1px;
+}
+.wizard-card {
+  min-height: 410px;
+  background-color: #FFFFFF;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.15), 0 0 1px 1px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding-top: 10px;
+}
+.wizard-card .picture-container {
+  position: relative;
+  cursor: pointer;
+  text-align: center;
+}
+.wizard-card .picture {
+  width: 106px;
+  height: 106px;
+  background-color: #999999;
+  border: 4px solid #CCCCCC;
+  color: #FFFFFF;
+  border-radius: 50%;
+  margin: 5px auto;
+  overflow: hidden;
+  transition: all 0.2s;
+  -webkit-transition: all 0.2s;
+}
+.wizard-card .picture:hover {
+  border-color: #2ca8ff;
+}
+.wizard-card .picture input[type="file"] {
+  cursor: pointer;
+  display: block;
+  height: 100%;
+  left: 0;
+  opacity: 0 !important;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+.wizard-card .picture-src {
+  width: 100%;
+}
+.wizard-card .tab-content {
+    min-height: 2`00px;
+    padding: 100px;
+}
+.wizard-card .disabled {
+  display: none;
+}
+.wizard-card .wizard-header h3 {
+  font-weight: 200;
+  text-align: center;
+}
+.wizard-card[data-color="green"] .choice:hover .icon, .wizard-card[data-color="green"] .choice.active .icon {
+  border-color: #05AE0E;
+}
+.wizard-card[data-color="green"] .picture:hover {
+  border-color: #05AE0E;
+}
+.wizard-card[data-color="green"] .moving-tab {
+  position: absolute;
+  text-align: center;
+  padding: 10px;
+  font-size: 12px;
+  text-transform: uppercase;
+  -webkit-font-smoothing: subpixel-antialiased;
+  background-color: #05AE0E;
+  top: 0px;
+  left: 0px;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-weight: 500;
+}
+.wizard-card[data-color="azzure"] .choice:hover .icon, .wizard-card[data-color="azzure"] .choice.active .icon {
+  border-color: #2CA8FF;
+}
+.wizard-card[data-color="azzure"] .picture:hover {
+  border-color: #2CA8FF;
+}
+.wizard-card[data-color="azzure"] .moving-tab {
+  position: absolute;
+  text-align: center;
+  padding: 10px;
+  font-size: 12px;
+  text-transform: uppercase;
+  -webkit-font-smoothing: subpixel-antialiased;
+  background-color: #2CA8FF;
+  top: 0px;
+  left: 0px;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-weight: 500;
+}
+.wizard-card[data-color="blue"] .choice:hover .icon, .wizard-card[data-color="blue"] .choice.active .icon {
+  border-color: #3472F7;
+}
+.wizard-card[data-color="blue"] .picture:hover {
+  border-color: #3472F7;
+}
+.wizard-card[data-color="blue"] .moving-tab {
+  position: absolute;
+  text-align: center;
+  padding: 10px;
+  font-size: 12px;
+  text-transform: uppercase;
+  -webkit-font-smoothing: subpixel-antialiased;
+  background-color: #3472F7;
+  top: 0px;
+  left: 0px;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-weight: 500;
+}
+.wizard-card[data-color="orange"] .choice:hover .icon, .wizard-card[data-color="orange"] .choice.active .icon {
+  border-color: #FF9500;
+}
+.wizard-card[data-color="orange"] .picture:hover {
+  border-color: #FF9500;
+}
+.wizard-card[data-color="orange"] .moving-tab {
+  position: absolute;
+  text-align: center;
+  padding: 10px;
+  font-size: 12px;
+  text-transform: uppercase;
+  -webkit-font-smoothing: subpixel-antialiased;
+  background-color: #FF9500;
+  top: 0px;
+  left: 0px;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-weight: 500;
+}
+.wizard-card[data-color="red"] .choice:hover .icon, .wizard-card[data-color="red"] .choice.active .icon {
+  border-color: #FF3B30;
+}
+.wizard-card[data-color="red"] .picture:hover {
+  border-color: #FF3B30;
+}
+.wizard-card[data-color="red"] .moving-tab {
+  position: absolute;
+  text-align: center;
+  padding: 10px;
+  font-size: 12px;
+  text-transform: uppercase;
+  -webkit-font-smoothing: subpixel-antialiased;
+  background-color: #FF3B30;
+  top: 0px;
+  left: 0px;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-weight: 500;
+}
+.wizard-card .btn {
+  text-transform: uppercase;
+}
+.wizard-card .info-text {
+  text-align: center;
+  font-weight: 300;
+  margin: 10px 0 30px;
+}
+.wizard-card .choice {
+  text-align: center;
+  cursor: pointer;
+  margin-top: 20px;
+}
+.wizard-card .choice .icon {
+  text-align: center;
+  vertical-align: middle;
+  height: 116px;
+  width: 116px;
+  border-radius: 50%;
+  background-color: #999999;
+  color: #FFFFFF;
+  margin: 0 auto 20px;
+  border: 4px solid #CCCCCC;
+  transition: all 0.2s;
+  -webkit-transition: all 0.2s;
+}
+.wizard-card .choice i {
+  font-size: 30px;
+  line-height: 111px;
+}
+.wizard-card .choice:hover .icon, .wizard-card .choice.active .icon {
+  border-color: #2ca8ff;
+}
+.wizard-card .choice input[type="radio"],
+.wizard-card .choice input[type="checkbox"] {
+  position: absolute;
+  left: -10000px;
+  z-index: -1;
+}
+.wizard-card .btn-finish {
+  display: none;
+}
+.wizard-card .description {
+  color: #999999;
+  font-size: 14px;
+}
+@media (max-width: 768px) {
+  .main .container {
+    margin-bottom: 50px;
+  }
+}
+@media (min-width: 768px) {
+  .navbar-form {
+    margin-top: 21px;
+    margin-bottom: 21px;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+  .btn-wd {
+    min-width: 140px;
+  }
+}
+.container {
+      z-index: 123123;
+    position: absolute;
+    width: 70%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+</style>
+
+<div class="container animated zoomIn" id="introduction">
+	<div class="row">
+		<div class="col-sm-8 col-sm-offset-2">
+			<div class="wizard-container">
+				<div class="card wizard-card" data-color="blue" id="wizard">
+					<div class="wizard-header">
+						<h3 style="padding-top: 80px; font-size: 40px">
+							stuff<br>
+							<center>
+								<h5> <button>Create your resume</button> <button> See jobs</button></h5>
+							</center>
+						</h3>
+						<div class="trialended" style=" padding-top: 50px;">
+							<center><%#= link_to "Subscribe", new_subscription_path, class: "btn btn-next btn-fill create btn-wd btn-sm", style: "width:50%; border-radius:0px;padding-top: 25px;"  %></center>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- wizard container -->
+		</div>
+	</div>
+</div>

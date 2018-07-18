@@ -1,0 +1,156 @@
+<style>
+/*ADMINSHOW PAGE DESIGN*/
+.personal_message_navbar_admin{
+  top:0;
+  color: white;
+  background-color: #0080ff;
+  position: fixed;
+  width: 33%;
+  z-index: 2147483001;
+  height: 100px;
+}
+@media (min-width: 1300px) {
+  .personal_message_body_admin{
+    left: 20%;
+    margin-bottom: 60px;
+    margin-top: 110px;
+    height: 839px;    /*this class needs to have the height changed depending on media sizes*/
+    overflow: auto;
+    padding-bottom: 50px;
+  }
+}
+@media (max-width: 1299px) {
+  .personal_message_body_admin{
+    left: 20%;
+    margin-bottom: 60px;
+    margin-top: 110px;
+    height: 534px;    /*this class needs to have the height changed depending on media sizes*/
+    overflow: auto;
+    padding-bottom: 50px;
+  }
+}
+.personal_message_form_admin{
+  position: fixed;
+  bottom: -5px;
+  width: 33%;   
+}
+.group_admin {
+  box-shadow: 0px -4px 5px #888888;
+}
+.navbar-title_admin {
+  position: absolute;
+  top: 20px;
+  right: 1%;
+  font-size: 20px;
+}
+/*DRAGGABLE AND WEBRTC*/
+.draggable_admin{
+  position: fixed;
+  right: 0px;
+  resize: both;
+  overflow: auto;
+}
+.iframestyle_admin {
+  height: 100%;
+  width: 100%;
+  border:none;
+}
+.hoverTable{
+  width:100%; 
+  border-collapse:collapse; 
+}
+.hoverTable td{ 
+  padding:7px; border:rgba(41, 57, 73, 0.05) 1px solid;
+}
+/* Define the default color for all the table rows */
+.hoverTable tr{
+}
+/* Define the hover highlight color for the table row */
+.hoverTable tr:hover {
+  background-color: #293949;
+  color: white;
+}
+/*CHAT*/
+.to {
+  display: inline-block;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.26);
+  color: #fff;
+  background-color: rgba(0, 128, 255, 1.51);
+  border-radius: 4px;
+  position: relative;
+  margin-bottom: 10px;
+  width: auto;
+  word-wrap: break-word;
+  float: right;
+  clear: right;
+  max-width: 80%;
+  text-align: right;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+.from {
+  clear: left;
+  float: left;
+  display: inline-block;
+  text-align: left;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.26);
+  color: #000;
+  background-color: rgba(239, 243, 246, 0.5);
+  border-radius: 4px;
+  position: relative;
+  margin-right: 10%;
+  margin-bottom: 10px;
+  width: auto;
+  word-wrap: break-word;
+  max-width: 80%;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+.customer-link{
+  color: white;
+  background: none;
+  position: relative;
+  border: 1px solid white;
+  top: 10px;
+}
+#notification-container {
+    display: block;
+    position: fixed;
+    z-index:12312;
+    top: 130px;
+    right: 962px;
+}
+</style>
+
+<!--IS_ADMIN DESIGN-->
+<div class="group col-md-4 group_admin" style="padding-left: 7px" >
+  <div id="conversation-main">
+    <div id="conversations-sidebar" class="personal_message_navbar_admin" >
+      <a href="/conversations" class="btn fa fa-angle-left backbutton" aria-hidden="true"></a>
+      <div class="navbar-title_admin">
+          <!-- Trigger -->
+					<button class="btn customer-link" id="success-btn" data-clipboard-text="https://thinkrtcwidget-masudhossain.c9users.io/conversations/<%= @conversation.id %>?receiver_id=<%= @conversation.receiver_id%>&token=<%=User.find_by(id: @conversation.author_id).token%>&user_id=<%=@conversation.author_id%>">
+					    Copy Customer Link
+					</button>
+      </div>
+    </div>
+    <div id="conversation-body" class="personal_message_body_admin" data-conversation-id="<%= @conversation.id %>" >
+      <%= render @personal_messages %>
+      <div id="contentBottom"></div>
+    </div>
+    <div class="personal_message_form_admin" >
+        <%= form_for @personal_message, url: '#', html: {class: 'async-conversation'} do |f| %>
+          <%= hidden_field_tag 'conversation_id', @conversation.id %>
+          <%= f.text_area :body, :class => "personal_message_textarea", :autofocus => true %>
+          <%= f.submit " ", :placeholder => "Write something!", :class => "personal_message_submit addItem" %>
+        <% end %>
+    </div>
+  </div>
+</div>
+
+
+<!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>-->

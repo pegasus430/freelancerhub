@@ -1,0 +1,59 @@
+<!-- Job item -->
+<div class="col-md-12">
+	<a class="item-block" href="/employers/<%=employer.id %>">
+		<div class="hgroup pull-right" style="padding: 4px;">
+			<span class="label label-success"><%= employer.category %></span>
+			<span class="label label-info"><%= employer.state %></span>
+			<!--<span class="label label-danger"><%#= employer.pay %></span> -->
+		</div>
+		<header>
+			<% image = employer.user.employer_profile.company_logos.first rescue nil %>
+			<% if image.nil? %>
+			<img src="http://web.bestchamber.com/external/WCPages/wcmedia/images/smallbusiness_481141613.png" alt=""> 
+			<% else %>
+			<%= image_tag image.url(:small) %>
+			<% end %>
+			<div class="row">
+				<div class="hgroup">
+					<h4 style="font-size:21px"><%= employer.title %></h4>
+				</div>
+				<h5><%= employer.name %><br></h5>
+				<div style="padding:3px">
+					<i class="fa fa-map-marker"></i>
+					<span style="font-size: 13px"><%= employer.city %></span>
+				</div>
+			</div>
+			<time datetime="2016-03-10 20:00"><%= distance_of_time_in_words(employer.created_at, DateTime.now)%> ago</time>
+		</header>
+		<!-- <div class="item-body">
+			<%# body =  raw(employer.long_description.truncate(300)) %>
+			<p><%#= body %></p>
+			</div> -->
+		<footer>
+			<ul class="details cols-3">
+				<!-- <li>
+					<i class="fa fa-map-marker"></i>
+					<span><%= employer.city %></span>
+					</li>
+					
+					<li>
+					<i class="fa fa-graduation-cap"></i>
+					<span><%= employer.diploma %> </span>
+					</li> -->
+				<li>
+					<i> </i>
+					<span> </span>
+				</li>
+				<li>
+					<i class="fa fa-clock-o" style="color:#FF0000"></i>
+					<span style="color:#ff0000"><%= employer.work_schedule %></span>
+				</li>
+				<li >
+					<i class="fa fa-money"  style="color:#26bf28"></i>
+					<span  style="color:#26bf28"><%= employer.pay %></span>
+				</li>
+			</ul>
+		</footer>
+	</a>
+</div>
+<!-- END Job item -->

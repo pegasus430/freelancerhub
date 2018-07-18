@@ -1,0 +1,70 @@
+<div class="row">
+	<div class="col-md-10 col-md-offset-1">
+		<div class="card card-wizard" id="wizardCard">
+			<%= form_for @employer_wizard, as: :employer_wizard, url: validate_step_employer_wizards_path(id: params[:id])  , :html => { multipart: true } do |f| %>
+			<div class="header text-center">
+				<h3 class="title"><%= params[:id].present? ? "Edit" : "Create New"%>Job</h3>
+				<p class="category">Fill out these pages to get your job online</p>
+			</div>
+			<% if @employer_wizard.errors.any? %>
+				<div id="error_explanation">
+					<ul>
+						<% @employer_wizard.errors.full_messages.each do |message| %>
+						<li><%= message %></li>
+						<% end %>
+					</ul>
+				</div>
+			<% end %>
+			<%= hidden_field_tag :current_step, 'step1' %>
+			<div class="content">
+				<% if params[:id].present? %>
+				<%= render 'edit_steps' %>
+				<% else %>
+				<ul class="nav nav-pills">
+					<li class="active" style="width: 25%;" ><a  style="background: #23CCEF">First Step</a></li> 
+					<li style="width: 25%;" class=""><a>Second Step</a></li> 
+					<li style="width: 25%;" class=""><a>Third Step</a></li> 
+					<li style="width: 25%;" class=""><a>Forth Step</a></li> 
+				</ul>
+				<% end %>
+				<div class="tab-pane" id="tab1">
+					<h5 class="text-center">Job Details</h5>
+					<div class="row">
+						<div class="col-md-10 col-md-offset-1">
+							<div class="form-group">
+								<label class="control-label">Job Title<star>*</star></label>
+								<% title_placeholder = "Job Title" %>
+								<%= f.text_field :title , class: 'form-control input', placeholder: title_placeholder, required: true %>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-10 col-md-offset-1">
+							<div class="form-group">
+								<label class="control-label">Company Name</label>
+								<% name_placeholder = "Company Name" %>
+								<%= f.text_field :name, value: current_user.try(:employer_profile).try(:company_name), class: 'form-control input', placeholder: name_placeholder, readonly: true  %>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-10 col-md-offset-1">
+							<div class="form-group">
+								<label class="control-label">Location<star>*</star>
+								</label>
+								<% name_placeholder = "City" %>
+								<%= f.text_field :city, class: 'form-control input', placeholder: "City", required: true %>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--tab -->
+			</div>
+			<!-- content -->
+			<div class="footer">
+				<%= f.submit 'Next' , class: "btn btn-primary btn-fill btn-round btn-wd btn-next pull-right" , style: "display: block; margin-right:5px; margin-top: -33px;"%>
+			</div>
+			<% end %>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,189 @@
+<style>
+  .side-menu{
+        margin-top: -14px;
+    left:0;
+  }
+  .page-header {
+    position: relative;
+    z-index: 1;
+    background-attachment: fixed;
+    -webkit-background-size: cover;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: white;
+    margin: 0;
+    padding: 0;
+    padding-top: 100px;
+    border: none;
+}
+.side-menu-list li {
+  padding:25px;
+  list-style: none;
+  border-bottom: solid #eeeeee 1px;
+}
+li:hover {
+  background:#343a40;
+}
+
+@media (min-width: 768px) {
+  .deskview {
+    display: block;
+  }
+  .mobview {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .deskview {
+    display: none;
+  }
+  .mobview {
+    display: block;
+  }
+  .mobmargin {
+    margin-top: 200px;
+  }
+}
+
+</style>
+
+<!-- Page header -->
+<header class="page-header bg-img size-sm" style="background-image: url( ); padding-bottom: 100px;">
+	<div class=" no-shadow media-view">
+		<% if current_user.is_student == true %>
+		<h1 class="col-md-6" style="color:white; x">Applied Jobs</h1>
+		<% else %>
+		<h1 class="col-md-6" style="color:white; ">Applicants</h1>
+		<% end %>
+	</div>
+</header>
+<!-- END Page header -->
+<!-- Main container -->
+<main>
+	<section class="bg-alt">
+		<div class="mobview" style="margin-top: -66px">
+			<aside>
+				<nav class="rad-sidebar" style="height: initial; width: 50%; float: left">
+					<ul style="padding: 0px; margin: 0px">
+						<li>
+							<a href="/manage">
+							<i class="fa fa-dashboard"></i>
+							<span class="rad-sidebar-item">Dashboard</span>
+							</a>
+						</li>
+						<li>
+							<a href="/conversations">
+							<i class="fa fa-comments"></i>
+							<span class="rad-sidebar-item">Conversations</span>
+							</a>
+						</li>
+						<li>
+							<a href="/interviews">
+							<i class="fa fa-handshake-o"></i>
+							<% if current_user.is_student == true %>
+							<span class="rad-sidebar-item">Applied Jobs</span>
+							<% else %>
+							<span class="rad-sidebar-item">Applicants</span>
+							<% end %>
+							</a>
+						</li>
+						<!--<li><a href="/manage"><i class="fa fa-id-card"><span class="icon-bg rad-bg-primary"></span></i><span class="rad-sidebar-item">Manage Ads</span></a></li>-->
+						<li>
+							<a href="/billing"><i class="fa fa-money"></i>
+							<span class="rad-sidebar-item">Billing</span></a>
+						</li>
+					</ul>
+				</nav>
+				<nav class="rad-sidebar" style="height: initial; width: 50%; float: right">
+					<ul style="padding: 0px; margin: 0px">
+						<li>
+							<a href="/updateaccount?user_token=<%=current_user.token%>"><i class="fa fa-pencil"></i>
+							<span class="rad-sidebar-item">Update Account</span></a>
+						</li>
+						<li>
+							<a href="/users/<%=current_user.id%>"><i class="fa fa-street-view"></i>
+							<% if current_user.is_student == true %>
+							<span class="rad-sidebar-item">View Resume</span>
+							<% else %>
+							<span class="rad-sidebar-item">Company Profile</span>
+							<% end %></a>
+						</li>
+						<li style="font-size: 15px">
+							<a href="/updateuserinfo?user_token=<%=current_user.token%>"><i class="fa fa-street-view"></i>
+							<span class="rad-sidebar-item">Update Password</span></a>
+						</li>
+						<li>
+							<a href="/signout"><i class="fa fa-sign-out"></i>
+							<span class="rad-sidebar-item">Log off</span></a>
+						</li>
+					</ul>
+				</nav>
+			</aside>
+		</div>
+		<div class="rad-body-wrapper-manage" style="left:0px">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-3 side-menu deskview" style="padding-left: 0px;">
+						<%= render 'layouts/adminnavigation' %> 
+					</div>
+					<div class="col-md-9">
+						<%= render 'student_interviews' %> 
+					</div>
+				</div>
+				<!-- Page navigation -->
+				<nav class="text-center">
+					<%= will_paginate @interview_jobs %>
+				</nav>
+				<!-- END Page navigation -->
+	</section>
+	</div> 
+	</div>  
+</main>
+<!-- END Main container -->
+<!-------------------------------------------------->
+<!--------------------------------------------------->
+<%= render 'layouts/footer' %> 
+
+<script>
+
+ $(function() {
+   
+   
+    var showTotalChar = 200, showChar = "Show (+)", hideChar = "Hide (-)";
+    $('.show').each(function() {
+        var content = $(this).text();
+       
+        if (content.length > showTotalChar) {
+        var con = content.substr(0, showTotalChar);
+        var hcon = content.substr(showTotalChar, content.length - showTotalChar);
+        var txt= con +  '<span class="dots">...</span><span class="morectnt"><span>' + hcon + '</span>&nbsp;&nbsp;<a href="" class="showmoretxt">' + showChar + '</a></span>';
+        $(this).html(txt);
+      }
+      });
+  
+  
+    $(".showmoretxt").click(function() {
+      if ($(this).hasClass("sample")) {
+         $(this).removeClass("sample");
+         $(this).text(showChar);
+      } else {
+         $(this).addClass("sample");
+         $(this).text(hideChar);
+     }
+      $(this).parent().prev().toggle();
+      $(this).prev().toggle();
+      return false;
+  });
+});
+
+
+
+
+</script>
+
+
+
+
+
+

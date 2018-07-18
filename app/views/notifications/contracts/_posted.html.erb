@@ -1,0 +1,8 @@
+<li class="col-md-12 notification-li" style="border-bottom: 1px solid rgba(160, 160, 160, 0.29); padding: 0;">
+  <a href="/conversations">
+    Congratulations. You were hired
+    <div class="notification-date" style="font-size: 10px;">
+      <%= distance_of_time_in_words(notification.created_at, DateTime.now)%> ago
+    </div>
+  </a>
+</li>

@@ -1,0 +1,72 @@
+<style>
+  .modal-dialog {
+        position: absolute;
+        top: 30%;
+        right: 100px;
+        bottom: 0;
+        left: 0;
+       
+  }
+
+  .modal-backdrop.in {
+      opacity: 0.01;
+  }
+</style>
+
+<% content_for :model_box do %>
+<% flash.each do |type, message| %>
+  <% if message == "Successfully registered!" %>
+    <script type="text/javascript">
+      $(document).ready(function(){
+      $("#myModal").modal('show');
+      });
+    </script>
+  <% end %>
+
+  <% if message == "Company profile can't be blank" %>
+  <script type="text/javascript">
+    $(document).ready(function(){
+    $("#ProfileModal").modal('show');
+    });
+  </script>
+  <% end %>
+
+  <% if message == "Resume can't be blank" %>
+  <script type="text/javascript">
+    $(document).ready(function(){
+    $("#StudentProfileModal").modal('show');
+    });
+  </script>
+  <% end %>
+<% end %>
+
+<div id="ProfileModal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+				<% if @user.is_student? %>
+				<p>You have successfully created your FreelanceHub account.</p>
+				<p>To get started you must create your first resume!</p>
+				<a class="btn btn-primary btn-sm" href="/users/<%=current_user.id%>/student_profiles/new" style="background:red; border:none">Create Resume</a>
+				<% else %>
+				<p>Company profile can't be blank</p>
+				<a class="btn btn-primary btn-sm btn-fill" href="/users/<%=current_user.id%>/employer_profiles/new">View Profile</a>
+				<% end %>	
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="StudentProfileModal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+				<% if @user.is_student? %>
+				<p>To get started you must create your first resume!</p>
+				<a class="btn btn-primary btn-sm btn-fill" href="/users/<%=current_user.id%>/student_profiles/new">Create Resume</a>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>
+<% end %>

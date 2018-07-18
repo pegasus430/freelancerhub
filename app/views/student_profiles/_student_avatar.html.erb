@@ -1,0 +1,41 @@
+<div class="field dropZoneContainer">
+  <%= f.fields_for(:avatars) do |avatar_field| %>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12" id="company-logo">
+        <% image = @student_profile.avatars.first %>
+        <% if image.nil? %>
+          <img class="resume-avatar" src="/assests/avatar.svg" alt="">
+        <% else %>
+          <%= image_tag image.url(:small),  class: "avatar" , style: "background-color:white; border-radius: 4px;" %>
+        <% end %>
+        <%= avatar_field.file_field :attachment, as: :file, class: "FileUpload", onchange: "handleFileSelect(this)"%>
+        <div class="dropZoneOverlay" id="dropZoneOverlay" style="width: 100%; height: 100%;">
+          <% if @student_profile.avatars.count > 0 %>
+            Change Image
+          <% else %>
+            Add Image
+          <% end %>
+        </div>
+      </div>
+    </div>
+	<% end %>
+</div>
+
+<script type="text/javascript">
+  $(function() {
+    $(".FileUpload").change(function (){
+      work_flash.flashNotification('top','right',"", "New Photo was uploaded")
+    });
+  });
+  work_flash = {
+    flashNotification: function(from, align, key, message){
+      $.notify({ message: message},
+        { type: 'success', timer: 3000, placement: { from: from, align: align }
+        });
+    }
+  }
+
+  $('div.dropZoneOverlay').click(function(){
+      $('.FileUpload').click();
+  });
+</script>

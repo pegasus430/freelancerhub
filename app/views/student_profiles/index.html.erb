@@ -1,0 +1,48 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Student Profiles</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Slug</th>
+      <th>Eduction</th>
+      <th>Text</th>
+      <th>Location</th>
+      <th>Website.string</th>
+      <th>Age</th>
+      <th>Phone</th>
+      <th>Facebook</th>
+      <th>Linkedin</th>
+      <th>Twitter</th>
+      <th>Instagram</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @student_profiles.each do |student_profile| %>
+      <tr>
+        <td><%= student_profile.user_id %></td>
+        <td><%= student_profile.slug %></td>
+        <td><%= student_profile.eduction %></td>
+        <td><%= student_profile.text %></td>
+        <td><%= student_profile.location %></td>
+        <td><%= student_profile.website.string %></td>
+        <td><%= student_profile.age %></td>
+        <td><%= student_profile.phone %></td>
+        <td><%= student_profile.facebook %></td>
+        <td><%= student_profile.linkedin %></td>
+        <td><%= student_profile.twitter %></td>
+        <td><%= student_profile.instagram %></td>
+        <td><%= link_to 'Show', student_profile %></td>
+        <td><%= link_to 'Edit', edit_student_profile_path(student_profile) %></td>
+        <td><%= link_to 'Destroy', student_profile, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Student Profile', new_student_profile_path %>

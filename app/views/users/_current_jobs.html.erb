@@ -1,0 +1,51 @@
+  
+  <style>
+      .box {
+        border: 2px solid #dfdfdf;
+        height: 300px;
+        overflow: auto;
+        
+      }
+
+  </style>
+  
+<% if current_user.is_employer? && @employer_current_jobs.empty? && @employer_previous_jobs.empty? %>
+<h3>No jobs to show... </h3>
+<% end %>
+<% if current_user.is_student? && current_user.students.empty? %>
+<h3> Currenlty no ad to show...</h3>
+<% end %>
+<% unless @employer_current_jobs.empty? %>
+<h4 class="title">Current Listed Jobs</h4>
+<div class="row whitebox">
+	<% @employer_current_jobs.each do |employer| %>
+	<div class="col-xs-12">
+		<div class="item-block">
+			<header>
+				<% company_job_logo = employer.company_job_logos.first  %>
+				<% if company_job_logo.nil?  %>
+				<img src="http://web.bestchamber.com/external/WCPages/wcmedia/images/smallbusiness_481141613.png" alt="">
+				<% else %>
+				<%=image_tag company_job_logo.url(:small) %>
+				<% end %>
+				<div class="hgroup">
+					<h4><a href="/employers/<%= employer.id %>"><%= employer.name %> </a></h4>
+					<h5><a href="/employers/<%= employer.id %>"><%= employer.title %></a></h5>
+				</div>
+				<div class="header-meta">
+					<span class="location"><%= employer.city %></span>
+					<time datetime="2016-03-10 20:00"><%= distance_of_time_in_words(employer.created_at, DateTime.now)%> ago</time>
+				</div>
+			</header>
+			<footer>
+				<p class="status"><strong>Status:</strong> <%= employer.employer_status%> </p>
+				<div class="action-btn">
+					<%= link_to 'Edit', edit_employer_path(employer), :class => "btn btn-xs btn-gray" %>
+					<%= link_to 'Delete', employer, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-xs btn-danger" %>
+				</div>
+			</footer>
+		</div>
+	</div>
+	<% end %> 
+</div>
+<% end %>

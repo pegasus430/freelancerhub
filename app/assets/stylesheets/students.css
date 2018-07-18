@@ -1,0 +1,151 @@
+.student_profile h1,
+.student_profile h2,
+.student_profile h3,
+.student_profile h4,
+.student_profile h5,
+.student_profile h6,
+.student_profile p {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+	letter-spacing:inherit;
+	font-weight:200;
+	color:rgba(0,0,0,.7);
+	
+}
+
+
+.student_profile h1 {
+	font-size: 21px;
+}
+
+.student_profile h2 {
+	font-size: 17px;
+	color:rgba(0,0,0,.85);
+	line-height:3px;
+	font-weight:500;
+	
+}
+
+
+.student_profile h3 {
+	font-size: 17px;
+	line-height:15px;
+	font-weight:300;
+}
+
+.student_profile h4 {
+	font-size: 15px;
+	font-weight:100;
+	line-height:10px;
+}
+
+.student_profile p {
+	font-size: 15px;
+	font-weight:400;
+	margin-top:15px;
+	text-indent:22mm;
+}
+.student-information {
+	text-indent: 15mm
+}
+
+.resume_are_title {
+	padding-left:30px;
+}
+.resume_are_title span{
+		font-size: 28px;
+		line-height: 50px;
+		margin-right: 17px;
+		width: 50px;
+		text-align: center;
+		background: #ffffff;
+		color: #1F77D0;
+		border-radius: 50%;
+	}
+	.resume_are_title span,
+	.resume_are_title p{
+		display: inline-block;
+		vertical-align: middle;
+		margin-bottom: 0;
+	}
+	.resume_are_title p{
+		color: #000;
+		font-weight: 400;
+		font-size: 18px;
+		
+	}
+
+	.timeline{
+		padding-top: 15px;
+		position: relative;
+	}
+	.timeline:before {
+	    content: "";
+	    position: absolute;
+	    height: calc(100% - 20px);
+	    width: 1px;
+	    background: #d1d1d1;
+	    bottom: 0;
+	    left: 8px;
+	}
+	.timeline li+li{
+		margin-top: 57px;
+	}
+
+	.timeline li {
+	    padding-left: 46px;
+	    position: relative;
+	}
+	.timeline li:before {
+	    content: "";
+	    left: -11;
+
+	    border-radius: 50%;
+	    position: absolute;
+	    height: 14px;
+	    width: 14px;
+	    border:2px solid #1F77D0;
+	    background: #fff;
+	    transform: translateX(25%)
+	}
+	.time_period{
+		font-size:12px;
+		color:#66696a;
+		margin-top:-11px;
+	}
+	.timeline_title{
+		padding-bottom: 0px;
+		color: black;
+	}
+	.timeline_title h4{
+		font-size: 14px;
+    	font-weight: normal;
+    	line-height: 15px;
+    	color: #434649;
+    	text-decoration: none;
+	}
+	.timeline_title h3{
+		font-size: 18px;
+   		font-weight: bold;
+   	 	line-height: 18px;
+    	color: #000;
+    	text-decoration: none;
+	}
+	.about_time_period {
+		font-size: 13px;
+	    line-height: 17px;
+	    color: #333;
+	    font-weight: normal;
+	    margin-top: 15px;
+	}
+
+.title_name {
+		font-size: 28px;
+		line-height: 50px;
+		text-shadow:1px 1px 2px rgba(0, 0, 0, 0.010);
+}
+.profession {
+    font-weight: 300;
+    margin-top: -3px;
+    font-size: 1.2em;
+
+}

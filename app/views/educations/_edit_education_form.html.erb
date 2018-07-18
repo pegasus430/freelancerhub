@@ -1,0 +1,137 @@
+<% content_for :model_box do %>
+	<!--eduucation Modal form-->
+	<%= form_for(education, remote: true) do |f| %>
+		<div class="modal fade" id="<%=editeducation%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+			<div class="modal-dialog" role="document" style="margin-top: 200px">
+				<div class="modal-content">
+					<div class="modal-header" style="padding:0px 0 50px">
+						<div class="col-sm-11">
+							<h5 class="modal-title" id="exampleModalLongTitle"  style="padding:10px 0 15px">Add Education </h5>
+						</div>
+					</div>
+					<div class="modal-body">
+						<!-- Education Form-->
+						<div class="row">
+							<div class="col-sm-3">
+								<div class="form-group">
+									<center><img src="https://image.flaticon.com/icons/svg/167/167707.svg" style="width:125px"> </center>
+								</div>
+							</div>
+							<div class="col-md-9">
+								<div class="col-md-12">
+									<div class="col-md-12">
+										<div class="form-group">
+											<label>Certificate, Diploma, Or Degrees</label>
+											<%# if session[:language] == "french" %>
+											<%#= f.text_field :degree_type, :class => "form-control", :placeholder => "Degée, e.g. Baccalauréat", :required => true %>
+											<%# else %>
+											<%= f.text_field :degree, :class => "form-control", :placeholder => "Bachelor", :required => true %>
+											<%# end %>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>Field Of Study</label>
+											<%# if session[:language] == "french" %>
+											<%#= f.text_field :degree_type, :class => "form-control", :placeholder => "Mineur En Biology", :required => true %>
+											<%# else %>
+											<%= f.text_field :degree_type, :class => "form-control", :placeholder => "Major in Biologie", :required => true %>
+											<%# end %>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>School Name</label>
+											<%#= f.text_field :school_name, :class => "form-control", :placeholder => "Concordia", :required => true %>
+											<%# else %>
+											<%= f.text_field :school_name, :class => "form-control", :placeholder => "Concordia", :required => true %>
+											<%# end %>
+										</div>
+									</div>
+									<!-- <div class="col-md-12">
+										<div class="form-group">
+											<label>Description</label>
+											<%#= f.text_area :description, :class => "form-control", :placeholder => "Description", :required => false  %>
+										</div>
+									</div> -->
+									<div class="col-md-5">
+										<div class="form-group">
+											<label>Duration</label>
+											<% if params[:language] == "french" %>
+											<%= f.text_field :date_start, :class => "form-control", id: "education_date_start_#{education.id}",  :placeholder => "Date de début", :required => true %><% else %>
+											<%= f.text_field :date_start, :class => "form-control", id: "education_date_start_#{education.id}", :placeholder => "Start Date", :required => true %><% end %>
+										</div>
+									</div>
+									<div class="col-md-5">
+										<div class="form-group">
+											<label>&nbsp;</label>
+											<% if params[:language] == "french" %>
+											<%= f.text_field :date_end, :class => "form-control", id: "education_date_end_#{education.id}", :placeholder => "Date de fin" %><% else %>
+											<%= f.text_field :date_end, :class => "form-control", id: "education_date_end_#{education.id}", :placeholder => "End Date" %><% end %>
+										</div>
+									</div>
+									<div class="col-md-2">
+										<div class="form-group">
+											<label>Present</label>
+											<%= f.check_box :present, value: 1 , :class => "form-control" %>
+										</div>
+									</div>
+									<!--<div class="col-md-12">-->
+									<!--<div class="form-group">-->
+									<!--<label>Duration</label>-->
+									<!--<div class="input-group">-->
+									<!--<%# if params[:language] == "french" %>-->
+									<!--<%#= f.text_field :date_start, :class => "form-control", :placeholder => "Date de début", :required => true %><%# else %>-->
+									<!--<%#= f.text_field :date_start, :class => "form-control", :placeholder => "Start Date", :required => true %><%# end %>-->
+									<!--<%#= f.select(:category, Employer::CATEGORY_LIST) %>-->
+									<!--<span class="input-group-addon"><%#= select_tag :date_start, options_for_select(['present']) %>OR</span>-->
+									<!--<%# if params[:language] == "french" %>-->
+									<!--<%#= f.text_field :date_end, :class => "form-control", :placeholder => "Date de fin", :required => true %><%# else %>-->
+									<!--<%#= f.text_field :date_end, :class => "form-control", :placeholder => "End Date", :required => true %><%# end %>-->
+									<!--</div>-->
+									<!--<div class="input-group">-->
+									<!--</div>-->
+									<!--</div>-->
+									<!--</div>-->
+								</div>
+							</div>
+							<div class="upload-button">
+								<%= f.hidden_field :user_id, :value => current_user.id %>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary btn-round btn-fill" data-dismiss="modal" style="color:black">Close</button>
+								<%= f.submit "Submit", :class => "btn btn-primary btn-round btn-fill" %>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	<% end %>
+<% end %>
+
+<script type="text/javascript">
+    $(function () {
+        $("#education_date_start_<%=education.id%>").datepicker({format: 'mm/yyyy'});
+        $("#education_date_end_<%=education.id%>").datepicker({format: 'mm/yyyy'});
+    });
+
+  	$(document).ready(
+   		function(){
+        	$("form#edit_education_<%=education.id%>").bind("ajax:success",
+          		function(evt, data, status, xhr){
+          			$('#editeducation<%=education.id%>').modal('hide');
+            		$('#post_<%=education.id%>').html(data);
+           			work_flash.flashNotification('top','right',"", "Education was successfully updated")
+        })
+    });
+
+    work_flash = {
+       	flashNotification: function(from, align, key, message){
+           	$.notify({ message: message},
+                { type: 'success', timer: 3000, placement: { from: from, align: align }
+            });
+       	}
+    }
+</script>

@@ -1,0 +1,169 @@
+<header class="page-header">
+	<div class="container page-name">
+		<h1 class="text-center">Your Resume</h1>
+		<p class="lead text-center category">This will be visible to your employers, so keep it updated!</p>
+	</div>
+	<div class="container">
+		<%= render 'student_avatar', f: f  %>
+		<div class="row col-xs-12 col-sm-8">
+			<% if student_profile.errors.any? %> 
+			<div id="error_explanation">
+				<ul>
+					<% student_profile.errors.full_messages.each do |message| %>
+					<li><%= message %></li>
+					<% end %>
+				</ul>
+			</div>
+			<% end %>
+		</div>
+		<div class="col-xs-12 col-sm-8">
+			<div class="form-group">
+				<%= text_field_tag :first_name, current_user.first_name , class: 'form-control input-lg', placeholder: "First Name"  %>
+			</div>
+			<div class="form-group">
+				<%= text_field_tag :last_name, current_user.last_name, class: 'form-control input-lg', placeholder: "Last Name"  %>
+			</div>
+			<div class="form-group">
+				<%= f.text_field :education, class: 'form-control input-lg', placeholder: "Current University or College Name"  %>
+			</div>
+			<hr class="hr-lg">
+			<h6>Basic Information</h6>
+			<div class="row">
+				<div class="form-group col-xs-12 col-sm-6">
+					<div class="input-group input-group-sm">
+						<span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+						<%= f.text_field :location, class: 'form-control input-lg', placeholder: "Location, e.g. Montreal, QC"  %>
+					</div>
+				</div>
+				<div class="form-group col-xs-12 col-sm-6">
+					<div class="input-group input-group-sm">
+						<span class="input-group-addon"><i class="fa fa-globe"></i></span>
+						<%= f.text_field :website, class: 'form-control input-lg', placeholder: "Website Address"  %>
+					</div>
+				</div>
+				<div class="form-group col-xs-12 col-sm-6">
+					<div class="input-group input-group-sm">
+						<span class="input-group-addon"><i class="fa fa-birthday-cake"></i></span>
+						<%= f.text_field :age, class: 'form-control input-lg', placeholder: "Age"  %>
+						<span class="input-group-addon">Years Old</span>
+					</div>
+				</div>
+				<div class="form-group col-xs-12 col-sm-6">
+					<div class="input-group input-group-sm">
+						<span class="input-group-addon"><i class="fa fa-phone"></i></span>
+						<%= f.text_field :phone, class: 'form-control input-lg', placeholder: "Phone Number"  %>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+</header>
+<main>
+	<section>
+		<div class="container">
+			<header class="section-header">
+				<span>Get connected</span>
+				<h2>Social media</h2>
+			</header>
+			<div class="row">
+				<div class="col-xs-12 col-sm-6">
+					<div class="form-group">
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-facebook"></i></span>
+							<%= f.text_field :facebook, class: 'form-control', placeholder: "Facebook url e.g. https://"  %>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-linkedin"></i></span>
+							<%= f.text_field :linkedin, class: 'form-control ', placeholder: "Linkedin url e.g. https://"  %>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6">
+					<div class="form-group">
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-twitter"></i></span>
+							<%= f.text_field :twitter, class: 'form-control ', placeholder: "Twitter url e.g. https://"  %>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-instagram"></i></span>
+							<%= f.text_field :instagram, class: 'form-control', placeholder: "Instagram url e.g. https://" %>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<hr>
+	<section>
+		<div class="container">
+			<header class="section-header">
+				<h2>Education</h2>
+			</header>
+			<div class="row" id="container_educations">
+				<%= render @educations %>
+			</div>
+		</div>
+		<br><br><br>
+		<% if current_user.id == @user.id%>
+		  <center>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myneweducation">
+            Add Your Education Now
+        </button>
+      </center>
+		<% end %> 
+	</section>
+	<hr>
+	<section class="bg-alt">
+		<div class="container">
+			<header class="section-header">
+				<span>Past positions</span>
+				<h2>Work Experience</h2>
+			</header>
+			<div class="row" id="container_works">
+				<%= render @works %> 
+			</div>
+		</div>
+		<br><br><br>
+		<% if current_user.id == @user.id%>
+		  <center>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#mynewwork">
+              Add Work Experience
+        </button>
+      </center>
+		<% end %> 
+	</section>
+	<section class="bg-img">
+		<div class="container">
+			<header class="section-header">
+          <span>Are you done?</span>
+          <h2>Update resume</h2>
+          <p>Please review your information once more and press the below button to put your update resume.</p>
+			</header>
+			<p class="text-center"><%= f.submit "submit", class:'btn btn-success btn-xl btn-round' %></p>
+		</div>
+	</section>
+</main>
+
+<%= render 'education_form' %>
+<%= render 'work_form' %>
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script>
+  $( function() {
+    $( "#education_date_start, #education_date_end" ).datepicker();
+    $(".ui-datepicker-div").css("z-index", "9999");
+  } );
+  </script>
+
+  <script>
+  $( function() {
+    $( "#work_date_start, #work_date_end" ).datepicker();
+  } );
+</script>

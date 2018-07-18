@@ -1,0 +1,136 @@
+<header class="page-header bg-img">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-4 text-center">
+				<%= image_tag(student_profile_picture(@student), width: 300, height: 300, style: "border-radius: 50%;") %>
+			</div>
+			<div class="col-xs-12 col-sm-8 header-detail">
+				<div class="hgroup title_name">
+					<h1><%= @student.user.first_name  rescue nil %> <%#= @student.user.last_name  rescue nil %></h1>
+					<div class="profession">
+					<h3><%= @student.title %></h3>
+					</div>
+				</div>
+				<hr>
+				<p class="lead"><%= @student.user.student_profile.description rescue nil %></p>
+				<ul class="details cols-2">
+					<li>
+						<% unless @student.user && @student.user.student_profile.try(:location).blank? %><i class="fa fa-map-marker"></i>
+						<span><%= @student.user.student_profile.location rescue nil %></span><% end %>
+					</li>
+					<li>
+						<% unless @student.user && @student.user.student_profile.try(:phone).blank? %><i class="fa fa-phone"></i>
+						<span><%= @student.user.student_profile.try(:phone) rescue nil %> </span><% end %>
+					</li>
+					<li>
+						<% unless @student.user.email.blank? %><i class="fa fa-envelope"></i>
+						<span><%= mail_to @student.user.email %></span><% end %>  
+					</li>
+				</ul>
+				<div class="tag-list">
+					<% @student.tag_list.present? && @student.tag_list.each do |tag| %>
+					<span class="badge-azure"><%= tag %></span>
+					<% end %>
+				</div>
+			</div>
+		</div>
+		<div class="button-group">
+	    <ul class="social-network social-circle">
+	      <% twitter_url   = @student.user && @student.user.student_profile.twitter.to_s.gsub("http://", "").to_s.gsub("https://", "") rescue '' %>
+	      <% website_url = @student.user && @student.user.student_profile.website.to_s.gsub("http://", "").to_s.gsub("https://", "") rescue '' %>
+	      <% facebook_url = @student.user && @student.user.student_profile.facebook.to_s.gsub("http://", "").to_s.gsub("https://", "") rescue '' %>
+	      <% instagram_url = @student.user && @student.user.student_profile.instagram.to_s.gsub("http://", "").to_s.gsub("https://", "") rescue '' %>
+	      <% linkedin_url = @student.user && @student.user.student_profile.linkedin.to_s.gsub("http://", "").to_s.gsub("https://", "") rescue '' %>
+
+        <% unless @student.user && @student.user.student_profile.try(:website).blank? %>
+	        <li><a class="icoRss" href="//<%= website_url %>" title="Rss" target="_blank"><i class="fa fa-globe"></i></a></li>
+        <% end %>
+	      <% unless @student.user && @student.user.student_profile.try(:facebook).blank? %>
+	        <li><a class="icoFacebook" href="//<%= facebook_url %>" title="Facebook" target="_blank"><i class="fa fa-facebook"></i></a></li>
+        <% end %>
+	      <% unless @student.user && @student.user.student_profile.try(:linkedin).blank? %>
+	        <li><a class="icoLinkedin" href="//<%= linkedin_url %>" title="Linkedin" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+	      <% end %>
+	      <% unless @student.user && @student.user.student_profile.try(:instagram).blank? %>
+	        <li><a class="icoInstagram" href="//<%= instagram_url %>" target="_blank"><i class="fa fa-instagram"></i></a></li>
+	      <% end %>
+	      <% unless @student.user && @student.user.student_profile.try(:twitter).blank? %>
+	        <li><a class="icoTwitter" href="//<%= twitter_url %>" title="Twitter "target="_blank"><i class="fa fa-twitter"></i></a></li>
+				<% end %>
+      </ul>
+			<div class="action-buttons">
+				<div class="action-buttons">
+					<% if current_user && current_user.is_student? %>
+						<% if @student.user.id == current_user.id %>
+							<a class="btn btn-danger"  href="/users/<%=current_user.id%>/student_profiles/<%=current_user.student_profile.slug%>/edit">Edit Profile</a> 
+						<% end %>
+					<% elsif current_user && current_user.is_employer? %>
+            <a class="btn btn-gray"  onclick="window.print();" href="#">Download CV</a>
+            <a class="btn btn-success" data-toggle="modal" data-target="#sendMessage" href="javascript:void(0)">Contact me</a>
+					<% else %>
+  					<a class="btn btn-primary"  href="/employersignup" >Sign up to Contact</a>
+					<% end %>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+<main>
+	<section>
+		<div class="container">
+			<div class="row" style="padding-top:30px">
+        <div class="col-md-6">
+          <div class="resume_are_title">
+            <span class="fa fa-graduation-cap"></span><p> EDUCATION </p>
+          </div>
+          <ul class="timeline">
+            <% @student.user && @student.user.educations.each do |education| %>
+              <li>
+                <div class="timeline_title">
+                  <h3><%= education.degree_type %></h3>
+                  <h4 class="school_name"><%= education.school_name %> - <span><%= education.degree %> </span></h4>
+                  <div class="time_period">
+                    <% if education.present == "1" %>
+										  <p class="time" style="margin:0px"><%= month_date education.date_start %> - present</p>
+                    <% else %>
+											<p class="time" style="margin:0px"><%= month_date education.date_start %> - <%= month_date education.date_end %></p>
+										<% end %>
+                  </div>
+                </div>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+        <div class="col-md-6">
+          <div class="resume_are_title">
+            <span class="fa fa-briefcase"></span>
+            <p>WORK EXPERIENCE</p>
+          </div>
+          <ul class="timeline no-margin">
+            <% @student.user && @student.user.works.each do |work| %>
+              <li>
+                <div class="timeline_title">
+                  <h3><%=work.position %></h3>
+                  <h4><%=work.company_name %></h4>
+                  <div class="time_period">
+                    <% if work.present == "1" %>
+										  <p class="time" style="margin:0px"><%= month_date work.date_start %> - present</p>
+                    <% else %>
+										  <p class="time" style="margin:0px"><%= month_date work.date_start %> - <%= month_date work.date_end %></p>
+                    <% end %>
+                  </div>
+                </div>
+                <div class="about_time_period">
+                  <%= raw work.description.to_s.gsub("<ul>", "").to_s.gsub("</ul>", "").to_s.gsub("<ol>", "").to_s.gsub("</ol>", "").to_s.gsub("<li>", "<p>- ").to_s.gsub("</li>", "</p>") %>
+                </div>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+	</section>
+  <% if current_user && current_user.is_employer? %>
+    <%= render "send_massage" , receiver_id: @student.user.try(:id), sender_id: current_user.try(:id)  %>
+  <% end %>
+</main>

@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @coupon.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @coupon.description %>
+</p>
+
+<p>
+  <strong>Coupon type:</strong>
+  <%= @coupon.coupon_type %>
+</p>
+
+<p>
+  <strong>Coupon validate start date:</strong>
+  <%= @coupon.coupon_validate_start_date %>
+</p>
+
+<p>
+  <strong>Coupon validate end date:</strong>
+  <%= @coupon.coupon_validate_end_date %>
+</p>
+
+<p>
+  <strong>Coupon expired date:</strong>
+  <%= @coupon.coupon_expired_date %>
+</p>
+
+<p>
+  <strong>Max limit:</strong>
+  <%= @coupon.max_limit %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @coupon.status %>
+</p>
+
+<%= link_to 'Edit', edit_coupon_path(@coupon) %> |
+<%= link_to 'Back', coupons_path %>

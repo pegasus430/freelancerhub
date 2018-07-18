@@ -1,0 +1,6 @@
+
+<% if current_user && current_user.is_student? %>
+<%= render 'student_apply_job' , employer: employer, student: current_user %>
+<% else %>
+<%= render 'employer_job_details', employer: employer %>
+<% end %>

@@ -1,0 +1,105 @@
+<div class="row">
+	<div class="col-md-10 col-md-offset-1">
+		<div class="card card-wizard" id="wizardCard">
+			<%= form_for @employer_wizard, as: :employer_wizard, url: validate_step_employer_wizards_path(id: params[:id]), :html => { multipart: true } do |f| %>
+			<div class="header text-center">
+				<h3 class="title"><%= params[:id].present? ? "Edit" : "Create New"%>Job</h3>
+				<p class="category">Fill out these pages to get your job online</p>
+			</div>
+			<% if @employer_wizard.errors.any? %>
+			<div id="error_explanation">
+				<ul>
+					<% @employer_wizard.errors.full_messages.each do |message| %>
+					<li><%= message %></li>
+					<% end %>
+				</ul>
+			</div>
+			<% end %>
+			<%= hidden_field_tag :current_step, 'step4' %>
+			<%= f.hidden_field :employer_status, value: 'Not Filled' %>
+			<%= f.hidden_field :user_id, :value => current_user.id %>
+			<div class="content">
+				<% if params[:id].present? %>
+				<%= render 'edit_steps' %>
+				<% else %>
+				<ul class="nav nav-pills">
+						<li style="width: 25%;" ><%= link_to "First Tab", step1_employer_wizards_path, style:"background: #23CCEF" %></li>
+						<li style="width: 25%;" class=""><%= link_to "Second Tab", step2_employer_wizards_path, style:"background: #23CCEF" %></li>
+						<li style="width: 25%;" class=""><%= link_to "Third Tab", step3_employer_wizards_path, style:"background: #23CCEF" %></li>
+						<li style="width: 25%;" class=""><a>Forth Tab</a></li>
+				</ul>
+				<% end %>
+				<div class="tab-pane" id="tab4">
+					<h5 class="text-center">Job Description</h5>
+					<div class="row">
+						<div class="col-md-10 col-md-offset-1">
+							<div class="form-group">
+								<div class="panel-group" id="accordion">
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h4 class="panel-title">
+												<a data-target="#collapseOne " href="#" data-toggle="collapse" class="collapsed" aria-expanded="false">Job Summary<b class="caret"></b>
+												</a>
+											</h4>
+										</div>
+										<div id="collapseOne" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+											<div class="panel-body">
+												<label class="control-label">Describe the position and its role within the company.</label>
+												<%= f.text_area :long_description, :class => "form-control", :placeholder => "Long Description", :rows => "8" %>
+											</div>
+										</div>
+									</div>
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h4 class="panel-title">
+												<a data-target="#collapseTwo" href="#" data-toggle="collapse" class="collapsed" aria-expanded="false">
+                          Responsibilities<b class="caret"></b>
+												</a>
+											</h4>
+										</div>
+										<div id="collapseTwo" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+											<div class="panel-body">
+												<label class="control-label">
+												Describe the responsibilities a student in this position will conduct on a daily basis.</label>
+												<%= f.text_area :responsibility, :class => "form-control", :placeholder => " Responsibilities", :rows => "8" %>
+											</div>
+										</div>
+									</div>
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h4 class="panel-title">
+												<a data-target="#collapseThree" href="#" data-toggle="collapse" class="collapsed" aria-expanded="false">
+													Qualifications and Requirements<b class="caret"></b>
+												</a>
+											</h4>
+										</div>
+										<div id="collapseThree" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+											<div class="panel-body">
+												<label class="control-label">Include education, past employment experience, and skills required</label>
+												<%= f.text_area :requirement, :class => "form-control", :placeholder => "Requirements", :rows => "8" %>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- tab-->
+			</div>
+			<!-- content -->
+			<div class="footer">
+				<%= f.submit 'Finish' , class: "btn btn-primary btn-fill btn-round btn-wd btn-next pull-right" , style: "display: block; margin-right:5px; margin-top: -33px;"%>
+			</div>
+			<% end %>
+		</div>
+	</div>
+</div>
+
+<script>
+    $(document).ready(function() {
+       $('#employer_wizard_long_description').richText();
+       $('#employer_wizard_responsibility').richText();
+       $('#employer_wizard_requirement').richText();
+     });
+</script>

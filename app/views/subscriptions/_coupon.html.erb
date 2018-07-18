@@ -1,0 +1,23 @@
+<%= form_tag apply_coupon_path, id: "payment-form" do %>
+<fieldset>
+    <div class="form-group">
+        <div class="col-sm-12">
+            <label class="control-label">COUPON</label>
+            <input class="form-control" data-stripe="number" name="coupon" required="required" aria-required="true "placeholder="Coupon">
+        </div>
+    </div>
+</fieldset>
+<div class="modal-footer">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="form-group">
+                <div class="text-center">
+                    <div>
+                        <button type="submit" class="btn btn-primary btn-fill btn-round" >Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<% end %>

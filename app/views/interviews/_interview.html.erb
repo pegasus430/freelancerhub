@@ -1,0 +1,69 @@
+<div class="col-xs-12">
+	<%# unless interview.conversation_id == nil %> 
+	<div class="item-block" href="/sdlfkjsdlfk">
+		<header>
+			<% @employer = Employer.find(interview.employer_id) rescue nil %> 
+			<%= link_to "/users/#{interview.student_id}/student_profiles" do %>
+			<% if @employer && @employer.company_job_logos.empty?  %>
+			<img class="resume-avatar" src="/assets/freelancehub.svg" alt="">
+			<% else %> 
+			<%= image_tag @employer.company_job_logos.first.url(:small) rescue nil %> 
+			<% end %> 
+			<% end %>
+			<div class="hgroup">
+				<h4><strong>Job:</strong> <a ><%= interview.employer_name %> </a></h4>
+				<h5><strong>Intern:</strong><a> <%= interview.name %></a></h5>
+			</div>
+			<div class="header-meta">
+				<time datetime="2016-03-10 20:00"><%= distance_of_time_in_words(interview.created_at, DateTime.now)%> ago</time>
+			</div>
+			<br/>
+			<div class="item-body">
+				<% body =  raw interview.body.truncate(300)  %>
+				<%# body =   raw body.to_s.truncate(300)  %>
+				<% if interview.body.length > 300 %>
+				<div class="hide-full-body-<%=interview.id%>">
+					<p class="hide-body"><%= body %>
+						<%= link_to  "javascript:void(0)" , class: "show-body-#{interview.id}" , style: "text-align: right" do %>
+						<span style="font-weight: bold; float: right" >Show(+)</span>
+						<% end %>
+					</p>
+				</div>
+				<div style="display: none" class="show-full-body-<%=interview.id%>">
+					<p style="margin-left: 100px"><%= raw interview.body %>
+						<%= link_to  "javascript:void(0)" , class: "hide-body-#{interview.id}" do %>
+						<span style="font-weight: bold; float: right">Hide(+)</span>
+						<% end %>
+					</p>
+				</div>
+				<% else %>
+				<p style="margin-left: 100px"><%= raw interview.body %></p>
+				<% end %>      
+			</div>
+		</header>
+		<footer>
+			<p class="status"><%= interview.job_requirement %> </p>
+			<p class="status" style="margin-left:100px"><%= interview.video_link %> </p>
+			<div class="action-btn">
+				<%#= link_to 'Edit', edit_interview_path(interview), :class => "btn btn-xs btn-gray" %>
+				<!--<a class="btn btn-xs btn-success" href="#">Mark filled</a>-->
+				<%= link_to 'Delete', interview, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-xs btn-danger" %>
+			</div>
+		</footer>
+		<%# end %> 
+	</div>
+</div>         
+   <script>
+    $(".show-body-<%=interview.id%>").click(function(){
+       $(".show-full-body-<%=interview.id%>").show();
+       $(".hide-full-body-<%=interview.id%>").hide();
+     });
+  
+     $(".hide-body-<%=interview.id%>").click(function(){
+        $(".show-full-body-<%=interview.id%>").hide();
+        $(".hide-full-body-<%=interview.id%>").show();
+      });
+  </script>
+  
+        
+          

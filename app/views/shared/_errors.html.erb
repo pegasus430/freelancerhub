@@ -1,0 +1,8 @@
+<% if resource.errors.present? %>
+  <div class="alert alert-error" role="alert">
+    <h4 class="alert-heading"><%= resource.class.name.humanize %> could not be saved: </h4>
+    <% resource.errors.full_messages.each do |msg| %>
+      <p><%= msg %></p>
+    <% end %>
+  </div>
+<% end %>

@@ -1,0 +1,289 @@
+<style>
+  .student_profile h1,
+  .student_profile h2,
+  .student_profile h3,
+  .student_profile h4,
+  .student_profile h5,
+  .student_profile h6,
+  .student_profile p {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    letter-spacing: inherit;
+    font-weight: 200;
+    color: rgba(0,0,0,.7);
+  }
+  .student_profile h1 {
+    font-size: 21px;
+  }
+  .student_profile h2 {
+    font-size: 17px;
+    color: rgba(0,0,0,.85);
+    line-height: 3px;
+    font-weight: 500;
+  }
+  .student_profile h3 {
+    font-size: 17px;
+    line-height: 15px;
+    font-weight: 300;
+  }
+  .student_profile h4 {
+    font-size: 15px;
+    font-weight: 100;
+    line-height: 10px;
+  }
+  .student_profile p {
+    font-size: 15px;
+    font-weight: 400;
+    margin-top: 15px;
+    text-indent: 22mm;
+  }
+  .student-information {
+     text-indent: 15mm;
+  }
+  .resume_are_title {
+     padding-left:30px;
+  }
+  .resume_are_title span{
+    font-size: 28px;
+    line-height: 50px;
+    margin-right: 17px;
+    width: 50px;
+    text-align: center;
+    background: #ffffff;
+    color: #1F77D0;
+    border-radius: 50%;
+  }
+  .resume_are_title span,
+  .resume_are_title p{
+    display: inline-block;
+    vertical-align: middle;
+    margin-bottom: 0;
+  }
+  .resume_are_title p{
+    color: #000;
+    font-weight: 400;
+    font-size: 18px;
+  }
+  .timeline{
+    padding-top: 15px;
+    position: relative;
+  }
+  .timeline:before {
+    content: "";
+    position: absolute;
+    height: calc(100% - 20px);
+    width: 1px;
+    background: #d1d1d1;
+    bottom: 0;
+    left: 8px;
+  }
+  .timeline li+li{
+    margin-top: 57px;
+  }
+  .timeline li {
+    padding-left: 46px;
+    position: relative;
+  }
+  .timeline li:before {
+    content: "";
+    left: -11px;
+    border-radius: 50%;
+    position: absolute;
+    height: 14px;
+    width: 14px;
+    border: 2px solid #1F77D0;
+    background: #fff;
+    transform: translateX(25%)
+  }
+  .time_period{
+    font-size: 12px;
+    color: #66696a;
+    margin-top: -11px;
+  }
+  .timeline_title{
+    padding-bottom: 0px;
+    color: black;
+   }
+  .timeline_title h4{
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 15px;
+     color: #434649;
+    text-decoration: none;
+  }
+  .timeline_title h3{
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 18px;
+    color: #000;
+    text-decoration: none;
+  }
+  .about_time_period {
+    font-size: 13px;
+    line-height: 17px;
+    color: #333;
+    font-weight: normal;
+    margin-top: 15px;
+  }
+</style>
+
+<header class="page-header bg-img">
+   <div class="container">
+      <div class="row">
+         <div class="col-xs-12 col-sm-4 text-center">
+            <% if @student_profile.avatars.empty? %>
+              <% if @user.avatar.blank?  %>
+                <%= image_tag @user.avatar.url(:square) %>
+              <% else %>
+                <img src="https://www.timeshighereducation.com/sites/default/files/byline_photos/default-avatar.png">
+              <% end %>
+            <% else %>
+              <% image = @student_profile.avatars.first.url(:small) rescue nil %>
+              <%= image_tag image if image %>
+            <% end %> 
+         </div>
+         <div class="col-xs-12 col-sm-8 header-detail">
+            <div class="hgroup">
+               <h1><%= @user.first_name %> <%#= @user.last_name %></h1>
+               <h3><%= Student.find_by(user_id: @student_profile.user.id).title rescue nil%></h3>
+            </div>
+            <hr>
+            <p class="lead"><%= @student_profile.description %> </p>
+            <ul class="details cols-2">
+               <li>
+                 <% unless @student_profile.location.blank? %>
+                    <i class="fa fa-map-marker"></i><span><%= @student_profile.location %></span>
+                 <% end %>
+               </li>
+               <li>
+                  <% unless @student_profile.linkedin.blank? %>
+                     <i class="fa fa-linkedin"></i><span><a target="_blank" href="<%= @student_profile.linkedin %>"></a></span>
+                 <% end %>
+               </li>
+               <li>
+                  <% unless @student_profile.phone.blank? %>
+                     <i class="fa fa-phone"></i><span><%= @student_profile.phone %></span>
+                 <% end %>
+               </li>
+               <li>
+                  <% unless @user.email.blank? %>
+                     <i class="fa fa-envelope"></i><span><%= mail_to @user.email %></span>
+                  <% end %>
+               </li>
+            </ul>
+         </div>
+      </div>
+      <div class="button-group">
+         <ul class="social-network social-circle">
+            <% twitter_url = @student_profile.twitter.to_s.gsub("http://", "").to_s.gsub("https://", "") %>
+            <% website_url = @student_profile.website.to_s.gsub("http://", "").to_s.gsub("https://", "") %>
+            <% facebook_url = @student_profile.facebook.to_s.gsub("http://", "").to_s.gsub("https://", "") %>
+            <% instagram_url = @student_profile.instagram.to_s.gsub("http://", "").to_s.gsub("https://", "") %>
+            <% linkedin_url = @student_profile.linkedin.to_s.gsub("http://", "").to_s.gsub("https://", "") %>
+
+            <% unless @student_profile.website.blank? %>
+              <li><a class="icoRss" href="//<%= website_url %>" title="Rss" target="_blank"><i class="fa fa-globe"></i></a></li>
+            <% end %>
+
+            <% unless @student_profile.facebook.blank? %>
+              <li><a class="icoFacebook" href="//<%= facebook_url %>" title="Facebook" target="_blank"><i class="fa fa-facebook"></i></a></li>
+            <% end %>
+
+            <% unless @student_profile.linkedin.blank? %>
+              <li><a class="icoLinkedin" href="//<%= linkedin_url %>" title="Linkedin" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+            <% end %>
+
+            <% unless @student_profile.instagram.blank? %>
+              <li><a class="icoInstagram" href="//<%= instagram_url %>" target="_blank"><i class="fa fa-instagram"></i></a></li>
+            <% end %>
+
+            <% unless @student_profile.twitter.blank? %>
+              <li><a class="icoTwitter" href="//<%= twitter_url %>" title="Twitter "target="_blank"><i class="fa fa-twitter"></i></a></li>
+            <% end %>
+         </ul>
+         <div class="action-buttons">
+            <% if user_signed_in? && current_user.id == @user.id %>
+              <a type="button" class="btn btn-danger" href="/users/<%=current_user.id%>/student_profiles/<%=@student_profile.slug%>/edit">Edit Profile</a>
+            <% else %> 
+              <% if current_user_subscribed? %>
+                 <%= link_to 'Invite to Job', new_personal_message_path(receiver: @user.id), :class => "btn btn-success" %>
+              <% else %>
+                 <button type="button" class="btn btn-danger"  disabled>You must subscribe to contact this student</button>
+              <%= link_to "Subscribe", new_subscription_path, class: "btn btn-primary" %>
+              <% end %>
+            <% end %>
+         </div>
+      </div>
+   </div>
+</header>
+<main>
+  <section>
+    <div class="container">
+      <div class="row" style="padding-top:30px">
+         <div class="col-md-6">
+            <div class="resume_are_title">
+               <span class="fa fa-graduation-cap"></span>
+               <p>EDUCATION</p>
+            </div>
+            <ul class="timeline">
+               <% @educations.each do |education| %> 
+               <li>
+                  <div class="timeline_title">
+                     <h3><%= education.degree_type %></h3>
+                     <h4 class="school_name"><%= education.school_name %> - <span><%= education.degree %> </span></h4>
+                     <div class="time_period">
+                        <% if education.present == "1" %>
+                        <p class="time" style="margin:0px"><%= month_date education.date_start %> - present</p>
+                        <% else %>
+                        <p class="time" style="margin:0px"><%= month_date education.date_start %> - <%= month_date education.date_end %></p>
+                        <% end %>
+                     </div>
+                  </div>
+               </li>
+               <% end %>
+            </ul>
+            <% if user_signed_in? && current_user.id == @student_profile.user_id %>
+              <center>
+                <a class="btn btn-primary" href="/users/<%=current_user.id%>/student_profiles/<%=@student_profile.slug%>/edit">
+                      Add Education
+                </a>
+              </center>
+            <% end %>      
+         </div>
+         <div class="col-md-6">
+            <div class="resume_are_title">
+               <span class="fa fa-briefcase"></span>
+               <p>WORK EXPERIENCE</p>
+            </div>
+            <ul class="timeline no-margin">
+               <% @works.each do |work| %>
+               <li>
+                  <div class="timeline_title">
+                     <h3><%=work.position %></h3>
+                     <h4><%=work.company_name %></h4>
+                     <div class="time_period">
+                        <% if work.present == "1" %>
+                        <p class="time" style="margin:0px"><%= month_date work.date_start %> - present</p>
+                        <% else %>
+                        <p class="time" style="margin:0px"><%= month_date work.date_start %> - <%= month_date work.date_end %></p>
+                        <% end %>
+                     </div>
+                  </div>
+                  <div class="about_time_period">
+                     <%= raw work.description.to_s.gsub("<ul>", "").to_s.gsub("</ul>", "").to_s.gsub("<ol>", "").to_s.gsub("</ol>", "").to_s.gsub("<li>", "<p>- ").to_s.gsub("</li>", "</p>") %>
+
+                  </div>
+               </li>
+               <% end %>
+            </ul>
+            <% if user_signed_in? && current_user.id == @student_profile.user_id%>
+            <center>
+              <a class="btn btn-primary" href="/users/<%=current_user.id%>/student_profiles/<%=@student_profile.slug%>/edit">
+                    Add Experiences
+              </a>
+            </center>
+            <% end %> 
+         </div>
+      </div>
+    </div>
+  </section>
+</main>

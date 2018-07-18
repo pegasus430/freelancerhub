@@ -1,0 +1,10 @@
+
+<% if current_user.is_student? %>
+  <%= render "student_layout" %>
+ <% else %> 
+  <%= render 'student_interviews' %>
+<% end %>
+
+
+
+ 

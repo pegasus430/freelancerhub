@@ -1,0 +1,2 @@
+json.extract! employer_profile, :id, :user_id, :slug, :company_name, :company_descripion, :website, :address_id, :facebook, :twitter, :linkedin, :instagram, :created_at, :updated_at
+json.url employer_profile_url(employer_profile, format: :json)

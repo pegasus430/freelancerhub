@@ -1,0 +1,92 @@
+ <!-- Modal -->
+<div class="modal fade" id="StudentApplyJobModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" style="color:#fff">&times;</button>
+				<h2 class="modal-title" style="color:#fff; font-size: 25px; text-align: center">
+					Apply For This Position
+				</h2>
+				<h5 class="modal-title" style="color:#fff; text-align: center" >Make sure your personal resume is filled out.</h5>
+			</div>
+			<div class="modal-body">
+				<%= simple_form_for(@interview) do |f| %>
+					<div class="form-group col-xs-12 col-sm-6">
+						<label>Full Name</label>
+						<%= f.input_field :name,class: 'form-control input-lg' , :placeholder => "Full Name", :value => current_user.first_name + ' ' + current_user.last_name  %>
+					</div>
+					<div class="form-group col-xs-12 col-sm-6">
+						<label>Language Spoken</label>
+						<%= f.input_field :job_requirement,class: 'form-control input-lg' , :placeholder => "English" %>
+					</div>
+					<div class="form-group col-xs-12 col-sm-12">
+						<label>Resume Link</label>
+						<%= f.input_field :video_link,class: 'form-control input-lg' , :placeholder => "https://ca.linkedin.com/company/resume-link" %>
+					</div>
+					<!-- Job detail -->
+					<header class="section-header" style="margin-bottom: 10px;">
+						<h4>Cover Letter</h4>
+						<p>Tell us about yourself, past experience, skills, benefits, etc.</p>
+					</header>
+					<%= f.input_field :body, as: :text, rows: 6, :required => true, class: 'form-control' %>
+					<!-- END Job detail -->
+					<!-- Submit -->
+						<header class="section-header" style="margin: 0px;">
+							<span>Are you done? </span>
+							<h4>Submit Application </h4>
+							<p>Please review your information once more and press the below button tosend job application.  </p>
+						</header>
+
+					<%= f.hidden_field :user_id, :value => @employer.user_id %>
+					<%= f.hidden_field :employer_id, :value => @employer.id %>
+					<%= f.hidden_field :employer_name, :value => params[:employername] %>
+					<%= f.hidden_field :employer_title, :value => params[:employertitle] %>
+					<%= hidden_field_tag :student_id,  @user.id %>
+          <%= hidden_field_tag :status,  "pending" %>
+
+					<p class="text-center">
+							<%= f.submit 'Send My Application', :class => "btn btn-primary", :id => "apply-job", data: { confirm: 'Your confirm message' } %>
+					</p>
+					<!-- END Submit -->
+				<% end %>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary btn-fill btn-round" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<style>
+    .modal-header {
+        padding: 15px;
+        border-bottom: 1px solid #e5e5e5;
+        background-color: #1F77D0;
+        -webkit-border-top-left-radius: 5px;
+        -webkit-border-top-right-radius: 5px;
+        -moz-border-radius-topleft: 5px;
+        -moz-border-radius-topright: 5px;
+         border-top-left-radius: 5px;
+         border-top-right-radius: 5px;
+    }
+    .modal-dialog { top: 10%;}
+</style>
+
+ <script>
+     $(document).ready(
+         function() {
+             $("#apply-job").click(function () {
+                 work_flash.flashNotification('top', 'right', "", "You applied the job.")
+             });
+             work_flash = {
+                 flashNotification: function (from, align, key, message) {
+                     $.notify({message: message},
+                         {
+                             type: 'success', timer: 3000, placement: {from: from, align: align}
+                         });
+                 }
+             }
+         });
+ </script>
+

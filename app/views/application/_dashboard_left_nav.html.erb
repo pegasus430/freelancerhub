@@ -1,0 +1,79 @@
+<div class="sidebar" data-color="blue" data-image="assets/sidebar-5.jpg">
+	<div class="sidebar-wrapper">
+		<div class="logo logo-size">
+			<%= link_to image_tag('freelancehub.svg', style: "height: 40px;"  ), root_path, class: "simple-text" %>
+		</div>
+		<ul class="nav">
+			<li class="active1">
+				<%= link_to "/manage" do %><i class="pe-7s-graph"></i>
+          <p>
+            Dashboard
+          </p>
+				<%end %>
+			</li>
+			<li>
+				<%= link_to "/conversations" do %><i class="pe-7s-chat"></i>
+          <p>
+            Conversations
+          </p>
+				<%end %>
+			</li>
+			<li>
+				<%= link_to "/interviews" do %><i class="pe-7s-user"></i> 
+          <% if current_user.is_student? %>
+            <p>
+              Applied Jobs
+            </p>
+          <%else %>
+            <p>
+              Student Applications
+            </p>
+          <% end %>
+        <% end %>
+			</li>
+			<%if current_user.is_employer? %>
+			<li>
+				<%= link_to "/billing" do %><i class="pe-7s-credit"></i>
+				<p>
+					Billing
+				</p>
+				<%end %>
+			</li>
+			<% end %>
+      <% if current_user.is_student? && current_user.student_profile.present? %>
+        <li>
+          <%= link_to "/users/#{current_user.id}/student_profiles/#{current_user.student_profile.slug}" do %><i class="pe-7s-config"></i>
+          <p>
+            Update Your Profile
+          </p>
+          <% end %>
+        </li>
+			<% end %>
+      <% if current_user.is_employer? && current_user.employer_profile.present? %>
+        <li>
+          <%= link_to "/users/#{current_user.id}/employer_profiles" do %><i class="pe-7s-portfolio"></i>
+          <p>
+            Company profile
+          </p>
+          <%end %>
+        </li>
+			<%end %>
+      <% if current_user.is_admin? %>
+        <li>
+          <%= link_to "/coupons" do %><i class="pe-7s-next-2"></i>
+            <p>
+              Coupons
+            </p>
+          <% end %>
+            </li>
+      <% end %>
+			<li>
+				<%= link_to "/signout" do %><i class="pe-7s-power"></i>
+				<p>
+					Log off
+				</p>
+				<% end %>
+			</li>
+		</ul>
+	</div>
+</div>

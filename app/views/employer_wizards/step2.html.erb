@@ -1,0 +1,80 @@
+<div class="row">
+	<div class="col-md-10 col-md-offset-1">
+		<div class="card card-wizard" id="wizardCard">
+			<%= form_for @employer_wizard, as: :employer_wizard, url: validate_step_employer_wizards_path(id: params[:id]) , :html => { multipart: true } do |f| %>
+			<div class="header text-center">
+				<h3 class="title"><%= params[:id].present? ? "Edit" : "Create New"%> Job</h3>
+				<p class="category">Fill out these pages to get your job online</p>
+			</div>
+			<% if @employer_wizard.errors.any? %>
+			<div id="error_explanation">
+				<ul>
+					<% @employer_wizard.errors.full_messages.each do |message| %>
+					<li><%= message %></li>
+					<% end %>
+				</ul>
+			</div>
+			<% end %>
+			<%= hidden_field_tag :current_step, 'step2' %>
+			<div class="content">
+				<% if params[:id].present? %>
+				<%= render 'edit_steps' %>
+				<% else %>
+				<ul class="nav nav-pills">
+					<li style="width: 25%;" ><%= link_to "First Tab", step1_employer_wizards_path, style:"background: #23CCEF" %></li>
+					<li class="active" style="width: 25%;" class=""><a style="background: #23CCEF">Second Tab</a></li>
+					<li style="width: 25%;" class=""><a>Third Tab</a></li>
+					<li style="width: 25%;" class=""><a>Forth Tab</a></li>
+				</ul>
+				<% end %>
+				<div class="tab-pane" id="tab2">
+					<h5 class="text-center">Job Details</h5>
+					<div class="row">
+						<div class="col-md-10 col-md-offset-1">
+							<div class="form-group">
+								<label class="control-label">What type of job is it?<star>*</star></label>
+								<div class="form-group">
+									<%= f.select(:state, Employer::STATE_LIST, {}, {class: 'form-control' }) %>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-5 col-md-offset-1">
+							<div class="form-group">
+								<label class="control-label">Work Schedule<star>*</star></label>
+								<%= f.select(:work_schedule, Employer::WORK_SCHEDULE, {}, {class: 'form-control' } ) %>
+							</div>
+						</div>
+						<div class="col-md-5">
+							<div class="form-group">
+								<label class="control-label">Salary</label>
+								<%= f.select(:pay, Employer::PAY_LIST, {}, {class: 'form-control'}) %>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-5 col-md-offset-1">
+							<div class="form-group">
+								<label class="control-label">Job Duration</label>
+								<%= f.select(:job_duration, Employer::MONTH_LIST, {}, {class: 'form-control' }) %>
+							</div>
+						</div>
+						<div class="col-md-5">
+							<div class="form-group">
+								<label class="control-label">Start Date</label>
+								<%= f.text_field :start_date, :class => "form-control", :placeholder => "Start Date", :required => true %>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- tab -->
+			</div>
+			<!-- content -->
+			<div class="footer">
+				<%= f.submit 'Next' , class: "btn btn-primary btn-fill btn-round btn-wd btn-next pull-right" , style: "display: block; margin-right:5px; margin-top: -33px;"%>
+			</div>
+			<% end %>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,19 @@
+<li class="col-md-12 notification-li" style="border-bottom: 1px solid rgba(160, 160, 160, 0.29); padding: 0;">
+  <% @conversation = notification.notifiable %>
+  <% if @conversation && @conversation.receiver_id == current_user.id %>
+      <% name =  @conversation.author.first_name rescue nil %>
+  <% else %>
+      <% name =  @conversation.receiver.first_name rescue nil %>
+  <% end %>
+  <% if notification.notifiable_type == "Conversation" %>
+      <a href="/conversations/<%= @conversation.id rescue nil %>">
+        New message from <%= name %>'s chat
+        <div class="notification-date" style="font-size: 10px;"><%= distance_of_time_in_words(notification.created_at, DateTime.now)%> ago</div>
+      </a>
+  <% else %>
+      <a href="/interviews">
+        <%= name %> Designer applied your job
+        <div class="notification-date" style="font-size: 10px;"><%= distance_of_time_in_words(notification.created_at, DateTime.now)%> ago</div>
+      </a>
+  <% end %>
+</li>

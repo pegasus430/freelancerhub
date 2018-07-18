@@ -1,0 +1,212 @@
+<div class="row">
+	<%= form_for(@employer, :html => { multipart: true }) do |f| %>
+	<div class="col-md-10 col-md-offset-1">
+		<div class="card card-wizard" id="wizardCard">
+			<form id="wizardForm" method="" action="" novalidate="novalidate">
+				<div class="header text-center">
+					<h3 class="title">Create New Job</h3>
+					<p class="category">Fill out these pages to get your job online</p>
+				</div>
+				<div class="content">
+					<ul class="nav nav-pills">
+						<li class="active" style="width: 25%;"><a href="#tab1" data-toggle="tab" aria-expanded="true">First Tab</a></li>
+						<li style="width: 25%;" class=""><a href="#tab2" data-toggle="tab" aria-expanded="false">Second Tab</a></li>
+						<li style="width: 25%;" class=""><a href="#tab3" data-toggle="tab" aria-expanded="false">Third Tab</a></li>
+						<li style="width: 25%;" class=""><a href="#tab4" data-toggle="tab" aria-expanded="false">Forth Tab</a></li>
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane active" id="tab1">
+							<h5 class="text-center">Job Details</h5>
+							<div class="row">
+								<div class="col-md-10 col-md-offset-1">
+									<div class="form-group">
+										<label class="control-label">Job Title<star>*</star></label>
+										<% title_placeholder = (session[:language] == "french") ? "Titre D'emploi" : "Job Title" %>
+										<%= f.text_field :title , class: 'form-control input', placeholder: title_placeholder, required: true %>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-10 col-md-offset-1">
+									<div class="form-group">
+										<label class="control-label">Company Name</label>
+										<% name_placeholder = (session[:language] == "french") ? "Nom De Compagnie" : "Company Name" %>
+										<%= f.text_field :name, value: current_user.employer_profile.company_name, class: 'form-control input', placeholder: name_placeholder, required:  true,  readonly: true  %>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-10 col-md-offset-1">
+									<div class="form-group">
+										<label class="control-label">
+											Location
+											<star>*</star>
+										</label>
+										<% name_placeholder = (session[:language] == "french") ? "Ville" : "City" %>
+										<%= f.text_field :city, class: 'form-control input', placeholder: "City", required: true %>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="tab-pane" id="tab2">
+							<h5 class="text-center">Job Details</h5>
+							<div class="row">
+								<div class="col-md-10 col-md-offset-1">
+									<div class="form-group">
+										<label class="control-label">
+											What type of job is it?
+											<star>*</star>
+										</label>
+										<div class="form-group">
+											<%= f.select(:state, Employer::STATE_LIST, {}, {class: 'form-control' }) %>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-5 col-md-offset-1">
+									<div class="form-group">
+										<label class="control-label">
+											Work Schedule
+											<star>*</star>
+										</label>
+										<%= f.select(:work_schedule, Employer::WORK_SCHEDULE, {}, {class: 'form-control' } ) %>
+									</div>
+								</div>
+								<div class="col-md-5">
+									<div class="form-group">
+										<label class="control-label">Salary</label>
+										<%= f.select(:pay, Employer::PAY_LIST, {}, {class: 'form-control'}) %>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-5 col-md-offset-1">
+									<div class="form-group">
+										<label class="control-label">Duration</label>
+										<%= f.select(:job_duration, Employer::MONTH_LIST, {}, {class: 'form-control' }) %>
+									</div>
+								</div>
+								<div class="col-md-5">
+									<div class="form-group">
+										<label class="control-label">Start Date</label>
+										<%= f.text_field :start_date, :class => "form-control", :placeholder => "Start Date", :required => true %>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="tab-pane" id="tab3">
+							<h5 class="text-center">Student Requirements</h5>
+							<div class="row">
+								<div class="col-md-10 col-md-offset-1">
+									<div class="form-group">
+										<label class="control-label">
+											Type of Diploma
+											<star>*</star>
+										</label>
+										<%= f.select(:diploma, Employer::EDUCATION_LIST, {}, {class: 'form-control'}) %>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-10 col-md-offset-1">
+									<div class="form-group">
+										<label class="control-label">
+											Feild Of Study
+											<star>*</star>
+										</label>
+										<%= f.select(:category, Employer::CATEGORY_LIST, {}, {class: 'form-control' }) %>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-10 col-md-offset-1">
+									<div class="form-group">
+										<label class="control-label">Years Of Study</label>
+										<%= f.select(:years_of_experience, Employer::GRADUATED_YEAR, {}, {class: 'form-control'} ) %>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="tab-pane" id="tab4">
+							<h5 class="text-center">Job Description</h5>
+							<div class="row">
+								<div class="col-md-10 col-md-offset-1">
+									<div class="form-group">
+										<div class="panel-group" id="accordion">
+											<div class="panel panel-default">
+												<div class="panel-heading">
+													<h4 class="panel-title">
+														<a data-target="#collapseOne " href="#" data-toggle="collapse" class="collapsed" aria-expanded="false">
+														Job Summary
+														<b class="caret"></b>
+														</a>
+													</h4>
+												</div>
+												<div id="collapseOne" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+													<div class="panel-body">
+														<label class="control-label">Describe the position and its role within the company.</label>
+														<%= f.text_area :long_description, :class => "form-control", :placeholder => "Long Description", :rows => "8", :required => true %>
+													</div>
+												</div>
+											</div>
+											<div class="panel panel-default">
+												<div class="panel-heading">
+													<h4 class="panel-title">
+														<a data-target="#collapseTwo" href="#" data-toggle="collapse" class="collapsed" aria-expanded="false">
+														Responsibilities and Role
+														<b class="caret"></b>
+														</a>
+													</h4>
+												</div>
+												<div id="collapseTwo" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+													<div class="panel-body">
+														<label class="control-label">Describe the responsibilities a student in this position will conduct on a daily basis </label>
+														<%= f.text_area :responsibility, :required => true, :class => "form-control", :placeholder => " Responsibilities", :rows => "8" %>
+													</div>
+												</div>
+											</div>
+											<div class="panel panel-default">
+												<div class="panel-heading">
+													<h4 class="panel-title">
+														<a data-target="#collapseThree" href="#" data-toggle="collapse" class="collapsed" aria-expanded="false">
+														Qualifications and Requirements
+														<b class="caret"></b>
+														</a>
+													</h4>
+												</div>
+												<div id="collapseThree" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+													<div class="panel-body">
+														<label class="control-label">Includs education, past employment experience, and skills required</label>
+														<%= f.text_area :requirement, :class => "form-control", :placeholder => "Requirements", :rows => "8", :required => true %>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="footer">
+					<button type="button" class="btn btn-default btn-fill btn-round btn-wd btn-back pull-left disabled" style="display: none; margin-right:5px">Back</button>
+					<button type="button" class="btn btn-primary btn-fill btn-round btn-wd btn-next pull-right" style="display: block; margin-right:5px">Next</button>
+					<button type="button" class="btn btn-primary btn-fill btn-round btn-wd btn-finish pull-right" onclick="onFinishWizard()" style="display: none; margin-right:5px">Finish</button>
+					<div class="clearfix"></div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<% end %>
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript">
+$( function() {
+   //$('#employer_requirement, #employer_responsibility, #employer_long_description').summernote();
+   $( "#employer_start_date" ).datepicker();
+} );
+
+</script>

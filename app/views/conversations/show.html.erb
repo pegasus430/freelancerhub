@@ -1,0 +1,115 @@
+<link rel="stylesheet" href="/assets/dashboard/chat.css">
+
+<div class="row">
+  <div class="col-md-9">
+    <div id="frame">
+      <div id="sidepanel">
+        <div id="contacts">
+          <%= render 'conversations/conversation' %>
+        </div>
+      </div>
+      <div class="content card">
+        <div class="contact-profile card" style="margin-bottom:0px">
+          <% if @conversation.receiver_id == current_user.id %>
+            <% avatar = @conversation.author.is_student? ? (@conversation.author.student_profile.avatars.first rescue nil) : (@conversation.author.employer_profile.company_logos.first rescue nil) %>
+            <% name =  @conversation.author.first_name %>
+          <% else %>
+            <% avatar = @conversation.receiver.is_student? ? (@conversation.receiver.student_profile.avatars.first rescue nil) : (@conversation.receiver.employer_profile.company_logos.first rescue nil) %>
+            <% name =  @conversation.receiver.first_name %>
+          <% end %>
+          <% if avatar.nil? %>
+            <% image = "http://vvcexpl.com/wordpress/wp-content/uploads/2013/09/profile-default-male.png" %>
+          <% else %>
+            <% image = avatar.url(:small) %>
+          <% end %>
+          <img src="<%=image%>" />
+          <p>Conversation with<%= name %></p>
+        </div>
+        <div class="messages">
+          <div id="conversation-main">
+            <div id="conversation-body" class="chat clearfix" data-conversation-id="<%= @conversation.id %>">
+            <%= render partial: 'personal_messages/personal_message', collection: @conversation.personal_messages, locals: {personal_message: :personal_mesage, user: current_user} %>
+            </div>
+          </div>
+        </div>
+        <div class="message-input">
+          <%= form_for @personal_message, url: '#', html: {class: 'async-conversation'} do |f| %>
+            <div class="wrap">
+              <%= hidden_field_tag 'conversation_id', @conversation.id %>
+              <input name="user_id" type="hidden" value="<%= current_user.id %>">
+              <%= f.text_field :body, :class => " message-field", :rows => "3", :placeholder => "Start chatting!" %>
+              <button class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="col-12">
+      <% if current_user.is_employer? %>
+        <a class="btn btn-block btn-success btn-fill" style="margin-bottom: 12px; box-shadow:4px 5px 9px #cecece;" data-toggle="modal" data-target="#selectJob" href="javascript:void(0)">Hire Now</a>
+      <% end %>
+      <button data-toggle="modal" data-target="#squarespaceModal" class='btn btn-block btn-primary btn-fill' style="margin-bottom: 12px; box-shadow: 4px 5px 9px #cecece;" onClick='document.getElementById("ifr").src="https://opentok-meet.herokuapp.com/<%=params[:id]%>";'><i class="fa fa-video-camera"></i>
+        Start Video Interview</button>
+    </div>
+    <div class="card" id="side-card">
+      <h4 id="conversation-title" ></h4>
+      <%= render partial: "photos/form", locals: {photo: Photo.new} %>
+      <table class="col-md-12 table table-hover" style="word-break: break-all;">
+        <thead>
+          <tr>
+            <th style="padding-top:23px;text-align:center">Shared Files</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @conversation.photos.each do |photo| %>
+            <tr>
+              <td><a href="<%= photo.image.try(:url) %>" target="_blank"> <%=photo.image.id rescue nil %> </a></td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<% if current_user && current_user.is_employer? %>
+  <%= render "select_job" %>
+<% end %>
+
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+    $( function() {
+      /*Submit on keypress*/
+      $('#personal_message_body').keyup(function(event){
+        if (event.keyCode == 13 && event.shiftKey == 0) {
+          $('#new_personal_message').submit()
+        }
+      });
+      $( "#draggable" ).draggable();
+        msgScroll();
+    });
+
+    $("#miguel").click(function(){
+      var iframe = $("#myiFrame");
+      iframe.attr("src", iframe.data("src"));
+    });
+  </script>
+
+<style>
+  #conversation-title {
+    font-family: inherit;
+    color:white;
+    font-size:15px;
+    font-weight: 700;
+    text-align: center;
+    background:#b1b1b1;
+    border-top-right-radius: 4px;
+  }
+  #side-card {
+    border-left:3px solid #3472F7;
+  }
+</style>
+
+<%= render 'interview.modal' %>

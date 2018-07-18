@@ -1,0 +1,61 @@
+<!-- Modal -->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+	<div class="modal-dialog" role="document" style="margin-top: 200px">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="col-sm-6">
+					<h3 class="modal-title" id="exampleModalLongTitle">Payment Details</h3>
+				</div>
+				<div class="col-sm-6">
+					<img class="img-responsive pull-right" src="http://i76.imgup.net/accepted_c22e0.png">   
+				</div>
+			</div>
+			<div class="modal-body">
+				<%= form_tag card_path, method: :put, id: "payment-form" do %>
+				<fieldset>
+					<div class="form-group">
+						<div class="col-sm-12">
+							<label class="control-label">CARD NUMBER</label>
+							<input type="tel" class="form-control" name="cardNumber" placeholder="Valid Card Number" autocomplete="cc-number" data-stripe="number">
+						</div>
+					</div>
+				</fieldset>
+				<fieldset>
+					<div class="form-group">
+						<div class="col-sm-4">
+							<label class="control-label">EXP MONTH</label>
+							<input type="tel" class="form-control" name="cardExpiry" placeholder="MM " autocomplete="cc-exp" data-stripe="exp-month">
+						</div>
+						<div class="col-sm-4">
+							<label class="control-label">EXP YEAR</label>
+							<input type="tel" class="form-control" name="cardExpiry" placeholder="YYYY" autocomplete="cc-exp" data-stripe="exp-year">
+						</div>
+						<div class="col-sm-4">
+							<label class="control-label">CVV</label>
+							<input type="tel" class="form-control" name="cardCVC" placeholder="CVC" autocomplete="cc-csc" data-stripe="cvc">
+						</div>
+					</div>
+			</div>
+			</fieldset>
+			<div class="modal-footer">
+				<div class="row">
+					<div class="col-md-6 col-md-offset-3">
+						<div class="form-group">
+							<div class="text-center">
+								<div>
+									<div class="col-md-6">
+										<button type="submit" class="btn btn-primary btn-fill btn-round" >Submit</button>
+									</div>
+									<div class="col-md-6">
+										<%= link_to "Cancel my account", subscription_path, data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-danger btn-fill btn-round" %>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<% end %>
+		</div>
+	</div>
+</div>

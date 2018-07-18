@@ -1,0 +1,85 @@
+<div  id="post_<%= education.id %>">
+  <div class="col-xs-12">
+    <div class="card" style="padding: 10px;">
+      <div class="title">
+        <h5><%= education.degree_type %><small> - <%= education.degree %></small></h5>
+      </div>
+      <div class="item-block">
+        <p><%= education.school_name %></p>
+        <%= link_to 'Delete', education, :class => "btn btn-round btn-fill btn-danger",
+                                         :style => "float:right", method: :delete, data: { confirm: 'Are you sure?' } %>
+      </div>
+      <%= form_for(education) do |f| %>
+        <header class="page-header">
+            <div class="container page-name">
+              <h1 class="text-center">Add educational experience</h1>
+              <p class="lead text-center">Update your profile with your education.</p>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="col-xs-12">
+                  <div class="item-block">
+                    <div class="item-form">
+                      <div class="row">
+                        <div class="col-xs-12 col-sm-4">
+                          <div class="form-group">
+                            <center><img src="https://image.flaticon.com/icons/svg/167/167707.svg" style="width:150px"> </center>
+                          </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-8">
+                          <div class="form-group">
+                            <%= f.text_field :degree_type, :class => "form-control", :placeholder => "Degree, e.g. Bachelor", :required => true %>
+                          </div>
+                          <div class="form-group">
+                            <%= f.text_field :degree_major, :class => "form-control", :placeholder => "Major, e.g. Computer Science", :required => true %>
+                          </div>
+                          <div class="form-group">
+                            <%= f.text_field :school_name, :class => "form-control", :placeholder => "School Name", :required => true %>
+                          </div>
+                          <div class="form-group">
+                            <%= f.text_area :description, :class => "form-control", :placeholder => "Description", :required => true  %>
+                          </div>
+                          <div class="form-group">
+                            <div class="input-group">
+                              <span class="input-group-addon">Duration</span>
+                              <%#= f.datetime_select :date_from %>
+                              <%#= f.text_field :date_start, :class => "form-control", :placeholder => "Start Date", :required => true %>
+                              <%= select_tag :month, options_for_select(MONTH_NAMES),  :class => "form-control", :placeholder => "Start Date", :required => true %>
+                              <%#= f.select(:category, Employer::CATEGORY_LIST) %>
+                              <span class="input-group-addon">Date to</span>
+                              <%#= f.datetime_select :date_to %>
+                              <%= f.text_field :date_end, :class => "form-control", :placeholder => "Start Date", :required => true %>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="button-group">
+                <div class="action-buttons">
+                  <div class="upload-button">
+                    <%= f.hidden_field :user_id, :value => current_user.id %>
+                    <%= f.submit "Submit", :class => "btn btn-block btn-primary" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </header>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<%= render 'layouts/footer' %>
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script>
+  $( function() {
+    $( "#education_date_start, #education_date_end").datepicker();
+  } );
+</script>

@@ -1,0 +1,136 @@
+<% if current_user.is_employer? %>
+	<div class="row pull-right btn-dashboard">
+		<% if user_signed_in? %> 
+			<% if current_user.is_employer? %>
+				<% if current_user_subscribed? %>
+					<a class="btn btn-round btn-primary btn-fill pull-right" href="/employers/new">
+            <i class="fa fa-plus" style="margin-right:10px"></i>Add new job
+          </a>
+					<% else %> 
+					<div>
+            <%= link_to "Subscribe", new_subscription_path, class: "btn btn-round btn-success btn-fill pull-right" %>
+          </div>
+				<% end %>
+			<% else %>
+				<% if current_user.student_profile.blank? %>s
+					<a class="btn btn-round btn-primary btn-fill pull-right" href="/users/<%=current_user.id%>/student_profiles/new" style="background:red; border:none">Create Resume</a>
+					<button type="button" id="disabledprofile" onclick="toggleTable();" class="btn btn-round btn-primary btn-fill disabled">Update Resume First</button>
+				<% else %> 
+					<a class="btn btn-round btn-primary btn-fill pull-right" href="/users/<%=current_user.id%>/student_profiles/<%=current_user.student_profile.slug%>/edit">
+						Update Resume
+					</a>
+					<a class="btn btn-round btn-warning btn-fill pull-right" href="/students/new">Create Student Ad </a>
+				<% end %>
+			<% end %>
+		<% end %>
+	</div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card ">
+					<div class="header" id="header1" >
+						<h4 class="title">Current Jobs</h4>
+						<p class="category">Jobs currently listed on the browser</p>
+					</div>
+					<div class="content">
+						<div class="table-full-width">
+							<table class="table">
+								<thead>
+									<tr>
+										<th class="col-sm-5">Job Name</th>
+										<th class="col-sm-2" style="padding-right:10px">Applicants</th>
+										<th class="col-sm-1" style="padding-right:10px">Status</th>
+										<th class="col-sm-2 text-right" style="padding-right:22px">Options</th>
+									</tr>
+								</thead>
+								<tbody>
+									<% @employer_current_jobs.each do |employer| %>
+									<tr>
+										<td>
+											<h4><a href="/employers/<%= employer.id %>"><%= employer.title %> </a></h4>
+											<p> <time datetime="2016-03-10 20:00"><%= distance_of_time_in_words(employer.created_at, DateTime.now)%> ago</time></p>
+										</td>
+										<td>
+											<a href="/interviews/job_filter?&select_job=<%=employer.id%>"><%= employer.applications.count%></a>
+										</td>
+										<td>
+											<a><%= employer.employer_status%></a>
+										</td>
+										<td>
+											<div class="nav navbar navbar-right" id="navbar-center">
+												<li class="dropdown">
+													<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+													<i class="pe-7s-more" style="font-size: 30px;"></i>
+													</a>
+													<ul class="dropdown-menu">
+														<li><%= link_to 'Edit', edit_employer_path(employer) %></li>
+														<li><%= link_to 'Delete', employer, method: :delete, data: { confirm: 'Are you sure?' }%></li>
+														<li><a href="/interviews/job_filter?&select_job=<%=employer.id%>">See Applicants</a></li>
+													</ul>
+												</li>
+												<li class="separator hidden-lg hidden-md"></li>
+											</div>
+										</td>
+									</tr>
+									<% end %>        
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<% unless @employer_previous_jobs.empty? %>      
+		<div class="row col-md-6">
+			<div class="col-md-10">
+				<div class="card ">
+					<div class="header">
+						<h4 class="title">Previous Jobs</h4>
+						<p class="category">Jobs you have previously posted</p>
+					</div>
+					<div class="content">
+						<div class="table-full-width">
+							<table class="table">
+								<thead>
+									<tr>
+										<th class="col-sm-5">Job</th>
+										<th class="col-sm-2 text-right" style="padding-right:22px">Options</th>
+									</tr>
+								</thead>
+								<tbody>
+									<% @employer_previous_jobs.each do |employer| %>
+									<tr>
+										<td>
+											<h4> <a href="/employers/<%= employer.id %>"><%= employer.title %> </a> </h4>
+											<p> <time datetime="2016-03-10 20:00"><%= distance_of_time_in_words(employer.created_at, DateTime.now)%> ago</time></p>
+										</td>
+										<td>
+											<div class="nav navbar navbar-right" id="navbar-center">
+												<li class="dropdown">
+													<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+													<i class="pe-7s-more" style="font-size: 30px;"></i>
+													</a>
+													<ul class="dropdown-menu">
+														<li><a href="#">Clone</a></li>
+														<li><%= link_to 'Delete', employer, method: :delete, data: { confirm: 'Are you sure?' }%></li>
+														<li><a href="#">See Applicants</a></li>
+													</ul>
+												</li>
+												<li class="separator hidden-lg hidden-md"></li>
+											</div>
+										</td>
+									</tr>
+									<% end %>        
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6"></div>
+		</div>
+		<% end %>
+	</div>
+<% else %>
+	<%= render 'student_layout' %>
+<% end %>

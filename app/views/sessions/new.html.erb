@@ -1,0 +1,31 @@
+<div class="field">
+</div>
+<div class="field">
+</div>
+<div class="actions">
+</div>
+<body class="login-page">
+	<main>
+		<div class="login-block">
+			<img src="<%= asset_path 'freelancerhub_login_icon' %>" style="width:75%" alt="">
+			<h1 style="margin-bottom: 10px; font-size: 30px;">
+        Welcome Back to FreelanceHub</h1>
+			<p style="color: #96a2b2; margin-bottom:50px">Sign in to continue to your account.</p>
+			<%= form_for(:session) do |f| %>
+			<div class="form-group">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+					<%= f.email_field :email, :placeholder => "Email", autofocus: true, :class => "form-control" %>
+				</div>
+			</div>
+			<hr class="hr-xs">
+			<div class="form-group">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="fa fa-chain"></i></span>
+  					<%= f.password_field :password, :placeholder => "Password",  autocomplete: "off", :class => "form-control" %>
+				</div>
+			</div>
+  			<%= f.submit "Login", :class => "btn btn-primary btn-block" %>
+			<% end %>
+		</div>
+	</main>

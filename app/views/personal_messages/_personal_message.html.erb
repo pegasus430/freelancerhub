@@ -1,0 +1,46 @@
+
+<!-- <div class="bubble you animated slideInUp">
+     
+    <%# if personal_message.user.id == current_user.id %>
+      <p class="sender" style="width: 75% ">
+          <%#= personal_message.body %>
+      </p>
+    <%# else %>
+         <p class="receiver" style="width: 75%;">
+          <%#= personal_message.body %>
+         </p> 
+    <%# end %>
+   
+</div> -->
+
+
+<!-- old code -->
+ <div class="bubble1 you animated slideInUp">
+        
+   <% logged_user = (personal_message.user.id == user.id) rescue false %>
+   <% if personal_message.user.is_student? %>
+      <% avatar =  personal_message.user.student_profile.avatars.first rescue nil %>
+    <% else %>
+      <% avatar =  personal_message.user.employer_profile.company_logos.first rescue nil %>
+    <% end %>
+   <% if avatar.nil? %>
+       <% image = "http://vvcexpl.com/wordpress/wp-content/uploads/2013/09/profile-default-male.png" %>
+   <% else %>
+       <% image = avatar.url(:small) %>
+   <% end %>
+
+    <% if logged_user %>
+      <div class="bubble you" style="width: 75%">
+        <img src="<%=image%>" />
+        <p><%= raw personal_message.body %> </p>
+       </div>
+      <% else %>
+       <div class="bubble me" style="width: 75%">
+        <img src="<%=image%>" />
+         <p><%= raw personal_message.body %> </p>
+        </div>
+   <% end %>
+
+
+</div>
+

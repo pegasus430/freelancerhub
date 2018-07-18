@@ -1,0 +1,130 @@
+<script src="jquery.tagsinput.js"></script>
+<link rel="stylesheet" type="text/css" href="jquery.tagsinput.css" />
+
+<style>
+  select {
+    width: 100%;
+    border-color: #a6ef5c;
+    padding: 5px;
+    color: black;
+  }
+  #student_student_status {
+      width: 10%;
+  }
+</style>
+
+<%= form_for(@student) do |f| %>
+  <% if @student.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@student.errors.count, "error") %> prohibited this student from being saved:</h2>
+      <ul>
+        <% @student.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+      <div class="card">
+        <div class="header">
+          <h4> Edit Your Ad </h4>
+          <p class="category"> This ad will be featured in the resume section of FreelanceHub and be viewed by all companies. Keep it updated!<% end %></p>
+        </div>
+        <div class="content">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label> First Name </label>
+                <%= f.text_field :name, :class => "form-control", :placeholder => "Nom Complet", :value => current_user.first_name, :required => true %>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label> Studies </label>
+                <%= f.text_field :title, :class => "form-control", :placeholder => " e.g. Marketing Cordinator ", :required => true %>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label> Select Your Education Discipline </label>
+              <div class="form-group">
+                <%= f.select(:category, Student::CATEGORY_LIST) %>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label> Short Description About yourself </label>
+                <%= f.text_area :description, :class => "form-control", :placeholder => "Description", :required => true %>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <label> Location </label>
+              <div class="form-group">
+                <%= f.text_field :city, :class => "form-control", :placeholder => "City", :required => true %>
+              </div>
+              <div class="form-group">
+                <%= f.text_field :country, :class => "form-control", :placeholder => "Country", :required => true %>
+              </div>
+            </div>
+            <div class="col-md-8">
+              <label>EXPERTISE & SKILLS LIST </label>
+              <div class="form-group">
+                <div id="badge">
+                  <div class="tagsinput-add"></div>
+                  <%= f.text_field :tag_list, value: @student.tag_list.join(","), "data-role": "tagsinput", class: "tagsinput" %>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="button-group pull-right">
+                <div class="action-buttons">
+                  <%= f.hidden_field :user_id, :value => current_user.id %>
+                  <%= f.hidden_field :student_status, :value => "Not Filled" %>
+                  <p class="text-center"><%= f.submit :class => "btn btn-primary btn-xl btn-fill btn-round"%></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<%# end %>
+
+<script>
+	$(selector).tagsInput({
+    'autocomplete_url': url_to_autocomplete_api,
+    'autocomplete': { option: value, option: value},
+    'height':'100px',
+    'width':'300px',
+    'interactive':true,
+    'defaultText':'add a tag',
+    'onAddTag':callback_function,
+    'onRemoveTag':callback_function,
+    'onChange' : callback_function,
+    'delimiter': [',',';'],   // Or a string with a single delimiter. Ex: ';'
+    'removeWithBackspace' : true,
+    'minChars' : 0,
+    'maxChars' : 0, // if not provided there is no limit
+    'placeholderColor' : '#666666'
+  });
+
+  $('#tags').tagsInput();
+</script>
+
+<script type="text/javascript">
+  $(document).on('keypress', function(e){
+    if(e.which == 13) {
+      e.preventDefault();
+    }
+  });
+</script>
+
+
+
+  
+

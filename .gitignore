@@ -1,0 +1,17 @@
+/.bundle
+/db/*.sqlite3
+/db/*.sqlite3-journal
+/log/*.log
+/tmp
+
+.idea/
+*.iml
+*.ipr
+*.iws
+.byebug_history
+/public/assets/**
+
+config/database.yml
+config/application.yml
+
+bin/*

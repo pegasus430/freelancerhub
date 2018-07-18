@@ -1,0 +1,2 @@
+json.extract! student_profile, :id, :user_id, :slug, :eduction, :text, :location, :website.string, :age, :phone, :facebook, :linkedin, :twitter, :instagram, :created_at, :updated_at
+json.url student_profile_url(student_profile, format: :json)

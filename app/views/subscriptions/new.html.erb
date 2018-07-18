@@ -1,0 +1,105 @@
+<div class="container-fluid">
+   <% if @coupon.present? %>
+    <div class="row">
+      <div class="col-md-8 col-md-offset-1 ">
+        <div class="card">
+          <div class="content" style="color: #8a6d3b; background-color: #fcf8e3; border-color: #faebcc">
+            <% if @coupon.coupon_validate_end_date.present? %>
+               Your <%=  @coupon.coupon.coupon_type %> is expired at <%= full_date @coupon.coupon_validate_end_date %>
+            <% else %>
+               Your <%=  @coupon.coupon.coupon_type %> is activated
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+   <% end %>
+	<div class="row">
+		<div class="col-md-4 col-md-offset-1 ">
+			<div class="card">
+				<div class="header text-center">
+					<h4>Subscription Package</h4>
+					<hr>
+				</div>
+				<div class="row">
+					<div class="content">
+						<div class="col-sm-12">
+							<div class="form-group text-center">
+								<div class="price-group">
+									<h4><sup>$</sup>9</h4>
+									<span>per month</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="content">
+						<div class="col-sm-12">
+							<div class="form-group text-center">
+								<p><strong>Unlimited</strong> job posting per year </p>
+								<p><strong>40 days</strong> job listing duration </p>
+								<p><strong>✓</strong> Communicate with Candidates</p>
+								<p><strong>✓</strong> Invite Designers to Jobs </p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="form-group">
+							<div class=" text-center">
+								<button type="button" class="btn btn-primary btn-round btn-fill" data-toggle="modal" data-target="#monthlyPlanModal">Purchase</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4 col-md-offset-1 ">
+			<div class="card">
+				<div class="header text-center">
+					<h4>Single Ad</h4>
+					<hr>
+				</div>
+				<div class="row">
+					<div class="content">
+						<div class="col-sm-12">
+							<div class="form-group text-center">
+								<div class="price-group">
+									<h4><sup>$</sup>57</h4>
+									<span>one time</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="content">
+						<div class="col-sm-12 text-center">
+							<div class="form-group">
+								<p><strong>40 days</strong> job listing duration </p>
+								<p><strong> ✓</strong> Communicate with Candidates</p>
+								<p><strong> ✓</strong> Invite Designers to Jobs </p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="form-group">
+							<div class=" text-center">
+								<button type="button" class="btn btn-primary btn-round btn-fill" data-toggle="modal" data-target="#yearlyPlanModal">Purchase</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<% content_for :model_box do %>
+<%= render 'new_card_model' %>
+<% end %> 
+
+

@@ -1,0 +1,6 @@
+<%= form_for(PersonalMessage.new) do |f| %>
+  <%= f.text_area :body, placeholder: 'type...', class: "message-input commentarea chatboxtextarea", :autofocus => true, :value => "Hey you should work for me!" %>
+  <%= hidden_field_tag 'receiver', @receiver.id %>
+  <%= hidden_field_tag :conversation_id, params[:id] || session[:conversation_id] %>
+  <%= f.submit ' ', class: "message-submit "%>
+<% end %>

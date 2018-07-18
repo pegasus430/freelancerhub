@@ -1,0 +1,194 @@
+<!-- Site header -->
+<header class="page-header bg-img size-lg" style="background-image: url(<%= asset_path 'pricing' %> )">
+	<div class="container no-shadow col-md-8" style="float:none">
+		<h1 class="text-center">Pricing Tables</h1>
+		<p class="lead text-center">We've got an awesome pricing table and package selection</p>
+	</div>
+</header>
+<!-- END Site header -->
+<!-- Main container -->
+</main>
+<section>
+	
+	<div class="container">
+		<div id="exTab2" class="container">
+			<div class="col-md-12 col-md-offset-2 text-center" style="float:none">
+				<ul class="nav nav-tabs text-center">
+					
+					<li class="active" style=" width: 330px;">
+						<a  href="#1" data-toggle="tab">Employer Pricing</a>
+					</li>
+					<li style="width: 330px;"><a href="#2" data-toggle="tab">Freelancer Pricing </a>
+					</li>
+				</ul>
+			</div>
+			<div class="tab-content ">
+				<div class="tab-pane active" id="1">
+					<div id="generic_price_table">
+						<section>
+							<div class="container">
+								<!--BLOCK ROW START-->
+								<div class="row">
+									<div class="col-md-4 col-md-offset-1">
+										<!--PRICE CONTENT START-->
+										<div class="generic_content clearfix" style="border: 1px solid #eee;">
+											<!--HEAD PRICE DETAIL START-->
+											<div class="generic_head_price clearfix">
+												<!--HEAD CONTENT START-->
+												<div class="generic_head_content clearfix">
+													<!--HEAD START-->
+													<div class="head_bg"></div>
+													<div class="head">
+														<span>Single Ad</span>
+													</div>
+													<!--//HEAD END -->   
+												</div>
+												<!--//HEAD CONTENT END-->
+												<!--PRICE START-->
+												<div class="generic_price_tag clearfix">	
+													<span class="price">
+													<span class="sign">$</span>
+													<span class="currency">57</span>
+													<span class="cent">.99</span>
+													</span>
+												</div>
+												<!--//PRICE END-->
+											</div>
+											<!--FEATURE LIST START-->
+											<div class="generic_feature_list">
+												<ul>
+													<li><span>40</span> Days Listing</li>
+													<li><span>✓</span> Communicate with Candidates</li>
+													<li><span>✓</span> Invite Freelancers to Jobs</li>
+												</ul>
+											</div>
+											<!--//FEATURE LIST END-->
+											<!--BUTTON START-->
+											<div class="generic_price_btn clearfix">
+												<% if user_signed_in? %> 
+												<a href="/billing">Purchase</a>
+												<% else %> 
+												<a href="/employersignup"> Sign Up </a>
+												<% end %>
+											</div>
+											<!--//BUTTON END-->
+										</div>
+										<!--//PRICE CONTENT END-->
+									</div>
+									<div class="col-md-4 col-md-offset-2">
+										<!--PRICE CONTENT START-->
+										<div class="generic_content active clearfix" style="border: 1px solid #eee;">
+											<!--HEAD PRICE DETAIL START-->
+											<div class="generic_head_price clearfix">
+												<!--HEAD CONTENT START-->
+												<div class="generic_head_content clearfix">
+													<!--HEAD START-->
+													<div class="head_bg"></div>
+													<div class="head">
+														<span>Standard Package</span>
+													</div>
+												</div>
+												<!--//HEAD CONTENT END-->
+												<!--PRICE START-->
+												<div class="generic_price_tag clearfix">	
+													<span class="price">
+													<span class="sign">$</span>
+													<span class="currency">9</span>
+													<span class="cent">.99</span>
+													<span class="month">/MON</span>
+													</span>
+												</div>
+												<!--//PRICE END-->
+											</div>
+											<!--//HEAD PRICE DETAIL END-->
+											<!--FEATURE LIST START-->
+											<div class="generic_feature_list">
+												<ul>
+													<li><span>Unlimited</span> Job Posting Per Year</li>
+													<li><span>40</span> Day Lisiting</li>
+													<li><span>✓</span> Communicate with Candidates</li>
+													<li><span>✓</span> Invite Freelancers to Jobs</li>
+												</ul>
+											</div>
+											<!--//FEATURE LIST END-->
+											<!--BUTTON START-->
+											<div class="generic_price_btn clearfix">
+												<% if user_signed_in? %> 
+												<a href="/billing">Sign Up</a>
+												<% else %> 
+												<a href="/employersignup"> Sign Up </a>
+												<% end %> 
+											</div>
+											<!--//BUTTON END-->
+										</div>
+										<!--//PRICE CONTENT END-->
+									</div>
+								</div>
+								<!--//BLOCK ROW END-->
+							</div>
+						</section>
+					</div>
+				</div>
+				<div class="tab-pane" id="2">
+					<div id="generic_price_table">
+						<section>
+							<div class="container">
+								<!--BLOCK ROW START-->
+								<div class="row">
+									<div class="col-md-4 col-md-offset-3">
+										<!--PRICE CONTENT START-->
+										<div class="generic_content active clearfix" style="border: 1px solid #eee;">
+											<!--HEAD PRICE DETAIL START-->
+											<div class="generic_head_price clearfix">
+												<!--HEAD CONTENT START-->
+												<div class="generic_head_content clearfix">
+													<!--HEAD START-->
+													<div class="head_bg"></div>
+													<div class="head">
+														<span>Student Package </span>
+													</div>
+													<!--//HEAD END -->                     
+												</div>
+												<!--//HEAD CONTENT END-->
+												<!--PRICE START-->
+												<div class="generic_price_tag clearfix">	
+													<span class="price">
+													<span class="sign">$</span>
+													<span class="currency">0</span>
+													</span>
+												</div>
+												<!--//PRICE END-->
+											</div>
+											<!--FEATURE LIST START-->
+											<div class="generic_feature_list">
+												<ul>
+													<li><span>1</span> Lifetime Resume</li>
+													<li><span>1</span> Published Ad</li>
+													<li><span>60</span>Day Listing </li>
+												</ul>
+											</div>
+											<!--//FEATURE LIST END-->
+											<!--BUTTON START-->
+											<div class="generic_price_btn clearfix">
+												<% if user_signed_in? %> 
+												<a href="/manage"> It's Free for You!</a>
+												<% else %> 
+												<a href="/employersignup"> Sign Up</a>
+												<% end %> 
+											</div>
+											<!--//BUTTON END-->
+										</div>
+										<!--//PRICE CONTENT END-->
+									</div>
+								</div>
+								<!--//BLOCK ROW END-->
+							</div>
+						</section>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- END Three types -->
+</main>

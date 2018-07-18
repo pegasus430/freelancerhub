@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Personal Messages</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Body</th>
+      <th>Conversation</th>
+      <th>User</th>
+      <th>Position</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @personal_messages.each do |personal_message| %>
+      <tr>
+        <td><%= personal_message.body %></td>
+        <td><%= personal_message.conversation_id %></td>
+        <td><%= personal_message.user_id %></td>
+        <td><%= personal_message.position %></td>
+        <td><%= link_to 'Show', personal_message %></td>
+        <td><%= link_to 'Edit', edit_personal_message_path(personal_message) %></td>
+        <td><%= link_to 'Destroy', personal_message, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Personal Message', new_personal_message_path %>

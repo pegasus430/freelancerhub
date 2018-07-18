@@ -1,0 +1,5 @@
+<% if current_user.is_student == true %> 
+  <%= render 'updatestudentuseraccount' %> 
+<% else %>
+  <%= render 'updateemployeruseraccount'%>
+<% end %> 

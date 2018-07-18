@@ -1,0 +1,77 @@
+<nav class="navbar navbar-default navbar-fixed">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="#"><%= current_action(params[:controller]) %></a>
+		</div>
+		<div class="collapse navbar-collapse">
+			<ul class="nav navbar-nav navbar-left">
+				<li>
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						<p class="hidden-lg hidden-md"><%= current_action(params[:controller]) %></p>
+					</a>
+				</li>
+				<% if current_user.is_student? %>
+					<a class="btn btn-round btn-fill btn-success" href="/employers"><i class="fa fa-search"></i>Browse Jobs</a></li>
+				<% else %>
+					<a class="btn btn-round btn-fill btn-primary" href="/employers/new"><i class="fa fa-plus"></i>Add new job</a>
+				<% end %>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+		    <li class="dropdown" data-behavior="notifications" data-notifications='<%= render template: "notifications/index", formats: [:json] %>'>
+		      <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-behavior="notifications-link" aria-haspopup="true" aria-expanded="false">
+		        <i class="fa fa-bell"></i>
+		        <b class="caret hidden-sm "></b>
+		        <span class="notification hidden-sm hidden-xs" data-behavior="unread-count"></span>
+          </a>
+		      <ul class="dropdown-menu" data-behavior="notification-items">
+		        <div>hello</div>
+          </ul>
+        </li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+						<%=current_user.first_name%><%#= current_user.id %>  <%=current_user.last_name%><b class="caret hidden-sm hidden-xs"></b>
+						<ul class="dropdown-menu">
+							<li>
+                <a href="/manage">
+                    Dashboard
+                </a>
+              </li>
+              <li><a href="/conversations">Conversations</a></li>
+              <% if current_user.is_employer == true %>
+                <% if current_user.employer_profile.present? %>
+                  <li>
+                    <a href="/users/<%=current_user.id%>/employer_profiles/<%=current_user.employer_profile.slug%>">
+                      View Company Profile
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/users/<%=current_user.id%>/employer_profiles/<%=current_user.employer_profile.slug%>/edit">
+                      Update Company Profile
+                    </a>
+                  </li>
+                <% else %>
+                  <li>
+                    <a href="/users/<%=current_user.id%>/employer_profiles/new">
+                      View Profile
+                    </a>
+                  </li>
+                <% end %>
+              <% end %>
+              <li>
+                <a href="/updateuserinfo?user_token=<%=current_user.token%>">Update Password</a>
+              </li>
+              <li role="separator" class="divider"></li>
+              <li><%= link_to "Logoff", signout_path, data: { confirm: 'Logout?' } %></li>
+            </ul>
+          </a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>

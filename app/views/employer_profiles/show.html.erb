@@ -1,0 +1,95 @@
+
+<style>
+  .item-block:hover {
+    -webkit-box-shadow: 0 3px 15px 0 rgba(0, 0, 0, .1);
+    box-shadow: 0 3px 15px 0 rgba(0, 0, 0, .1);
+    background: #fff;
+}
+</style>
+<!-- Page header -->
+<header class="page-header bg-img" style="background-image: url( )">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-4 text-center">
+				<% if @employer_profile.company_logos.empty? %>
+				<% if @user.avatar.blank?  %>
+				<%= image_tag @user.avatar.url(:square) %>
+				<% else %>
+				<img src="https://www.timeshighereducation.com/sites/default/files/byline_photos/default-avatar.png">
+				<% end %>
+				<% else %> 
+				<% image = @employer_profile.company_logos.first.url(:original) rescue nil %>
+				<%= image_tag image, width: 300, style: "border-radius:3" if image %>
+				<% end %> 
+			</div>
+			<div class="col-xs-12 col-sm-8 header-detail">
+				<div class="hgroup">
+					<h1><%= @employer_profile.company_name %></h1>
+					<h3><%= @user.education %></h3>
+					<a class="fa fa-print fa-2x" style="position: absolute; right: 0; top: 0; cursor: pointer;transform:translateX(-30px)" onclick="window.print();"></a>
+				</div>
+				<hr>
+				<p class="lead"><%= @employer_profile.company_descripion %> </p>
+				<ul class="details cols-2">
+					<li>
+						<% unless @user.location.blank? %><i class="fa fa-map-marker"></i>
+						<span><%= @user.employer_profile.address %></span><% end %> 
+					</li>
+					<li>
+						<% unless @employer_profile.website.blank? %><i class="fa fa-globe"></i>
+						<% website_url = @employer_profile.website.to_s.gsub("http://", "").to_s.gsub("https://", "") %>
+						<a href="//<%=website_url %> "><%= @user.employer_profile.website %></a><% end %> 
+					</li>
+					<li>
+						<% unless @employer_profile.linkedin.blank? %><i class="fa fa-linkedin"></i>
+						<% linkedin_url = @employer_profile.linkedin.to_s.gsub("http://", "").to_s.gsub("https://", "") %>
+						<span><a target="_blank" href="//<%= linkedin_url %>"> <% if params[:language] == "french" %> Voir Linkedin <% else %> View Linkedin <% end %> </a> </span><% end %> 
+					</li>
+					<li>
+						<% unless @user.employer_profile.address.email.blank? %><i class="fa fa-envelope"></i>
+						<span><%= @user.employer_profile.address.email %></span><% end %> 
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="button-group">
+			<ul class="social-network social-circle">
+				<% website_url   = @employer_profile.website.to_s.gsub("http://", "").to_s.gsub("https://", "") %>
+				<% facebook_url  = @employer_profile.facebook.to_s.gsub("http://", "").to_s.gsub("https://", "") %>
+				<% twitter_url   = @employer_profile.twitter.to_s.gsub("http://", "").to_s.gsub("https://", "") %>
+				<% instagram_url = @employer_profile.instagram.to_s.gsub("http://", "").to_s.gsub("https://", "") %>
+				<% linkedin_url  = @employer_profile.linkedin.to_s.gsub("http://", "").to_s.gsub("https://", "") %>
+				<% unless @employer_profile.website.blank? %>
+                <li><a class="icoRss" href="//<%= website_url %>" title="Rss" target="_blank"><i class="fa fa-globe"></i></a></li>
+                <% end %>
+				<% unless @employer_profile.facebook.blank? %>
+               	<li><a class="icoFacebook" href="//<%= facebook_url %>" title="Facebook" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                <% end %>
+                <% unless @employer_profile.linkedin.blank? %>
+                <li><a class="icoLinkedin" href="//<%= linkedin_url %>" title="Linkedin" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+                <% end %>
+                <% unless @employer_profile.instagram.blank? %>
+               <li><a class="icoInstagram" href="//<%= instagram_url %>" target="_blank"><i class="fa fa-instagram"></i></a></li>
+               <% end %>
+				<% unless @employer_profile.twitter.blank? %>
+				<li><a class="icoTwitter" href="//<%= twitter_url %>" title="Twitter "target="_blank"><i class="fa fa-twitter"></i></a></li>
+				<% end %>
+
+			</ul>
+			<div class="action-buttons">
+				<% if user_signed_in? %> 
+				<% if current_user.id == @user.id %>
+				<a type="button" class="btn btn-danger" href="/users/<%= @user.id %>/employer_profiles/<%= @user.employer_profile.slug %>/edit"> <% if params[:language] == "french" %>Modifier Votre Profil <% else %>  Edit Profile <% end %> </a>
+				<% else %>
+				<% end %>
+				<% else %>
+				<button type="button" class="btn btn-danger" disabled>You must subscribe to contact this student </button>
+				<%= link_to "Subscribe", new_subscription_path, class: "btn btn-primary" %>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</header>
+<!-- END Page header -->
+<%= render 'vacancies' %>
+<%= render 'layouts/footer' %>

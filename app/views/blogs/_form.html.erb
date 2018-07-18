@@ -1,0 +1,44 @@
+<style>
+  .btn{
+    color:black;
+  }
+  input{
+    width:100%;
+    height: 50px;
+  }
+</style>
+
+<main class="page-header" style="margin: 0;">
+  <div class="container page-name">
+    <h1 class="text-center">Create Blog Post</h1>
+    <p class="lead text-center">Write stuff...</p>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12">
+        <%= simple_form_for ([@blog]) do |f| %>
+        <div class="form-group">
+          <%= f.input :title, :class => "form-control"  %>
+        </div>
+        <div class="form-group">
+          <%= f.input :author, :class => "form-control " %>
+        </div>
+        <div class="form-group">
+          <label class="string optional"> Short Description</label>
+          <%= f.text_area :short_description, :class => "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.input :description, as: :summernote%>
+        </div>
+        <%= f.submit %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</main>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#blog_description').summernote();
+  });
+</script>

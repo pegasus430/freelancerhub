@@ -1,0 +1,44 @@
+
+<style type="text/css">
+    .table tbody tr td{
+        font-size: 15px;
+    }
+</style>
+
+<div class="col-md-12">
+	<div class="card ">
+		<div class="header">
+			<h4><%= @student_applied_jobs.count  %> Submitted Proposals</h4>
+		</div>
+		<div class="content">
+			<div class="table-full-width">
+				<table class="table">
+					<tbody>
+						<% @student_applied_jobs.each do |job| %>
+						<tr>
+							<td width="15%">
+        						<% avatar = job.user.employer_profile.company_logos.first rescue nil  %>
+								<% if avatar.nil?  %>
+								<img src="http://web.bestchamber.com/external/WCPages/wcmedia/images/smallbusiness_481141613.png" alt="" height="50" width="50" class="img-circle pull-left">
+								<% else %>
+								<%=image_tag avatar.url(:small),  height:"50", width: "50", class: "img-circle pull-left" %>
+								<% end %>
+							</td>
+							<td width="75%">
+								<h4><%= link_to job.title, user_employer_path(job.user_id, job.id) %></h4>
+								<%= raw job.name  %>
+								<div style="color:gray; margin-top: 10px"><time><%= distance_of_time_in_words(job.interviews.first.created_at, DateTime.now)%> ago</time></div>
+							</td>
+							<td width="10%" class="td-actions text-right">
+								<button type="button" rel="tooltip" title="" class="btn btn-danger btn-simple btn-xs" data-original-title="Remove">
+								<i class="fa fa-times"></i>
+								</button>
+							</td>
+						</tr>
+						<% end %>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

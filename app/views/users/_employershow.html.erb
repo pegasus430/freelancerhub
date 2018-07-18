@@ -1,0 +1,45 @@
+<main>
+  <section id="open-positions" class="bg-alt">
+    <div class="container">
+      <header class="section-header">
+        <span>vacancies</span>
+        <h2>Open positions</h2>
+      </header>
+      <div class="row">
+        <% @employers.each do |employer| %>
+        <div class="col-xs-12">
+          <a class="item-block" href="/employers/<%=employer.id %>">
+            <header>
+              <img src=" " alt="">
+              <div class="hgroup">
+                <h4><%= employer.title %></h4>
+                <h5><%= employer.name %></h5>
+              </div>
+              <time datetime="2016-03-10 20:00"><%= distance_of_time_in_words(employer.created_at, DateTime.now)%> ago</time>
+            </header>
+            <div class="item-body">
+              <p><%= employer.description %></p>
+            </div>
+            <footer>
+              <ul class="details cols-3">
+                <li>
+                  <i class="fa fa-map-marker"></i>
+                  <span><%= employer.city %>, <%= employer.state %></span>
+                </li>
+                <li>
+                  <i class="fa fa-money"></i>
+                  <span><%= employer.pay %></span>
+                </li>
+                <li>
+                  <i class="fa fa-certificate"></i>
+                  <span><%= employer.diploma %></span>
+                </li>
+              </ul>
+            </footer>
+          </a>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </section>
+</main>

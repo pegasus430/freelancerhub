@@ -1,0 +1,123 @@
+<%= form_for(@user, multipart: true) do |f| %>
+<!-- Page header -->
+<header class="page-header">
+	<div class="container page-name">
+		<h1 class="text-center"> Update Company Profile </h1>
+		<p class="lead text-center"> This will be visible to all students, so keep it updated! </p>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-4">
+				<div class="form-group">
+					<%#= image_tag @user.avatar.url%>
+					<div class="field">
+						<%= f.label :avatar %>
+						<%= f.file_field :avatar %>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-8">
+				<div class="form-group">
+					<%= f.text_field :first_name, class: 'form-control input-lg', placeholder: "First Name"  %>
+				</div>
+				<div class="form-group"> 
+					<%= f.text_field :last_name, class: 'form-control input-lg', placeholder: "Last Name"  %>
+				</div>
+				<hr class="hr-lg">
+				<h6>Basic information</h6>
+				<div class="row">
+					<div class="form-group col-xs-12 col-sm-6">
+						<div class="input-group input-group-sm">
+							<span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+							<%= f.text_field :location, class: 'form-control input-lg', placeholder: "Location, e.g. Montreal, QC"  %>
+						</div>
+					</div>
+					<div class="form-group col-xs-12 col-sm-6">
+						<div class="input-group input-group-sm">
+							<span class="input-group-addon"><i class="fa fa-globe"></i></span>
+							<%= f.text_field :website, class: 'form-control input-lg', placeholder: "Company Profile"  %>
+						</div>
+					</div>
+					<div class="form-group col-xs-12 col-sm-6">
+						<div class="input-group input-group-sm">
+							<span class="input-group-addon"><i class="fa fa-birthday-cake"></i></span>
+							<%= f.text_field :age, class: 'form-control input-lg', placeholder: "Age"  %>
+							<span class="input-group-addon"> Years old </span>
+						</div>
+					</div>
+					<div class="form-group col-xs-12 col-sm-6">
+						<div class="input-group input-group-sm">
+							<span class="input-group-addon"><i class="fa fa-phone"></i></span>
+							<%= f.text_field :phone, class: 'form-control input-lg', placeholder: "Phone number"  %>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="button-group">
+			<div class="action-buttons">
+			</div>
+		</div>
+	</div>
+</header>
+<!-- END Page header -->
+<!-- Main container -->
+<main>
+	<!-- Social media -->
+	<section>
+		<div class="container">
+			<header class="section-header">
+				<span>Get connected</span>
+				<h2>Social media</h2>
+			</header>
+			<div class="row">
+				<div class="col-xs-12 col-sm-6">
+					<div class="form-group">
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-facebook"></i></span>
+							<%= f.text_field :facebook, class: 'form-control', placeholder: "Facebook url e.g. https://"  %>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-linkedin"></i></span>
+							<%= f.text_field :linkedin, class: 'form-control ', placeholder: "Linkedin url e.g. https://"  %>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6">
+					<div class="form-group">
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-twitter"></i></span>
+							<%= f.text_field :twitter, class: 'form-control ', placeholder: "Twitter url e.g. https://"  %>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-instagram"></i></span>
+							<%= f.text_field :instagram, class: 'form-control' , placeholder: "Instagram url e.g. https://"  %>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Social media -->
+	<hr>
+	<!-- Submit -->
+	<section class=" bg-img" style="background-image: url( );">
+		<div class="container">
+			<header class="section-header">
+				<span>ARE YOU DONE?</span>
+				<h2>Update company profile</h2>
+				<p>Please review your information once more and press the below button to put your update resume.</p>
+			</header>
+			<p class="text-center"><%= f.submit "submit", class:'btn btn-success btn-xl btn-round' %></p>
+		</div>
+	</section>
+	<!-- END Submit -->
+</main>
+<!-- END Main container -->
+<% end %>
+
+<%= render 'layouts/footer' %>

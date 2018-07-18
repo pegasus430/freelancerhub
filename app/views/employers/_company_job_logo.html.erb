@@ -1,0 +1,30 @@
+<div class="field dropZoneContainer">
+	<%= f.fields_for(:company_job_logos) do |company_field| %>
+	<div class="row">
+		<div class="col-xs-12 col-sm-12" id="company-logo">
+			<% image = @employer.company_job_logos.first.url(:small) rescue nil %>  
+			<%= image_tag image , class: "avatar", style: "background-color:white; border-radius:4px" if image %>
+			<%= company_field.file_field :attachment, as: :file , class: "FileUpload", onchange: "handleFileSelect(this) "%>
+			<div class="dropZoneOverlay" id="dropZoneOverlay" style="width: 100%">Change Company Logo</div>
+		</div>
+	</div>
+	<% end %>          
+</div>
+
+<script type="text/javascript">
+    $(function() {
+        $(".FileUpload").change(function (){
+            work_flash.flashNotification('top','right',"", "New job logo was uploaded")
+        });
+    });
+    work_flash = {
+        flashNotification: function(from, align, key, message){
+            $.notify({ message: message},
+                { type: 'success', timer: 3000, placement: { from: from, align: align }
+                });
+        }
+    }
+    $('div.dropZoneOverlay').click(function(){
+        $('.FileUpload').click();
+    });
+</script>

@@ -1,0 +1,88 @@
+<% content_for :model_box do %>
+  <%= form_for(@education, remote: true) do |f| %>
+    <div class="modal fade" id="myneweducation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+      <div class="modal-dialog" role="document" style="margin-top: 200px">
+        <div class="modal-content">
+          <div class="modal-header" style="padding:0px 0 50px">
+            <div class="col-sm-11">
+              <h5 class="modal-title" id="exampleModalLongTitle"  style="padding:10px 0 15px">Add Education</h5>
+            </div>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <center><img src="https://image.flaticon.com/icons/svg/167/167707.svg" style="width:125px"> </center>
+                </div>
+              </div>
+              <div class="col-md-9">
+                <div class="col-md-12">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label>Certificate, Diploma, Or Degrees</label>
+                      <%= f.text_field :degree, :class => "form-control", :placeholder => "Bachelor", :required => true %>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Field Of Study</label>
+                      <%= f.text_field :degree_type, :class => "form-control", :placeholder => "Major in Biologie", :required => true %>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>School Name</label>
+                      <%= f.text_field :school_name, :class => "form-control", :placeholder => "Concordia", :required => true %>
+                    </div>
+                  </div>
+                  <div class="col-md-5">
+                    <div class="form-group">
+                      <label>Duration</label>
+                      <%= f.text_field :date_start, :class => "form-control", :placeholder => "Start Date", :required => true %>
+                    </div>
+                  </div>
+                  <div class="col-md-5">
+                    <div class="form-group">
+                      <label>&nbsp;</label>
+                      <%= f.text_field :date_end, :class => "form-control", :placeholder => "End Date" %>
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="form-group">
+                      <label>Present</label>
+                      <%= f.check_box :present, value: 1 , :class => "form-control" %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="upload-button">
+                <%= f.hidden_field :user_id, :value => current_user.id %>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-round btn-fill" data-dismiss="modal" style="color:black">Close</button>
+                <%= f.submit "Submit", :class => "btn btn-primary btn-round btn-fill" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+<script type="text/javascript">
+  $(document).ready(
+    function(){
+      $("form.new_education").bind("ajax:success",
+        function(evt, data, status, xhr){
+          $('#myneweducation').modal('hide');
+          $('#education_degree').val('');
+          $('#education_degree_type').val('');
+          $('#education_school_name').val('');
+          $('#education_description').val('');
+          $('#education_date_start').val('');
+          $('#education_date_end').val('');
+          $('#container_educations').append(data);
+    })
+  });
+ </script>

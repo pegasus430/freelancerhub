@@ -1,0 +1,66 @@
+<div class="row">
+	<div class="col-md-10 col-md-offset-1">
+		<div class="card card-wizard" id="wizardCard">
+			<%= form_for @employer_wizard, as: :employer_wizard, url: validate_step_employer_wizards_path(id: params[:id]) , :html => { multipart: true } do |f| %>
+			<div class="header text-center">
+				<h3 class="title"><%= params[:id].present? ? "Edit" : "Create New"%>Job</h3>
+				<p class="category">Fill out these pages to get your job online</p>
+			</div>
+			<% if @employer_wizard.errors.any? %>
+			<div id="error_explanation">
+				<ul>
+					<% @employer_wizard.errors.full_messages.each do |message| %>
+					<li><%= message %></li>
+					<% end %>
+				</ul>
+			</div>
+			<% end %>
+			<%= hidden_field_tag :current_step, 'step3' %>
+			<div class="content">
+				<% if params[:id].present? %>
+				<%= render 'edit_steps' %>
+				<% else %>
+				<ul class="nav nav-pills">
+						<li style="width: 25%;" ><%= link_to "First Tab", step1_employer_wizards_path, style:"background: #23CCEF" %></li>
+						<li style="width: 25%;" class=""><%= link_to "Second Tab", step2_employer_wizards_path, style:"background: #23CCEF" %></li>
+						<li style="width: 25%;" class=""><a>Third Tab</a></li>
+						<li style="width: 25%;" class=""><a>Forth Tab</a></li>
+				</ul>
+				<% end %>
+				<div class="tab-pane" id="tab3">
+					<h5 class="text-center">Student Requirements</h5>
+					<div class="row">
+						<div class="col-md-10 col-md-offset-1">
+							<div class="form-group">
+								<label class="control-label">Type of Diploma<star>*</star></label>
+								<%= f.select(:diploma, Employer::EDUCATION_LIST, {}, {class: 'form-control'}) %>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-10 col-md-offset-1">
+							<div class="form-group">
+								<label class="control-label">Field Of Study<star>*</star></label>
+								<%= f.select(:category, Employer::CATEGORY_LIST, {}, {class: 'form-control' }) %>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-10 col-md-offset-1">
+							<div class="form-group">
+								<label class="control-label">Years Of Study</label>
+								<%= f.select(:years_of_experience, Employer::GRADUATED_YEAR, {}, {class: 'form-control'} ) %>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--tab -->
+			</div>
+			<!--content -->
+			<div class="footer">
+				<%= f.submit 'Next' , class: "btn btn-primary btn-fill btn-round btn-wd btn-next pull-right" , style: "display: block; margin-right:5px; margin-top: -33px;"%>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>

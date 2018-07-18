@@ -1,0 +1,28 @@
+.modal-backdrop.in {
+    filter: alpha(opacity=50);
+    opacity: .5;
+    /*display: none;*/
+    z-index: 2;
+}
+  .modal-open .modal {
+    overflow-x: hidden;
+    overflow-y: auto;
+    z-index: 3;
+}
+
+
+#error_explanation {
+     color: red;
+ }
+ 
+ #error_explanation ul {
+     color: red;
+         margin: 0 0 30px 0;
+}
+
+.alert[data-notify="container"] {
+	padding: 10px 10px 10px 20px;
+	border-radius: 4px;
+    height: 20%;
+    background-color: #a1e82c;
+}

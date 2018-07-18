@@ -1,0 +1,17 @@
+
+    <%= f.fields_for(:student_ad_pictures) do |student_field| %>
+    
+    <div class="col-xs-12 col-sm-4">
+        <div class="form-group">
+             <% image = @student.student_ad_pictures.first.url(:small) rescue nil %>  
+             <%= image_tag image if image %>
+            <div class="field">
+              <%= student_field.label :picture %>
+              <%= student_field.file_field :attachment, as: :file %>
+            </div>
+        </div>
+      </div>
+      
+    <% end %> 
+
+                

@@ -1,0 +1,78 @@
+<!-- Main container -->
+<main>
+	<!-- Education -->
+	<section>
+		<div class="container">
+			<header class="section-header">
+				<h2>Education</h2>
+			</header>
+			<div class="row">
+				<% @educations.each do |education| %> 
+				<div class="col-xs-12">
+					<div class="item-block">
+						<header>
+							<img src=" " alt="">
+							<div class="hgroup">
+								<h4><%= education.degree_type %> <small><%= education.degree_major %></small></h4>
+								<h5><%= education.school_name %></h5>
+							</div>
+							<h6 class="time"><%= full_date education.date_start %> - <%=full_date education.date_end %></h6>
+						</header>
+						<div class="item-body">
+							<p><%= education.description %></p>
+						</div>
+					</div>
+				</div>
+				<% end %> 
+			</div>
+		</div>
+		<br><br><br>
+		<% if user_signed_in? %> 
+		<% if current_user.id == @user.id%>
+		<center><a class="btn btn-primary" href="/educations/new"> Add Education </a></center>
+		<% end %> 
+		<% end %> 
+	</section>
+	<!-- END Education -->
+	<!-- Work Experience -->
+	<section class="bg-alt">
+		<div class="container">
+			<header class="section-header">
+				<span>PAST POSITIONS  </span>
+				<h2>Work Experience  </h2>
+			</header>
+			<div class="row">
+				<!-- Work item -->
+				<div class="col-xs-12">
+					<% @works.each do |work| %> 
+					<div class="item-block">
+						<header>
+							<img src=" " alt="">
+							<div class="hgroup">
+								<h4><%=work.company_name %></h4>
+								<h5><%=work.position %></h5>
+							</div>
+							<h6 class="time"><%= full_date work.date_start %> - <%= full_date work.date_end %></h6>
+						</header>
+						<div class="item-body">
+							<p>Responsibilities:</p>
+							<ul>
+								<%=work.description %>
+							</ul>
+						</div>
+					</div>
+					<% end %> 
+				</div>
+				<!-- END Work item -->
+			</div>
+		</div>
+		<br><br><br>
+		<% if user_signed_in? %> 
+		<% if current_user.id == @user.id%>
+		<center><a class="btn btn-primary" href="/works/new"> Add Experiences </a></center>
+		<% end %> 
+		<% end %> 
+	</section>
+	<!-- END Work Experience -->
+</main>
+<!-- END Main container -->

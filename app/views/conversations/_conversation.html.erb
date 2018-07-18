@@ -1,0 +1,43 @@
+
+<ul>
+  <% @conversations.each do |conversation| %>
+      <% if conversation.receiver_id == current_user.id %>
+          <% avatar = conversation.author.is_student? ? (conversation.author.student_profile.avatars.first rescue nil) : (conversation.author.employer_profile.company_logos.first rescue nil) %>
+
+      <li class="contact">
+         <div class="wrap">
+             <%= link_to "/conversations/#{conversation.id}" do %>
+             <% if avatar.blank? %>
+              <img src="http://vvcexpl.com/wordpress/wp-content/uploads/2013/09/profile-default-male.png" alt="" class= "" />
+            <% else %>
+               <%= image_tag avatar.url(:small), class: "" %>
+            <% end %>
+            <div class="meta">
+             
+               <p class="name"><% if conversation.receiver_id == current_user.id %> <%= conversation.author.first_name %> <% else %> <%= conversation.receiver.first_name %> <%= conversation.receiver.last_name %> <% end %></p>
+              <% end %>
+            </div>
+         </div>
+     </li>
+    <% else %>
+
+      <li class="contact">
+          <div class="wrap">
+            <% avatar = (conversation.receiver && conversation.receiver.is_student?) ? (conversation.receiver.student_profile.avatars.first rescue nil) : (conversation.receiver.employer_profile.company_logos.first rescue nil) %>
+
+            <%# avatar = User.find(conversation.author_id).avatar rescue nil %>
+            <% if avatar.blank? %>
+               <img src="http://vvcexpl.com/wordpress/wp-content/uploads/2013/09/profile-default-male.png" alt="" />
+             <% else %>
+                <%= image_tag avatar.url(:small) %>
+             <% end %>
+             <div class="meta">
+               <%= link_to "/conversations/#{conversation.id}" do %>
+                <p class="name"><% if conversation.author_id == current_user.id %> <%= conversation.receiver.first_name rescue nil %> <% else %> <%= conversation.author.first_name rescue nil %> <%= conversation.author.last_name rescue nil %> <% end %></p>
+               <% end %>
+             </div>
+          </div>
+      </li>
+    <% end %>
+   <% end %>
+</ul>

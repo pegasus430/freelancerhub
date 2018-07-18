@@ -1,0 +1,159 @@
+<header class="page-header bg-img">
+	<div class="container page-name">
+		<h2 class="text-center">
+			<%if session[:language] == "french" %>Recherche Emploi<%else %>Browse Jobs<%end %>
+		</h2>
+	</div>
+	<div class="col-md-8 col-md-offset-2" style="float:none!important">
+		<div class="row">
+			<%= search_form_for @query do |f| %>
+			<div class="inner-addon right-addon enjoy-cssx">
+				<i class="fa fa-search"></i> <%= f.search_field :title_or_name_or_city_cont, placeholder: "Search by job title or company or city", class: "form-control enjoy-css" %>
+			</div>
+			<%end %>
+		</div>
+	</div>
+</header>
+<main>
+	<section class="no-padding-top bg-alt">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 col-md-offset-3">
+					<br>
+					<h5 style="line-height:0; font-size:14px; margin:0 17px">
+						<%if session[:language] == "french" %> Nous avons trouvé <strong><%=@employers.count %></strong> emplois<%else %>We found <strong><%=@employers.count %></strong> jobs<%end %>
+					</h5>
+				</div>
+				<div class="search-box col-md-3 mobile-hide">
+					<p style="padding-left: 15px;">
+						Refine Search
+					</p>
+					<form>
+            <div class="form-group col-md-12">
+              <input class='searchboxsmall' name="by_city" placeholder="Search by Location" type="text">
+            </div>
+            <div class="form-group col-md-12">
+              <select name="by_category" style="width:98.5%;border: 1px solid #e3e3e3;height: 39px;">
+                <option value="">
+                  <%if session[:language] == "french" %> Toutes Categories <%else %>All Categories <%end %>
+                </option>
+                <option value="Accounting">Accounting</option>
+                <option value="Administrative">Administrative</option>
+                <option value="Agriculture">Agriculture</option>
+                <option value="Automotive">Automotive</option>
+                <option value="Banking & Finance">Banking & Finance</option>
+                <option value="Biology">Biology</option>
+                <option value="Business">Business</option>
+                <option value="Coding">Coding</option>
+                <option value="Computer Science">Computer Science</option>
+                <option value="Construction">Construction</option>
+                <option value="Consulting">Consulting</option>
+                <option value="Consumer Packaged Goods">Consumer Packaged Goods</option>
+                <option value="Customer Service">Customer Service</option>
+                <option value="Diversity">Diversity</option>
+                <option value="Graphic Design">Graphic Design</option>
+                <option value="Educator & Education">Educator & Education</option>
+                <option value="Engineering">Engineering</option>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Fashion, Design & Beauty">Fashion, Design & Beauty</option>
+                <option value="Finance">Finance</option>
+                <option value="Fitness & Recreation">Fitness & Recreation</option>
+                <option value="Graphic Design">Graphic Design</option>
+                <option value="Government">Government</option>
+                <option value="Healthcare">Healthcare</option>
+                <option value="Hospitality">Hospitality</option>
+                <option value="Human Resource">Human Resource </option>
+                <option value="Information Technology(IT)">Information Technology(IT)</option>
+                <option value="Insurance">Insurance</option>
+                <option value="Law">Law</option>
+                <option value="Logistics">Logistics</option>
+                <option value="Management">Management</option>
+                <option value="Manufacturing">Manufacturing</option>
+                <option value="Marketing">Marketing</option>
+                <option value="Media">Media</option>
+                <option value="Non-Profit">Non-Profit</option>
+                <option value="Oil & Gas">Oil & Gas</option>
+                <option value="Operations">Operations</option>
+                <option value="Pharmaceuticals">Pharmaceuticals</option>
+                <option value="Public Relations">Public Relations</option>
+                <option value="Real Estate">Real Estate</option>
+                <option value="Retail">Retail</option>
+                <option value="Real Estate">Real Estate</option>
+                <option value="Sales">Sales</option>
+                <option value="Science & Research">Science & Research</option>
+                <option value="Skilled Trades">Skilled Trades</option>
+                <option value="Software Engineering">Software Engineering</option>
+                <option value="Science & Research">Science & Research</option>
+                <option value="Skilled Trades">Skilled Trades</option>
+                <option value="Software Engineering">Software Engineering</option>
+                <option value="Tax">Tax</option>
+                <option value="Technology">Technology</option>
+                <option value="Telecommunication">Telecommunication</option>
+                <option value="Travel">Travel</option>
+              </select>
+              <br>
+            </div>
+            <div class="form-group col-md-12">
+              <h6>
+                <%if session[:language] == "french" %> Toutes Categories<%else %> All Categories <%end %>
+              </h6>
+              <input id="cb1" name="by_diploma" type="checkbox" value=""> <label for="cb1"><%if session[:language] == "french" %> Tout <%else %> All<%end %></label><br>
+              <input id="cb2" name="by_diploma" type="checkbox" value="PhD"><label for="cb2">PhD</label><br>
+              <input id="cb3" name="by_diploma" type="checkbox" value="Doctorate"> <label for="cb3"><%if session[:language] == "french" %> Doctorat<%else %> Doctorate<%end %></label><br>
+              <input id="cb6" name="by_diploma" type="checkbox" value="Masters"><label for="cb6"><%if session[:language] == "french" %> Maîtrise <%else %> Masters <%end %></label><br>
+              <input id="cb4" name="by_diploma" type="checkbox" value="Baccalaureate"><label for="cb4"><%if session[:language] == "french" %> Baccalauréat <%else %> Baccalaureate's Degree <%end %></label><br>
+              <input id="cb19" name="by_diploma" type="checkbox" value="Associate"><label for="cb19"><%if session[:language] == "french" %> Diplôme d'associé <%else %> Associates Degree <%end %></label><br>
+              <input id="cb7" name="by_diploma" type="checkbox" value="High School"><label for="cb7"><%if session[:language] == "french" %>École Secondaire <%else %> High School <%end %></label><br>
+              <input id="cb17" name="by_diploma" type="checkbox" value="High School"><label for="cb17"><%if session[:language] == "french" %> Attestation d'études collégiales <%else %> Attestation of College Studies <%end %></label><br>
+            </div>
+            <div class="form-group col-md-12">
+              <h6>
+                Type
+              </h6>
+              <input id="cb22" name="by_state" type="checkbox" value=""> <label for="cb22"><%if params[:language] == "french" %> (Tout)<%else %> Any <%end %></label><br>
+              <input id="cb23" name="by_state" type="checkbox" value="Internship"> <label for="cb23"><%if params[:language] == "french" %> Stage <%else %> Internship <%end %></label><br>
+              <input id="cb24" name="by_state" type="checkbox" value="Co-op"><label for="cb24">Co-op</label><br>
+              <input id="cb25" name="by_state" type="checkbox" value="Early Career Jobs"> <label for="cb25"><%if params[:language] == "french" %>Début de carrière <%else %> Early Career Jobs <%end %></label><br>
+              <input id="cb26" name="by_state" type="checkbox" value="Summer Student Job"><label for="cb26"><%if params[:language] == "french" %> Emploi d'été<%else %> Summer Student Job <%end %></label><br>
+            </div>
+            <div class="form-group col-md-12">
+              <h6>
+                <%if params[:language] == "french" %>Niveau Académique <%else %> Academic Degree <%end %>
+              </h6>
+              <input id="cb51" name="by_diploma" type="checkbox" value=""> <label for="cb51"><%if params[:language] == "french" %>(Tout) <%else %>All <%end %></label><br>
+              <input id="cb52" name="by_diploma" type="checkbox" value="PhD"><label for="cb52">PhD</label><br>
+              <input id="cb53" name="by_diploma" type="checkbox" value="Doctorate"> <label for="cb53"><%if params[:language] == "french" %>Doctorat <%else %> Doctorate <%end %></label><br>
+              <input id="cb56" name="by_diploma" type="checkbox" value="Masters"> <label for="cb56"><%if params[:language] == "french" %>Maîtrise <%else %> Masters <%end %></label><br>
+              <input id="cb60" name="by_diploma" type="checkbox" value="Baccalaureate"> <label for="cb60"><%if params[:language] == "french" %>Baccalauréat (BACC) <%else %> Baccalaureate's Degree (BACC) <%end %></label><br>
+              <input id="cb58" name="by_diploma" type="checkbox" value="Associate"> <label for="cb58"><%if params[:language] == "french" %>Diplôme d'associé <%else %> Associates Degree <%end %></label><br>
+              <input id="cb57" name="by_diploma" type="checkbox" value="High School"> <label for="cb57"><%if params[:language] == "french" %>École Secondaire <%else %> High School <%end %></label><br>
+              <input id="cb59" name="by_diploma" type="checkbox" value="Attestation of College Studies"> <label for="cb59"><%if params[:language] == "french" %> Attestation d'études collégiales (AEC) <%else %>Attestation of College Studies (AEC) <%end %></label><br>
+            </div>
+            <div class="form-group col-md-12">
+              <h6>
+                Pay Criteria
+              </h6>
+              <input id="cb13" name="by_pay" type="checkbox" value=""> <label for="cb13"><%if session[:language] == "french" %> Tout<%else %> Any <%end %></label><br>
+              <input id="cb14" name="by_pay" type="checkbox" value="Paid"><label for="cb14"><%if session[:language] == "french" %> Rémunéré<%else %> Paid <%end %></label><br>
+              <input id="cb16" name="by_pay" type="checkbox" value="Unpaid"> <label for="cb16"><%if session[:language] == "french" %>Non-Rémunéré <%else %> Unpaid<%end %></label><br>
+              <input id="cb15" name="by_pay" type="checkbox" value="To be discussed"> <label for="cb15"><%if session[:language] == "french" %>À discuter <%else %> To be discussed <%end %></label><br>
+            </div>
+            <div class="button-group">
+              <div class="action-buttons">
+                <input type="submit" class="btn btn-primary btn-sm btn-round btn-search" style="background:#67B26F; border:none;">
+              </div>
+            </div>
+          </form>
+        </div>
+				<div class="col-md-9">
+					<%= render @employers %>
+				</div>
+			</div>
+			<nav class="text-center">
+				<%= will_paginate @employers %>
+			</nav>
+		</div>
+	</section>
+</main>
+
+<%= render 'layouts/footer' %>

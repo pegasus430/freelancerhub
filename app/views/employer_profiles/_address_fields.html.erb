@@ -1,0 +1,18 @@
+<%= f.fields_for(:address) do |af| %>
+<div class="col-md-6">
+	<div class="from-group">
+		<%= af.text_field :email, class: 'form-control input-lg',  placeholder: "Email"  %>
+	</div>
+	<div style="padding:5px;"></div>
+</div>
+<div class="col-md-6">
+	<div class="form-group">
+		<%= af.text_field :landline, class: 'form-control input-lg', placeholder: "Phone"  %>
+	</div>
+</div>
+<div class="col-md-6">
+	<div class="from-group" style="margin-top: -69px;">
+		<%= af.text_field :address, class: 'form-control input-lg', placeholder: "Location, e.g. Montreal, QC (Montréal, QC)"  %>
+	</div>
+</div>
+<% end %>

@@ -1,0 +1,17 @@
+<h1>Registrations#new</h1>
+<p>Find me in app/views/registrations/new.html.erb</p>
+<%= form_for(@user, :html => {:class => 'new_user _form_1'}, url: registrations_path) do |f| %>
+<%= @user.errors.full_messages.join('. ') %>
+<div class="field">
+	<%= f.email_field :email, :placeholder => "Email", :class => "loginfield", autofocus: true %>
+</div>
+<div class="field">
+	<%= f.password_field :password, :placeholder => "Password", :class => "loginfield", autocomplete: "off" %>
+</div>
+<div class="field">
+	<%= f.password_field :password_confirmation, :placeholder => "Confirm Password", :class => "loginfield", autocomplete: "off" %>
+</div>
+<div class="actions" style="margin-top:60px">
+	<%= submit_tag "Sign up", :class => "signupsubmit" %>
+</div>
+<% end %>

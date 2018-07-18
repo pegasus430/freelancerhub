@@ -1,0 +1,9 @@
+<h1> Conversations/new</h1>
+<%= form_for(@conversation) do |f| %>
+  <%= f.text_field :author_id %>
+  <%= f.text_field :receiver_id %>
+  <%= f.text_field :name %>
+  
+
+  <%= f.submit %>
+<% end %>

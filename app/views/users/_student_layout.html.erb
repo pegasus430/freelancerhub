@@ -1,0 +1,49 @@
+<div class="container-fluid">
+	<%= render 'model', flash: flash %>
+	<div class="col-md-9">
+		<div class="card">
+			<div class="header">
+				<h4>Your Current Ad</h4>
+				<h6 class="category">Create a designer ad to be located in the resume browser.</h6>
+				<hr>
+			</div>
+				<div class="content">
+					<% if current_user.students.blank? %>
+					<% unless current_user.student_profile.blank? %>		
+						<p>Thanks for creating your Resume, now it's time to place your ad.</br> This enables you to be searchable by companies.</p>
+						<a class="btn btn-fill btn-primary btn-round" href="/students/new">Create Designer Ad</a>
+					<% end %>
+			<% else %>
+			<%= render 'student_ads' %>
+			<% end %>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-3">
+		<div class="card">
+			<div class="content text-center">
+				<div class="header">
+					<h4 style="text-align:left">
+						<% if user_signed_in? %>
+              <% if current_user.student_profile.blank? %>
+                <a class="btn btn-fill btn-primary btn-round" href="/users/<%=current_user.id%>/student_profiles/new" >Create Resume</a>
+                <% else %>
+                <a class="btn btn-fill btn-primary btn-round" href="/users/<%=current_user.id%>/student_profiles/<%=current_user.student_profile.slug%>/edit" style="background:red; border:none">Update Resume</a>
+                <div class="pd5">
+                </div>
+                <% if current_user.students.blank? %>
+                  <a class="btn btn-fill btn-primary btn-round" href="/students/new">Create Designer Ad</a>
+                <% else %>
+                  <% @students.each do |student| %>
+                    <%= link_to 'Update Designer Ad', edit_student_path(student), :class => "btn btn-fill btn-primary btn-round" %>
+                  <% end %>
+                <% end %>
+              <% end %>
+						<% end %>
+					</h4>
+					<hr>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

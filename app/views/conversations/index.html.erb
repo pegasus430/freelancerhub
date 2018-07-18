@@ -1,0 +1,44 @@
+<link rel="stylesheet" href="/assets/dashboard/chat.css">
+
+<div class="row">
+  <div class="col-md-9">
+   <div id="frame">
+      <div id="sidepanel">
+          <div id="contacts">
+             <%= render 'conversations/conversation' %>
+          </div>
+         </div>
+
+     <div class="content">
+       <div class="messages">
+         <div id="conversation-main">
+             <div class="contact-profile">
+               <% if current_user.present? %>
+                   <% avatar = current_user.is_student? ? (current_user.student_profile.avatars.first rescue nil) : (current_user.employer_profile.company_logos.first rescue nil) %>
+                   <% if avatar.nil? %>
+                     <% image = "http://vvcexpl.com/wordpress/wp-content/uploads/2013/09/profile-default-male.png" %>
+                    <% else %>
+                     <% image = avatar.url(:small) %>
+                   <% end %>
+                  <img src="<%=image%>" />
+               <% end %>
+                   <p>Click on a conversation to start chatting</p>
+              </div>
+           </div>
+          </div>
+        </div>
+       </div>
+   </div>
+  </div>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script type="text/javascript">
+  $(function(){
+    $('#personal_message_body').keyup(function(event){
+      if (event.keyCode == 13 && event.shiftKey == 0) {
+        $('#new_personal_message').submit()
+      }
+    })
+  })
+</script>
+

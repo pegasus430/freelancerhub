@@ -1,0 +1,62 @@
+
+<style>
+   .box {
+     border: 2px solid #dfdfdf;
+   }
+   .whitebox {
+     box-shadow: 0 1px 5px 0 rgba(45,62,80,0.12);
+     background-color: #FFF;
+     margin-left: 3%;
+     margin-right: 3%;
+     margin-bottom: 3%;
+     margin-top: 0px;
+     overflow: scroll;
+     height: 400px;
+   }
+  .title {
+    background: #fbfbfb;
+    padding: 10px 28px;
+    margin: 0 30px;
+    box-shadow: 0 1px 2px 0 rgba(45,62,80,0.12);
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.1;
+    color: inherit;
+  }
+</style>
+  
+<% unless @employer_previous_jobs.empty? %>  
+  <br/>
+  <h4 class="title">Previous Jobs</h4>
+  <div class="row whitebox">
+    <% @employer_previous_jobs.each do |employer| %>
+      <div class="col-xs-12">
+        <div class="item-block">
+          <header>
+            <% company_job_logo = employer.company_job_logos.first  %>
+            <% if company_job_logo.nil?  %>
+            <img src="http://web.bestchamber.com/external/WCPages/wcmedia/images/smallbusiness_481141613.png" alt="">
+            <% else %>
+            <%=image_tag company_job_logo.url(:small) %>
+            <% end %>
+            <div class="hgroup">
+              <h4><a href="/employers/<%= employer.id %>"><%= employer.name %> </a></h4>
+              <h5><a href="/employers/<%= employer.id %>"><%= employer.title %></a></h5>
+            </div>
+            <div class="header-meta">
+              <span class="location"><%= employer.city %></span>
+              <time datetime="2016-03-10 20:00"><%= distance_of_time_in_words(employer.created_at, DateTime.now)%> ago</time>
+            </div>
+          </header>
+          <footer>
+            <p class="status"><strong>Status:</strong> <%= employer.employer_status%> </p>
+            <div class="action-btn">
+              <%= link_to 'Edit', edit_employer_path(employer), :class => "btn btn-xs btn-gray" %>
+              <%= link_to 'Delete', employer, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-xs btn-danger" %>
+            </div>
+          </footer>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

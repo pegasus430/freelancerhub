@@ -1,0 +1,306 @@
+// Place all the styles related to the contact_us controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.navbtn{
+  padding-top: 10px;
+}
+.navbtn{
+  padding-top: 10px;
+}
+.navbar-toggle{
+  margin-top: 20px;
+}
+.navbar-toggle .icon-bar{
+  background-color: #ec7550;
+  height: 2px;
+  width: 30px; 
+}
+.navbar-toggle .icon-bar + .icon-bar{
+  margin-top: 5px;
+}
+.navbar-toggle.collapsed .icon-bar{
+  background-color: #fff;
+}
+@media (max-height: 320px ){
+  .navbar .navbar-collapse{
+    max-height: 240px;
+  }
+}
+/* Brand */
+.brand{
+  display: inline-block;
+  margin-left: 15px;
+  text-align: center;
+}
+.brand:hover,
+.brand:focus{
+  text-decoration: none;
+}
+.brand-img-white{
+  display: inline-block;
+}
+.brand-img{
+  display: none;
+}
+/* Navigation */
+.navbar-nav{
+  padding-top: 10px;
+  margin:0;
+  font-size: 15px;
+  font-weight: 500;
+}
+.navbar-nav li{
+  position: relative;
+  margin-top: 0;
+  -webkit-perspective: 2000px;
+  perspective: 2000px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+@media (min-width: 768px){
+  .navbar-nav li a{
+    color: #fff;
+    text-decoration: none;
+    /*padding:12px 20px;*/
+    -webkit-transition:background-color 0.01s;
+    -o-transition:background-color 0.01s;
+    transition:background-color 0.01s;
+    
+  }
+  .navbar-nav > li{
+    border-bottom: 0;
+    margin-left: 15px;
+  }
+  .navbar-nav li a{
+    position: relative;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    color:#fff;
+   
+  }
+  .navbar-nav li a:hover,
+  .navbar-nav li a:focus,
+  .navbar-nav .active > a,
+  .navbar-nav .active > a:hover{
+    background-color: #1F77D0;
+    color: #fff;
+    
+    
+  }
+  .navbar-nav li:after{
+    content:'';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 0;
+    /*border-top: 2px solid #ff002c;*/
+    margin-top: 2px;
+    -webkit-transition: all 0.1s;
+    -o-transition: all 0.1s;
+    transition: all 0.1s;
+    color:#000;
+
+  }
+  .navbar-nav li:hover:after,
+  .navbar-nav .active:after{
+    width: 100%;
+    color:white;
+  }
+  .navbar.affix .navbar-nav li a:hover,
+  .navbar.affix .navbar-nav .active a{
+    color: #ec7550;
+  }
+  .navbar{
+    position: fixed;
+    /*box-shadow: -1px 1px 5px #e4e1e1;*/
+    z-index: 10;
+    top:0;
+    width: 100%;
+    margin:0;
+    border:0;
+    border-radius: 0;
+    color:black;
+    font-weight:100;
+  }
+}
+@media (max-width: 767px){
+  .navbar-nav li a{
+    color: #fff;
+    background: #293949;
+    text-decoration: none;
+    padding: 12px 20px;
+    -webkit-transition:background-color 0.s;
+    -o-transition:background-color 0.1s;
+    transition:background-color 0.1s;
+    
+  }
+  .navbar-nav li a:hover,
+  .navbar-nav li a:focus,
+  .navbar-nav .active > a{
+    background-color: white;
+    color:black;
+    
+  }
+  
+  .navbar-nav > li > a:hover,
+  .navbar-nav > .active > a{
+    background: #fff;
+  }
+  .navbar{
+    position: absolute;
+    z-index: 10;
+    top:0;
+    width: 100%;
+    margin:0;
+    border:0;
+    border-radius: 0;
+    color:black;
+    font-weight:100;
+  }
+}
+@media (min-width: 992px){
+  .navbar-nav > li{
+    border-bottom: 0;
+    /*margin-left: 40px;*/
+  }
+  .nav_left{
+  /*right: 40%;*/
+}
+}
+.navbar-nav li ul{
+  font-size: 14px;
+}
+.navbar-nav li li{
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.navbar-nav li li:last-child{
+  border-bottom: 0;
+}
+.navbar-nav li li a{
+  display: block;
+  padding: 15px 20px;
+  color: #000;
+}
+
+
+.navbar-nav li li a .fa{
+  margin-right: 10px;
+}
+.navbar-nav li:hover{
+  z-index: 1;
+}
+.navbar-nav li:hover > ul{
+  opacity: 1;
+  -webkit-transform: rotateY(0);
+  -ms-transform: rotateY(0);
+  -o-transform: rotateY(0);
+  transform: rotateY(0);
+}
+.navbar.affix{
+  position: fixed;
+  top:0;
+  background-color:rgba(255,255,255,0.95);
+  padding:10px 0;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+.navbar.affix .brand-img-white{
+  display: none;
+}
+.navbar.affix .brand-img{
+  display: inline-block;
+}
+.navbar.affix .navbar-nav{
+  padding-top: 15px;
+}
+.navbar.affix .navbar-nav li a{
+  color: #4B4B4C;
+}
+.navbar.affix .navbar-nav > li > a:hover, 
+.navbar.affix .navbar-nav > .active > a{
+  
+  
+}
+.navbar.affix .navbar-toggle{
+  margin-top: 10px;
+}
+.navbar.affix .navbar-toggle.collapsed .icon-bar{
+  background-color: #ec7550;
+}
+/*SELF*/
+.signupbtn{2
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  background: #e62442;
+  border-color: #fff;
+  color: #fff;
+  border-radius: 4px;
+  padding: 0 12px!important;
+  height: 34px;
+  font-size: 16px;
+  border: 0;
+  box-shadow: none;
+}
+
+@media (max-width: 767px) {
+  .deskview {
+    display: none;
+  }
+  .mobview {
+    display: block;
+  }
+}
+@media (min-width: 768px) {
+  .deskview {
+    display: block;
+  }
+  .mobview {
+    display: none;
+  }
+}
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+    color: white;
+    cursor: default;
+    background-color:#1F77D0;
+    border-radius:4px;
+    font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+.nav-tabs>li>a {
+    margin-right: 2px;
+    line-height: 1.42857143;
+    
+}
+  .notification-li {
+  padding: 20px; 
+  /*border-bottom: 1px solid rgba(0,0,0,0.125);*/
+ 
+  }
+  .notification-size{
+    height: 40px;
+    margin-right: 12px;
+    width: 40px;
+}
+.notification-date {
+  float: right;
+  font-size: 9px;
+}
+
+#employer-btn{
+  background: #ff8181;
+}
+
+#employer-btn:hover{
+  background: #cc6767;
+  -webkit-transition:background-color 0.2s;
+    -o-transition:background-color 0.2s;
+    transition:background-color 0.2s;
+}
+
+#student-btn{
+  background: #29aafe;
+}
+
+#student-btn:hover{
+  background: #2088CB;
+  -webkit-transition:background-color 0.2s;
+    -o-transition:background-color 0.2s;
+    transition:background-color 0.2s;
+}

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Freelance Hub</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="user-id" content="<%= current_user.try(:id) %>">
+		</meta>  <!--important for chat-->
+		<%= csrf_meta_tags %>
+		<%= stylesheet_link_tag    'application', media: 'all' %>
+		<%= javascript_include_tag 'application', 'https://js.stripe.com/v2/', 'data-turbolinks-track' => true %>
+		<%= action_cable_meta_tag %> 
+		<%= tag :meta, name: "stripe-key", content: STRIPE_PUBLIC %>
+		<link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<link href="app.min" rel="stylesheet">
+		<meta name="theme-color" content="#ffffff">
+	</head>
+	<body>
+		<!--Error notifications-->
+		<div id="flash" style="z-index: 1232131231232">
+			<% if flash[:notice] -%>
+			<div class="alert animated bounceInDown" id="notice">
+				<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+				<%= flash[:notice] %>
+			</div>
+			<% end %>
+		</div>
+		<%= render 'layouts/navbar' %> 
+		<!-- Site header -->
+		<header class="page-header bg-img size-lg" style="background-image: url(https://static.pexels.com/photos/99562/texture-handwriting-sutterlin-vintage-99562.jpeg)">
+			<div class="container no-shadow">
+				<h1 class="text-center"> Contact Us! </h1>
+			</div>
+		</header>
+		<!-- END Site header -->
+		<% if user_signed_in? %>
+		<div id="current-user" data-id="<%= current_user.id %>"></div>
+		<% end %>
+		<%= yield %>
+	</body>
+</html>

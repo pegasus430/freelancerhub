@@ -1,0 +1,23 @@
+<% @students.each do |student| %>
+<div class="row">
+	<div class="content">
+		<div class="content col-sm-5">
+			<div class="header" style="text-align:left; padding:0 15px">
+				<h5><a href="/students/<%= student.id %>"><%= student.name %> </a></h5>
+				<h6><%= student.title %></h6>
+			</div>
+		</div>
+		<div class="content col-sm-5">
+			<ul>
+				<i class="fa fa-map-marker"></i><span><%= student.city%>, <%= student.country %> </span><br>
+			</ul>
+		</div>
+		<div class="content col-sm-2">
+			<p style="font-size:12px;"><%= distance_of_time_in_words(student.created_at, DateTime.now) %> ago</p>
+			<%= link_to 'Edit', edit_student_path(student), :class => "btn btn-fill btn-xs btn-gray btn-round" %>
+			<%= link_to 'Delete', student, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-fill btn-xs btn-danger btn-round" %>
+		</div>
+	</div>
+</div>
+<hr>
+<% end %>

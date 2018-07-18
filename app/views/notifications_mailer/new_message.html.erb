@@ -1,0 +1,7 @@
+<p>Hi!</p>
+
+<p>You've received a new message from <%= @message.user.email %>:</p>
+
+<p><em><%= @message.body %></em></p>
+
+<p><%= link_to 'Respond to it now!', conversation_url(@message.conversation) %></p>

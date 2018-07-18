@@ -1,0 +1,274 @@
+<style>
+  .center-on-page {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+  }
+  input[type="checkbox"],
+  input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    z-index: -1;
+  }
+  label {
+    position: relative;
+    display: inline-block;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    padding-left: 30px;
+    padding-right: 10px;
+    line-height: 36px;
+    cursor: pointer;
+  }
+  label::before {
+    content: " ";
+    position: absolute;
+    top: 6px;
+    left: 0;
+    display: block;
+    width: 24px;
+    height: 24px;
+    border: 2px solid #29aafe;
+    border-radius: 4px;
+    z-index: -1;
+    position: absolute;
+  }
+  input[type="radio"] + label::before {
+    border-radius: 18px;
+  }
+  /* Checked */
+  input[type="checkbox"]:checked + label,
+  input[type="radio"]:checked + label {
+    padding-left: 10px;
+    color: #fff;
+  }
+  input[type="checkbox"]:checked + label::before,
+  input[type="radio"]:checked + label::before {
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: #29aafe;
+  }
+  /* Transition */
+  label,
+  label::before {
+    -webkit-transition: .25s all ease;
+    -o-transition: .25s all ease;
+    transition: .25s all ease;
+  }
+  .search-box {
+      position: relative;
+      z-index: 1;
+      background-color: #fafafa;
+      padding: 15px 15px 15px;
+      -webkit-box-shadow: 0 5px 25px 0 rgba(0, 0, 0, .07);
+      box-shadow: 0 5px 25px 0 rgba(0, 0, 0, .07);
+      border-radius: 4px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(63, 63, 68, 0.1);
+      background-color: #FFFFFF;
+      margin-bottom: 0px;
+      margin-top: 30px;
+  }
+  .item-block {
+      display: block;
+      margin-top: 30px;
+      background-color: #fff;
+      -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(63, 63, 68, 0.1);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(63, 63, 68, 0.1);
+      -webkit-transition: background-color .5s, -webkit-box-shadow .5s;
+      transition: background-color .5s, -webkit-box-shadow .5s;
+      -o-transition: box-shadow .5s, background-color .5s;
+      transition: box-shadow .5s, background-color .5s;
+      transition: box-shadow .5s, background-color .5s, -webkit-box-shadow .5s;
+      border-radius:7px;
+      border: 1px solid #d3d2d2;
+  }
+  .searchbox{
+      min-height: 42px;
+      padding: 12px;
+      border: 1px solid #d3d2d2;
+      border-radius: 2px;
+      box-shadow: none;
+      color: #494949;
+      font-size: 14px;
+      line-height: 14px;
+      width: 68%;
+  }
+  .searchboxsmall{
+          min-height: 42px;
+      padding: 12px;
+
+      border: 1px solid rgb(224, 224, 224);
+      border-radius: 2px;
+      box-shadow: none;
+      color: #494949;
+      font-size: 14px;
+      line-height: 14px;
+      width:100%;
+  }
+  select {
+      text-align: left;
+      color: #343C3F;
+      border: 1px solid #d3d2d2;
+      width: 100%;
+      cursor: pointer;
+  }
+</style>
+
+<!-- Page header -->
+<header class="page-header bg-img">
+	<div class="container page-name">
+		<h2 class="text-center">
+			Browse Jobs
+		</h2>
+	</div>
+	<div class="col-md-8 col-md-offset-2" style="float:none!important">
+		<div class="row">
+			<%= search_form_for @query do |f| %>
+			<div class="inner-addon right-addon enjoy-cssx">
+				<i class="fa fa-search"></i> <%= f.search_field :title_or_name_or_city_cont, placeholder: "Search by job title or company or city", class: "form-control enjoy-css" %>
+			</div>
+			<%end %>
+		</div>
+	</div>
+</header>
+<!-- END Page header -->
+<!-- Main container -->
+<main>
+	<section class="no-padding-top bg-alt">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 col-md-offset-3">
+					<br>
+					<h5 style="line-height:0; font-size:14px; margin:0 17px">
+						We found <strong><%=@employers.count %></strong> jobs
+					</h5>
+				</div>
+				<div class="search-box col-md-3 mobile-hide">
+					<p style="padding-left:15px">
+						Refine Search
+					</p>
+					<form>
+            <div class="form-group col-md-12">
+              <input class='searchboxsmall' name="by_city" placeholder="Search by Location" type="text">
+            </div>
+            <div class="form-group col-md-12">
+              <select name="by_category" style="width:98.5%;border: 1px solid #e3e3e3;height: 39px;">
+                <option value="">
+                  All Categories
+                </option>
+                <option value="Accounting">Accounting</option>
+                <option value="Administrative">Administrative</option>
+                <option value="Agriculture">Agriculture</option>
+                <option value="Automotive">Automotive</option>
+                <option value="Banking & Finance">Banking & Finance</option>
+                <option value="Biology">Biology</option>
+                <option value="Business">Business</option>
+                <option value="Coding">Coding</option>
+                <option value="Computer Science">Computer Science</option>
+                <option value="Construction">Construction</option>
+                <option value="Consulting">Consulting</option>
+                <option value="Consumer Packaged Goods">Consumer Packaged Goods</option>
+                <option value="Customer Service">Customer Service</option>
+                <option value="Diversity">Diversity</option>
+                <option value="Graphic Design">Graphic Design</option>
+                <option value="Educator & Education">Educator & Education</option>
+                <option value="Engineering">Engineering</option>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Fashion, Design & Beauty">Fashion, Design & Beauty</option>
+                <option value="Finance">Finance</option>
+                <option value="Fitness & Recreation">Fitness & Recreation</option>
+                <option value="Graphic Design">Graphic Design</option>
+                <option value="Government">Government</option>
+                <option value="Healthcare">Healthcare</option>
+                <option value="Hospitality">Hospitality</option>
+                <option value="Human Resource">Human Resource </option>
+                <option value="Information Technology(IT)">Information Technology(IT)</option>
+                <option value="Insurance">Insurance</option>
+                <option value="Law">Law</option>
+                <option value="Logistics">Logistics</option>
+                <option value="Management">Management</option>
+                <option value="Manufacturing">Manufacturing</option>
+                <option value="Marketing">Marketing</option>
+                <option value="Media">Media</option>
+                <option value="Non-Profit">Non-Profit</option>
+                <option value="Oil & Gas">Oil & Gas</option>
+                <option value="Operations">Operations</option>
+                <option value="Pharmaceuticals">Pharmaceuticals</option>
+                <option value="Public Relations">Public Relations</option>
+                <option value="Real Estate">Real Estate</option>
+                <option value="Retail">Retail</option>
+                <option value="Real Estate">Real Estate</option>
+                <option value="Sales">Sales</option>
+                <option value="Science & Research">Science & Research</option>
+                <option value="Skilled Trades">Skilled Trades</option>
+                <option value="Software Engineering">Software Engineering</option>
+                <option value="Science & Research">Science & Research</option>
+                <option value="Skilled Trades">Skilled Trades</option>
+                <option value="Software Engineering">Software Engineering</option>
+                <option value="Tax">Tax</option>
+                <option value="Technology">Technology</option>
+                <option value="Telecommunication">Telecommunication</option>
+                <option value="Travel">Travel</option>
+              </select>
+              <br>
+            </div>
+            <div class="form-group col-md-12">
+              <h6>All Categories</h6>
+              <input id="cb1" name="by_diploma" type="checkbox" value=""> <label for="cb1"> All </label><br>
+              <input id="cb2" name="by_diploma" type="checkbox" value="PhD"><label for="cb2">PhD</label><br>
+              <input id="cb3" name="by_diploma" type="checkbox" value="Doctorate"> <label for="cb3"> Doctorate </label><br>
+              <input id="cb6" name="by_diploma" type="checkbox" value="Masters"><label for="cb6"> Masters </label><br>
+              <input id="cb4" name="by_diploma" type="checkbox" value="Baccalaureate"><label for="cb4"> Baccalaureate's Degree </label><br>
+              <input id="cb19" name="by_diploma" type="checkbox" value="Associate"><label for="cb19"> Associates Degree </label><br>
+              <input id="cb7" name="by_diploma" type="checkbox" value="High School"><label for="cb7"> High School </label><br>
+              <input id="cb17" name="by_diploma" type="checkbox" value="High School"><label for="cb17"> Attestation of College Studies </label><br>
+            </div>
+            <div class="form-group col-md-12">
+              <h6>Type</h6>
+              <input id="cb22" name="by_state" type="checkbox" value=""> <label for="cb22"> Any </label><br>
+              <input id="cb23" name="by_state" type="checkbox" value="Internship"> <label for="cb23"> Internship </label><br>
+              <input id="cb24" name="by_state" type="checkbox" value="Co-op"><label for="cb24">Co-op</label><br>
+              <input id="cb25" name="by_state" type="checkbox" value="Early Career Jobs"> <label for="cb25"> Early Career Jobs </label><br>
+              <input id="cb26" name="by_state" type="checkbox" value="Summer Designer Job"><label for="cb26"> Summer Designer Job </label><br>
+            </div>
+            <div class="form-group col-md-12">
+              <h6>Academic Degree</h6>
+              <input id="cb51" name="by_diploma" type="checkbox" value=""> <label for="cb51"> All </label><br>
+              <input id="cb52" name="by_diploma" type="checkbox" value="PhD"><label for="cb52">PhD</label><br>
+              <input id="cb53" name="by_diploma" type="checkbox" value="Doctorate"> <label for="cb53"> Doctorate </label><br>
+              <input id="cb56" name="by_diploma" type="checkbox" value="Masters"> <label for="cb56"> Masters </label><br>
+              <input id="cb60" name="by_diploma" type="checkbox" value="Baccalaureate"> <label for="cb60"> Baccalaureate's Degree (BACC) </label><br>
+              <input id="cb58" name="by_diploma" type="checkbox" value="Associate"> <label for="cb58"> Associates Degree </label><br>
+              <input id="cb57" name="by_diploma" type="checkbox" value="High School"> <label for="cb57"> High School </label><br>
+              <input id="cb59" name="by_diploma" type="checkbox" value="Attestation of College Studies"> <label for="cb59"> Attestation of College Studies (AEC) </label><br>
+            </div>
+            <div class="form-group col-md-12">
+              <h6>Pay Criteria</h6>
+              <input id="cb13" name="by_pay" type="checkbox" value=""> <label for="cb13"> Any </label><br>
+              <input id="cb14" name="by_pay" type="checkbox" value="Paid"><label for="cb14"> Paid </label><br>
+              <input id="cb16" name="by_pay" type="checkbox" value="Unpaid"> <label for="cb16"> Unpaid </label><br>
+              <input id="cb15" name="by_pay" type="checkbox" value="To be discussed"> <label for="cb15"> To be discussed </label><br>
+            </div>
+            <div class="button-group">
+              <div class="action-buttons">
+                <input type="submit" class="btn btn-primary btn-sm btn-round btn-search" style="background:#67B26F; border:none;">
+              </div>
+            </div>
+          </form>
+        </div>
+				<div class="col-md-9">
+					<%= render @employers %>
+				</div>
+			</div>
+			<!-- Page navigation -->
+			<nav class="text-center">
+				<%= will_paginate @employers %>
+			</nav>
+			<!-- END Page navigation -->
+		</div>
+	</section>
+</main>
+<!-- END Main container -->
+<%= render 'layouts/footer' %>

@@ -1,0 +1,87 @@
+<style>
+  .item-block:hover {
+    -webkit-box-shadow: 0 3px 15px 0 rgba(0, 0, 0, .1);
+    box-shadow: 0 3px 15px 0 rgba(0, 0, 0, .1);
+    background: #fff;
+}
+</style>
+
+<!-- Page header -->
+<header class="page-header bg-img" style="background-image: url( )">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-4">
+				<% if @user.avatar.blank?  %>
+				<img src="https://www.timeshighereducation.com/sites/default/files/byline_photos/default-avatar.png">
+				<% else %> 
+				<%= image_tag @user.avatar.url(:medium) %>
+				<% end %> 
+			</div>
+			<div class="col-xs-12 col-sm-8 header-detail">
+				<div class="hgroup">
+					<h1><%= @user.first_name %> <%= @user.last_name %></h1>
+					<h3><%= @user.education %></h3>
+					<a class="fa fa-print fa-2x" style="position: absolute; right: 0; top: 0; cursor: pointer" onclick="window.print();"></a>
+				</div>
+				<hr>
+				<p class="lead"><%= @user.description %> </p>
+				<ul class="details cols-2">
+					<li>
+						<% unless @user.location.blank? %><i class="fa fa-map-marker"></i>
+						<span>Location: <%= @user.location %></span><% end %>
+					</li>
+					<li>
+						<% unless @user.website.blank? %><i class="fa fa-globe"></i>
+						<a href="<%=@user.website %> ">Website:  <%= @user.website %></a><% end %>
+					</li>
+					<li>
+						<% unless @user.linkedin.blank? %><i class="fa fa-linkedin"></i>
+						<span><a target="_blank" href="<%= @user.linkedin %>">View Linkedin </a></span><% end %>
+					</li>
+					<li>
+						<% unless @user.age.blank? %><i class="fa fa-birthday-cake"></i>
+						<span>Age: <%= @user.age %></span> <% end %> 
+					</li>
+					<li>
+						<% unless @user.email.blank? %><i class="fa fa-envelope"></i>
+						<span><%= @user.email %></span><% end %> 
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="button-group">
+			<ul class="social-icons">
+				<% unless @user.facebook %>
+				<li><a target="_blank" class="facebook" href="<%= @user.facebook %> "><i class="fa fa-facebook"></i></a></li>
+				<% end %>
+				<% unless @user.twitter == "" %>
+				<li><a target="_blank" class="twitter" href="<%= @user.twitter %>"><i class="fa fa-twitter"></i></a></li>
+				<% end %>
+				<% unless @user.linkedin == "" %>
+				<li><a target="_blank" class="linkedin" href="<%= @user.linkedin %>"><i class="fa fa-linkedin"></i></a></li>
+				<% end %>
+				<% unless @user.instagram == "" %>
+				<li><a target="_blank" class="instagram" href="<%= @user.instagram %>"><i class="fa fa-instagram"></i></a></li>
+				<% end %>
+			</ul>
+			<div class="action-buttons">
+				<% if user_signed_in? && current_user.id == @user.id %>
+				<a type="button" class="btn btn-danger" href="/updateaccount?user_token=<%=current_user.token%>"> <% if params[:language] == "french" %>Modifier Votre Profil <% else %>  Edit Profile <% end %> </a>
+				<% else %> 
+				<% if current_user_subscribed? %>
+				<%= link_to 'Invite to Job', new_personal_message_path(receiver: @user.id), :class => "btn btn-success" %>
+				<% else %> 
+				<%= link_to "Subscribe", new_subscription_path, class: "btn btn-success" %>
+				<% end %> 
+				<% end %>
+			</div>
+		</div>
+	</div>
+</header>
+<!-- END Page header -->
+<% if User.find(params[:id]).is_student == true %>
+<%= render 'studentshow' %> 
+<% else %>
+<%= render 'employershow' %>
+<% end %>
+<%= render 'layouts/footer' %>

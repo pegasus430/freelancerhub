@@ -1,0 +1,68 @@
+		<% if @coupon.present? %>
+    <div class="row">
+      <div class="col-md-8 col-md-offset-1 ">
+        <div class="card">
+          <div class="content" style="color: #8a6d3b; background-color: #fcf8e3; border-color: #faebcc">
+            <% if @coupon.coupon_validate_end_date.present? %>
+               Your <%=  @coupon.coupon.coupon_type %> is expired at <%= full_date @coupon.coupon_validate_end_date %>
+            <% else %>
+               Your <%=  @coupon.coupon.coupon_type %> is activated
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+   <% end %>
+   <div class="content col-md-6 col-md-offset-3 ">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="card">
+				<div class="header">
+					<h4>Account Information
+					</h4>
+					<hr>
+				</div>
+				<div class="content">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="form-group">
+								<% if current_user.subscribed? %>
+								<div class="row">
+									<div class="col-sm-12" style="padding-bottom:20px">
+										<div class="form-group">
+											<div class="text-center">
+												<p>Your current card on file is:</p>
+												<p><%= current_user.card_type %> **** **** **** <%= current_user.card_last4 %></p>
+												<p>Expires <%= current_user.card_exp_month %> / <%= current_user.card_exp_year %></p>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-12">
+										<div class="form-group">
+											<div class=" text-center">
+												<button type="button" class="btn btn-primary btn-round btn-fill" data-toggle="modal" data-target="#exampleModalLong">Update Card</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<% else %>
+								<div class="profile text-center">
+									<center>
+										<p  style="padding-bottom:20px">Add New Billing</p>
+										<%= link_to "View Plans", new_subscription_path, class: "btn btn-primary  btn-round btn-fill" %>
+									</center>
+								</div>
+								<% end %>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<% content_for :model_box do %>
+<%= render 'update_card_model' %>
+<% end %>

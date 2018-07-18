@@ -1,0 +1,44 @@
+<style>
+    .modal-header {
+        padding: 15px;
+        border-bottom: 1px solid #e5e5e5;
+        background-color: #5cb85c;
+        -webkit-border-top-left-radius: 5px;
+        -webkit-border-top-right-radius: 5px;
+        -moz-border-radius-topleft: 5px;
+        -moz-border-radius-topright: 5px;
+         border-top-left-radius: 5px;
+         border-top-right-radius: 5px;
+    }
+    .modal-header h4{
+        font-weight:600;
+    }
+    #sendMessage {
+        top: 10%;
+    }
+</style>
+
+<div class="modal fade" id="sendMessage" tabindex="-1" role="dialog" aria-labelledby="sendMessageLabel" aria-hidden="true">
+	<%= form_for PersonalMessage.new, url: invite_to_student_personal_messages_path do |f| %>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" style="color:#fff">&times;</button>
+          <h4 class="modal-title" style="color:#fff">Message Student</h4>
+        </div>
+        <div class="modal-body">
+          <label>Short Message for Designer</label>
+          <%= f.text_area :body, :class => "form-control", :rows => "5", :placeholder => "Dear Freelancer, your candidacy is very interesting to us. Please reply so we can schedule an interview." %>
+          <% job_names = current_user.employers.where("user_id is not null").where(employer_status: "Not Filled").where("created_at <= ? AND created_at >= ?", Date.today + 40, Date.today - 40 ).order('created_at DESC').map {|m| [m.title, m.id] } %>
+          <%= select_tag :job_name, options_for_select(job_names), class: 'form-control', prompt: 'Select Job' %>
+        </div>
+          <%= hidden_field_tag :receiver, receiver_id %>
+          <%= hidden_field_tag :sender_id , sender_id%>
+          <%= hidden_field_tag :status,  "accept" %>
+        <div class="modal-footer">
+          <%= submit_tag 'Send Message', class: "btn btn-success btn-fill btn-round" %>
+        </div>
+      </div>
+		<% end %>
+	</div>
+</div>

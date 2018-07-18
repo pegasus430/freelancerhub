@@ -1,0 +1,34 @@
+ <!-- Site header -->
+<header class="page-header bg-img size-lg" style="background-image: url(https://static.pexels.com/photos/99562/texture-handwriting-sutterlin-vintage-99562.jpeg)">
+	<div class="container no-shadow">
+		<h1 class="text-center">Blog</h1>
+		<p class="lead text-center">Keep up to date with the latest news</p>
+	</div>
+</header>
+<!-- END Site header -->
+<!-- Main container -->
+<main class="container blog-page">
+	<div class="row">
+		<div class="col-md-12" style="padding: 0 200px;">
+			<% @blogs.each do |blog| %>
+			<article class="post">
+				<div class="post-media">
+					<!--<a href="page-post.html"><img src="https://www.prestashop.com/blog/en/files/2015/07/blog_post-657x345.jpg" alt="..."></a>-->
+				</div>
+				<header>
+					<h2><a href=" "><%= raw blog.title %></a></h2>
+					<time datetime="2016-04-04 20:00"><%= blog.created_at.strftime("%B, %e %Y") %> | <%= blog.author %> </time>
+				</header>
+				<div class="blog-content">
+					<p class="text-justify text"><%#=raw blog.description %><%= blog.short_description %></p>
+				</div>
+				<p class="read-more">
+					<a class="btn btn-primary btn-outline" href="/blogs/<%= blog.id%>">Continue reading</a>
+				</p>
+			</article>
+			<% end %>
+		</div>
+	</div>
+</main>
+<!-- END Main container -->
+<%= render 'layouts/footer' %>

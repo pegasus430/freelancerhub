@@ -1,0 +1,7 @@
+<div id="notification">
+  <p>
+    <%= raw message.body %><br>
+    from <%= message.user.email %>
+  </p>
+  <p style="color: #ffffff;"><%= link_to 'View Now', conversation_path(message.conversation) %></p>
+</div>

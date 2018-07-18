@@ -1,0 +1,13 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Image data:</strong>
+  <%= @photo.image_data %>
+</p>
+
+<div>
+  <%= image_tag @photo.image.url(public: true), width: 800 %>
+</div>
+
+<%= link_to 'Edit', edit_photo_path(@photo) %> |
+<%= link_to 'Back', photos_path %>
